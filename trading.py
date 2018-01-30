@@ -4,6 +4,7 @@ import async_timeout
 import bs4
 from utils import Connection
 from connectors import InsiderDb
+import random
 
 
 class EdgarParams(object):
@@ -16,7 +17,7 @@ class EdgarClient:
     """Edgar client."""
 
     def __init__(self, params, logger, loop=None):
-        self.__timeout = 30
+        self.__timeout = 600
         self.__logger = logger
         self.__params = params
         self.__tokens = None
@@ -37,7 +38,8 @@ class EdgarClient:
         try:
             companies = []
             path = path if path is not None else \
-                'company=&match=&filenum=&State=%s&Country=&SIC=&myowner=include&action=getcompany&count=%s' % (state, self.__params.PageSize)
+                'company=&match=&filenum=&State=%s&Country=&SIC=&myowner=include&action=getcompany&count=%s' % \
+                (state, self.__params.PageSize)
             url = '%s/cgi-bin/browse-edgar?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
                 self.__logger.debug('Calling SearchByState ...')
@@ -46,7 +48,8 @@ class EdgarClient:
                 payload = await response.text()
                 soup = bs4.BeautifulSoup(payload, "html.parser")
 
-                rows = [tr for table in soup.find_all('table') if 'Results' in table.attrs['summary'] for tr in table.children if tr != '\n']
+                rows = [tr for table in soup.find_all('table') if 'Results' in table.attrs['summary']
+                        for tr in table.children if tr != '\n']
                 for row in rows:
                     tds = list(filter(lambda x: x != '\n', row.children))
                     cik = GetText(tds[0])
@@ -63,7 +66,7 @@ class EdgarClient:
                     companies.extend(more)
                 return companies
         except Exception as e:
-            self.__logger.error('SearchByState: %s' % e)
+            self.__logger.error(e)
             return None
 
     async def __aenter__(self):
@@ -81,7 +84,7 @@ class EdgarClient:
 
 class Scheduler:
     def __init__(self, params, dbParams, logger, loop=None):
-        self.Timeout = 10
+        self.Timeout = 600
         self.__logger = logger
         self.__params = params
         self.__dbParams = dbParams
@@ -94,10 +97,11 @@ class Scheduler:
         futures = [self.__edgarConnection.GetCompaniesByState(state['CODE']) for state in states]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
-        results = []
         for fut in done:
             payload = fut.result()
-            self.__logger.info('Total companies: %s' % len(payload))
+            if payload is not None and len(payload) > 1:
+                code, name, state = payload[0]
+                self.__logger.info('Total companies: %s in %s' % (len(payload), state))
 
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
