@@ -3,9 +3,9 @@ import asyncio
 import async_timeout
 import bs4
 from utils import Connection
-from connectors import InsiderDb
+from connectors import StoreManager
 import random
-
+import socket
 
 class EdgarParams(object):
     def __init__(self):
@@ -71,7 +71,7 @@ class EdgarClient:
 
     async def __aenter__(self):
 
-        connector = aiohttp.TCPConnector(verify_ssl=False)
+        connector = aiohttp.TCPConnector(verify_ssl=False, family=socket.AF_INET)
         self.__session = aiohttp.ClientSession(loop=self.__loop, connector=connector)
         self.__connection = await self.__session.__aenter__()
         self.__logger.info('Session created')
@@ -83,18 +83,17 @@ class EdgarClient:
 
 
 class Scheduler:
-    def __init__(self, params, dbParams, logger, loop=None):
+    def __init__(self, params, logger, loop=None):
         self.Timeout = 600
         self.__logger = logger
         self.__params = params
-        self.__dbParams = dbParams
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
         self.__logger.info('Loaded states: %s' % states)
 
-        futures = [self.__edgarConnection.GetCompaniesByState(state['CODE']) for state in states]
+        futures = [self.__edgarConnection.GetCompaniesByState(state['Code']) for state in states]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         for fut in done:
@@ -106,12 +105,12 @@ class Scheduler:
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
         self.__edgarConnection = await self.__client.__aenter__()
-        self.__db = InsiderDb(self.__dbParams, self.__logger)
-        self.__insiderSession = await self.__db.__aenter__()
+        self.__db = StoreManager(self.__logger)
+        self.__insiderSession = self.__db.__enter__()
         self.__logger.info('Scheduler created')
         return self
 
     async def __aexit__(self, *args, **kwargs):
         await self.__client.__aexit__(*args, **kwargs)
-        await self.__db.__aexit__(*args, **kwargs)
+        self.__db.__exit__(*args, **kwargs)
         self.__logger.info('Scheduler destroyed')

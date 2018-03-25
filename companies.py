@@ -1,24 +1,18 @@
+import asyncio
 import json
 import logging
 import os
-import asyncio
-from trading import EdgarClient, EdgarParams, Scheduler
-from connectors import InsiderDb, DbParams
+
+from trading import EdgarParams, Scheduler
 
 
 async def main(loop, logger):
     try:
-        dbParams = DbParams()
-        dbParams.Name = os.environ['DB_NAME']
-        dbParams.Host = os.environ['DB_HOST']
-        dbParams.Password = os.environ['DB_PASSWORD']
-        dbParams.User = os.environ['DB_USER']
-
         params = EdgarParams()
         params.Url = os.environ['EDGAR_URL']
         params.PageSize = os.environ['PAGE_SIZE']
 
-        async with Scheduler(params, dbParams, logger, loop) as scheduler:
+        async with Scheduler(params, logger, loop) as scheduler:
             await scheduler.SyncCompanies()
             logger.info('All companies loaded in db')
 
@@ -37,8 +31,7 @@ def lambda_handler(event, context):
     logger.info('event %s' % event)
     logger.info('context %s' % context)
 
-    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'DB_NAME' not in os.environ \
-            or 'DB_USER' not in os.environ or 'DB_HOST' not in os.environ or 'DB_PASSWORD' not in os.environ:
+    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 

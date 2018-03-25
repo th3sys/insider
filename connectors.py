@@ -1,36 +1,60 @@
-import pymysql.cursors
+import asyncio
+
+import async_timeout
+import boto3
+from botocore.exceptions import ClientError
 
 
-class DbParams(object):
-    def __init__(self):
-        self.Host = ''
-        self.User = ''
-        self.Password = ''
-        self.Name = ''
-
-
-class InsiderDb:
-    def __init__(self, params, logger):
-        self.Timeout = 10
+class StoreManager(object):
+    def __init__(self, logger, loop=None):
+        self.__timeout = 10
         self.__logger = logger
-        self.__params = params
-        self.__connection = None
+        self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
-    async def __aenter__(self):
-        self.__connection = pymysql.connect(host=self.__params.Host, user=self.__params.User,
-                             password=self.__params.Password, db=self.__params.Name,
-                             charset='utf8mb4', cursorclass=pymysql.cursors.DictCursor)
-        self.__cursor = self.__connection.__enter__()
-        self.__logger.info('MySql created')
-        return self
+    def UpdateState(self, code, name):
+        try:
+
+            response = self.States.update_item(
+                Key={
+                    'Code': code,
+                },
+                UpdateExpression="set #n = :n",
+                ExpressionAttributeNames={
+                    '#n': 'Name'
+
+                },
+                ExpressionAttributeValues={
+                    ':n': name,
+                },
+                ReturnValues="UPDATED_NEW")
+
+        except ClientError as e:
+            self.__logger.error(e.response['Error']['Message'])
+        except Exception as e:
+            self.__logger.error(e)
+        else:
+            self.__logger.info(response)
 
     def GetStates(self):
-        sql = "SELECT `CODE`, `NAME` FROM `STATE`"
-        self.__cursor.execute(sql)
-        result = self.__cursor.fetchall()
-        return result
+        try:
+            self.__logger.info('Calling GetStates query ...')
 
-    async def __aexit__(self, *args, **kwargs):
-        self.__connection.__exit__(*args, **kwargs)
-        self.__connection.close()
-        self.__logger.info('MySql destroyed')
+            with async_timeout.timeout(self.__timeout):
+                response = self.States.scan()
+                return response['Items']
+
+        except ClientError as e:
+            self.__logger.error(e.response['Error']['Message'])
+            return None
+        except Exception as e:
+            self.__logger.error(e)
+            return None
+
+    def __enter__(self):
+        db = boto3.resource('dynamodb', region_name='us-east-1')
+        self.States = db.Table('States')
+        self.__logger.info('StoreManager created')
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        self.__logger.info('StoreManager destroyed')
