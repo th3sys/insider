@@ -90,7 +90,8 @@ class Scheduler:
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
     async def SyncCompanies(self):
-        states = self.__insiderSession.GetStates()
+        #states = self.__insiderSession.GetStates()
+        states = [{'Code': 'AL'}]
         self.__logger.info('Loaded states: %s' % states)
 
         futures = [self.__edgarConnection.GetCompaniesByState(state['Code']) for state in states]
@@ -99,8 +100,10 @@ class Scheduler:
         for fut in done:
             payload = fut.result()
             if payload is not None and len(payload) > 1:
-                code, name, state = payload[0]
-                self.__logger.info('Total companies: %s in %s' % (len(payload), state))
+                self.__logger.info('Total companies: %s' % len(payload))
+                for company in payload:
+                    code, name, state = company
+                    self.__db.UpdateCompany(str(code), str(state), str(name))
 
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
