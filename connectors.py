@@ -6,8 +6,8 @@ from botocore.exceptions import ClientError
 
 
 class StoreManager(object):
-    def __init__(self, logger, loop=None):
-        self.__timeout = 10
+    def __init__(self, logger, timeout, loop=None):
+        self.__timeout = timeout
         self.__logger = logger
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 

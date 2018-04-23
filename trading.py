@@ -7,17 +7,19 @@ from connectors import StoreManager
 import random
 import socket
 
+
 class EdgarParams(object):
     def __init__(self):
         self.Url = ''
         self.PageSize = ''
+        self.Timeout = 10
 
 
 class EdgarClient:
     """Edgar client."""
 
     def __init__(self, params, logger, loop=None):
-        self.__timeout = 600
+        self.__timeout = params.Timeout
         self.__logger = logger
         self.__params = params
         self.__tokens = None
@@ -42,13 +44,14 @@ class EdgarClient:
                 (state, self.__params.PageSize)
             url = '%s/cgi-bin/browse-edgar?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.debug('Calling SearchByState ...')
+                self.__logger.debug('Calling SearchByState for %s ...' % state)
                 response = await self.__connection.get(url=url)
-                self.__logger.debug('SearchByState Response Code: {}'.format(response.status))
+                self.__logger.debug('SearchByState Response for %s Code: %s' % (state, response.status))
                 payload = await response.text()
                 soup = bs4.BeautifulSoup(payload, "html.parser")
 
-                rows = [tr for table in soup.find_all('table') if 'Results' in table.attrs['summary']
+                rows = [tr for table in soup.find_all('table')
+                        if 'summary' in table.attrs if 'Results' in table.attrs['summary']
                         for tr in table.children if tr != '\n']
                 for row in rows:
                     tds = list(filter(lambda x: x != '\n', row.children))
@@ -57,7 +60,8 @@ class EdgarClient:
                     if cik != 'CIK':
                         companies.append((cik, name, state))
 
-                links = (tag.attrs['onclick'] for tag in soup.find_all('input') if 'button' in tag.attrs['type']
+                links = (tag.attrs['onclick'] for tag in soup.find_all('input')
+                         if 'type' in tag.attrs if 'button' in tag.attrs['type']
                          and 'Next %s' % self.__params.PageSize in tag.attrs['value'])
                 for link in links:
                     self.__logger.debug(link)
@@ -66,6 +70,7 @@ class EdgarClient:
                     companies.extend(more)
                 return companies
         except Exception as e:
+            self.__logger.info('Error GetCompaniesByState for %s' % state)
             self.__logger.error(e)
             return None
 
@@ -84,13 +89,14 @@ class EdgarClient:
 
 class Scheduler:
     def __init__(self, params, logger, loop=None):
-        self.Timeout = 600
+        self.Timeout = params.Timeout
         self.__logger = logger
         self.__params = params
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
+
         self.__logger.info('Loaded states: %s' % states)
 
         futures = [self.__edgarConnection.GetCompaniesByState(state['Code']) for state in states]
@@ -111,7 +117,7 @@ class Scheduler:
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
         self.__edgarConnection = await self.__client.__aenter__()
-        self.__db = StoreManager(self.__logger)
+        self.__db = StoreManager(self.__logger, self.Timeout)
         self.__insiderSession = self.__db.__enter__()
         self.__logger.info('Scheduler created')
         return self

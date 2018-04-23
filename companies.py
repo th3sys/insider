@@ -11,6 +11,7 @@ async def main(loop, logger):
         params = EdgarParams()
         params.Url = os.environ['EDGAR_URL']
         params.PageSize = os.environ['PAGE_SIZE']
+        params.Timeout = int(os.environ['TIMEOUT'])
 
         async with Scheduler(params, logger, loop) as scheduler:
             await scheduler.SyncCompanies()
@@ -31,7 +32,7 @@ def lambda_handler(event, context):
     logger.info('event %s' % event)
     logger.info('context %s' % context)
 
-    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ:
+    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
