@@ -34,7 +34,8 @@ class StoreManager(object):
         except Exception as e:
             self.__logger.error(e)
         else:
-            self.__logger.info(response)
+            # self.__logger.info(response)
+            return response
 
     def UpdateState(self, code, name):
         try:
