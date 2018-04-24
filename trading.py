@@ -99,20 +99,21 @@ class Scheduler:
 
         self.__logger.info('Loaded states: %s' % states)
 
-        futures = [self.__edgarConnection.GetCompaniesByState(state['Code']) for state in states]
+        futures = [self.__edgarConnection.GetCompaniesByState(code) for code, name, *country in states]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         for fut in done:
             payload = fut.result()
             if payload is not None and len(payload) > 1:
-                self.__logger.info('Total companies: %s' % len(payload))
+                code, name, state = payload[0]
+                self.__logger.info('%s Companies in %s' % (len(payload), state))
                 count = 0
                 for company in payload:
                     count += 1
                     code, name, state = company
-                    res = self.__db.UpdateCompany(str(code), str(state), str(name))
-                    if count % 100 == 0:
-                        self.__logger.info('Update %s: %s' % (count, res))
+                    # res = self.__db.UpdateCompany(str(code), str(state), str(name))
+                    # if count % 100 == 0:
+                    #     self.__logger.info('Update %s: %s' % (count, res))
 
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
