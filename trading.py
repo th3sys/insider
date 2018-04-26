@@ -88,10 +88,11 @@ class EdgarClient:
 
 
 class Scheduler:
-    def __init__(self, params, logger, loop=None):
+    def __init__(self, notify, params, logger, loop=None):
         self.Timeout = params.Timeout
         self.__logger = logger
         self.__params = params
+        self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
     async def SyncCompanies(self):
@@ -115,11 +116,12 @@ class Scheduler:
                     all_companies.append((str(code), str(state), str(name)))
         self.__db.UpdateCompany(all_companies)
         self.__logger.info('Updated %s companies' % len(all_companies))
+        self.__db.Notify('companies', len(all_companies))
 
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
         self.__edgarConnection = await self.__client.__aenter__()
-        self.__db = StoreManager(self.__logger, self.Timeout)
+        self.__db = StoreManager(self.__logger, self.__notify, self.Timeout)
         self.__insiderSession = self.__db.__enter__()
         self.__logger.info('Scheduler created')
         return self

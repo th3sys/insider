@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import os
+import boto3
 
 from trading import EdgarParams, Scheduler
 
@@ -13,7 +14,9 @@ async def main(loop, logger):
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
 
-        async with Scheduler(params, logger, loop) as scheduler:
+        notify = os.environ['NOTIFY_ARN']
+
+        async with Scheduler(notify, params, logger, loop) as scheduler:
             await scheduler.SyncCompanies()
             logger.info('All companies loaded in db')
 
@@ -22,6 +25,7 @@ async def main(loop, logger):
 
 
 def lambda_handler(event, context):
+
     logger = logging.getLogger()
     if 'LOGGING_LEVEL' in os.environ and os.environ['LOGGING_LEVEL'] == 'DEBUG':
         logger.setLevel(logging.DEBUG)
@@ -32,7 +36,8 @@ def lambda_handler(event, context):
     logger.info('event %s' % event)
     logger.info('context %s' % context)
 
-    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ:
+    if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
+            or 'NOTIFY_ARN'not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 

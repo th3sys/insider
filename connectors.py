@@ -1,10 +1,12 @@
 import asyncio
 import boto3
+import json
 
 
 class StoreManager(object):
-    def __init__(self, logger, timeout, loop=None):
+    def __init__(self, logger, notify, timeout, loop=None):
         self.__timeout = timeout
+        self.__notify = notify
         self.__logger = logger
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
@@ -26,6 +28,18 @@ class StoreManager(object):
 
     def GetCompany(self):
         pass
+
+    def Notify(self, label, count):
+        try:
+            message = {label: count}
+            response = self.sns.publish(
+                TargetArn=self.__notify,
+                Message=json.dumps({'default': json.dumps(message)}),
+                MessageStructure='json'
+            )
+            self.__logger.info(response)
+        except Exception as e:
+            self.__logger.error(e)
 
     def GetStates(self):
         try:
@@ -50,6 +64,7 @@ class StoreManager(object):
 
     def __enter__(self):
         self.s3 = boto3.resource('s3')
+        self.sns = boto3.client('sns')
         self.__logger.info('StoreManager created')
         return self
 
