@@ -1,8 +1,5 @@
 import asyncio
-
-import async_timeout
 import boto3
-from botocore.exceptions import ClientError
 
 
 class StoreManager(object):
@@ -11,8 +8,21 @@ class StoreManager(object):
         self.__logger = logger
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
-    def UpdateCompany(self, cik, state, name):
-        pass
+    def UpdateCompany(self, items):
+        try:
+            self.__logger.info('Calling UpdateCompany query ...')
+            file = 'companies.csv'
+            f = open('/tmp/%s' % file, 'w')
+            f.write('CODE,STATE,NAME\n')
+            items.sort(key=lambda el: (el[1], el[2]))
+            for item in items:
+                code, state, name = item
+                f.write('%s,%s,"%s"\n' % (code, state, name))
+            f.close()
+            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', file)
+
+        except Exception as e:
+            self.__logger.error(e)
 
     def GetCompany(self):
         pass
@@ -34,9 +44,6 @@ class StoreManager(object):
                 states.append(tuple(line.split(',')))
             return states
 
-        except ClientError as e:
-            self.__logger.error(e.response['Error']['Message'])
-            return None
         except Exception as e:
             self.__logger.error(e)
             return None
