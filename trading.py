@@ -26,7 +26,7 @@ class EdgarClient:
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
     @Connection.ioreliable
-    async def GetTransaction(self):
+    async def GetTransactionsByCompany(self):
         # https://www.sec.gov/cgi-bin/own-disp
         pass
 
@@ -95,6 +95,31 @@ class Scheduler:
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
+    async def SyncTransactions(self):
+        companies = self.__insiderSession.GetCompanies()
+
+        self.__logger.info('Loaded companies: %s' % len(companies))
+
+        futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik, *args in companies]
+        done, _ = await asyncio.wait(futures, timeout=self.Timeout)
+
+        all_trans = []
+        # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME
+        for fut in done:
+            payload = fut.result()
+            if payload is not None and len(payload) > 1:
+                self.__logger.info(payload)
+                count = 0
+                for tran in payload:
+                    count += 1
+                    ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name = tran
+                    all_trans.append((str(ad), str(date), str(owner), str(form), str(tran_type), str(di),
+
+                                      str(num), str(total), str(line), str(o_cik), str(sec_name)))
+        self.__db.UpdateTransactions(all_trans)
+        self.__logger.info('Updated %s transactions' % len(all_trans))
+        self.__db.Notify('transactions', len(all_trans))
+
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
 
@@ -114,7 +139,7 @@ class Scheduler:
                     count += 1
                     code, name, state = company
                     all_companies.append((str(code), str(state), str(name)))
-        self.__db.UpdateCompany(all_companies)
+        self.__db.UpdateCompanies(all_companies)
         self.__logger.info('Updated %s companies' % len(all_companies))
         self.__db.Notify('companies', len(all_companies))
 
