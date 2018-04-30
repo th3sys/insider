@@ -104,7 +104,7 @@ class Scheduler:
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         all_trans = []
-        # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME
+        # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
         for fut in done:
             payload = fut.result()
             if payload is not None and len(payload) > 1:
@@ -112,10 +112,9 @@ class Scheduler:
                 count = 0
                 for tran in payload:
                     count += 1
-                    ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name = tran
+                    ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = tran
                     all_trans.append((str(ad), str(date), str(owner), str(form), str(tran_type), str(di),
-
-                                      str(num), str(total), str(line), str(o_cik), str(sec_name)))
+                                      str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
         self.__db.UpdateTransactions(all_trans)
         self.__logger.info('Updated %s transactions' % len(all_trans))
         self.__db.Notify('transactions', len(all_trans))
