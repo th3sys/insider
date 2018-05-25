@@ -73,6 +73,8 @@ class EdgarClient:
                     # OWNER CIK,SECURITY NAME,OWNER TYPE
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
+                    if date == '-':
+                        continue
                     owner = GetText(tds[3])
                     form = GetText(tds[4])
                     typ = GetText(tds[5])
@@ -83,7 +85,8 @@ class EdgarClient:
                     o_cik = GetText(tds[10])
                     name = GetText(tds[11])
                     o_type = owners[owner] if owner in owners else owner
-                    transactions.append((ad, date, owner, form, typ, di, num, total, line, o_cik, name, o_type))
+                    transactions.append((ad, date, owner, form, typ, di, num.replace('\n', ''), total, line, o_cik,
+                                         name.replace(',', ''), o_type.replace(',', '')))
 
                 links = (tag.attrs['onclick'] for tag in soup.find_all('input')
                          if 'type' in tag.attrs if 'button' in tag.attrs['type']

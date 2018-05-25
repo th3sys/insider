@@ -19,8 +19,8 @@ class StoreManager(object):
             # items.sort(key=lambda el: (el[1], el[2]))
             for item in items:
                 ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = item
-                f.write('%s, %s, "%s", %s, %s, %s, %s, %s, %s, %s, "%s", "%s" \n'
-                        % (ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name, o_type))
+                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
+                        % (ad, date, owner.replace(',', ''), form, tran_type, di, num, total, line, o_cik, sec_name, o_type))
             f.close()
             # self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', file)
 
