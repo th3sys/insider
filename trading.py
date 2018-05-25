@@ -169,9 +169,7 @@ class Scheduler:
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
-    async def SyncTransactions(self):
-        # companies = self.__insiderSession.GetCompanies()
-        companies = [('0001469510', '0000000000')]
+    async def SyncTransactions(self, companies):
         self.__logger.info('Loaded companies: %s' % len(companies))
 
         futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik, *args in companies]
@@ -191,7 +189,7 @@ class Scheduler:
                                       str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
                 self.__db.UpdateTransactions(cik, all_trans)
                 self.__logger.info('Updated %s transactions' % len(all_trans))
-                # self.__db.Notify('transactions', len(all_trans))
+                self.__db.Notify('transactions for %s' % cik, len(all_trans))
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
