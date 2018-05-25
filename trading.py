@@ -172,7 +172,7 @@ class Scheduler:
     async def SyncTransactions(self, companies):
         self.__logger.info('Loaded companies: %s' % len(companies))
 
-        futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik, *args in companies]
+        futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik in companies]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
@@ -189,7 +189,7 @@ class Scheduler:
                                       str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
                 self.__db.UpdateTransactions(cik, all_trans)
                 self.__logger.info('Updated %s transactions' % len(all_trans))
-                self.__db.Notify('transactions for %s' % cik, len(all_trans))
+                # self.__db.Notify('transactions for %s' % cik, len(all_trans))
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
