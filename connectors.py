@@ -10,6 +10,23 @@ class StoreManager(object):
         self.__logger = logger
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
+    def UpdateOwnersTransactions(self, cik, items):
+        try:
+            self.__logger.info('Calling UpdateOwnersTransactions query ...')
+            file = '%s_owner_transactions.csv' % cik
+            f = open('/tmp/%s' % file, 'w')
+            f.write('A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME\n')
+            # items.sort(key=lambda el: (el[1], el[2]))
+            for item in items:
+                ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name = item
+                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
+                        % (ad, date, issuer.replace(',', ''), form, tran_type, di, num, total, line, i_cik, sec_name))
+            f.close()
+            # self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', file)
+
+        except Exception as e:
+            self.__logger.error(e)
+
     def UpdateTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateTransactions query ...')
