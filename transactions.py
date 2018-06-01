@@ -15,9 +15,8 @@ async def main(loop, logger):
         params.Timeout = int(os.environ['TIMEOUT'])
 
         notify = os.environ['NOTIFY_ARN']
-        # test = ['1617667','1426800','1124524','1581720','1469510','1076682','1421461','1325879','105319','1088856','887730','1627223','880115','1574460']
+        test = ['1617667','1426800','1124524','1581720','1469510','1076682','1421461','1325879','105319','1088856','887730','1627223','880115','1574460']
         test = ['1617667']
-        
         async with Scheduler(notify, params, logger, loop) as scheduler:
             await scheduler.SyncTransactions(test)
             logger.info('All transactions loaded in db')

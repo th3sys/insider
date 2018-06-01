@@ -28,6 +28,18 @@ class EdgarClient:
     @Connection.ioreliable
     async def GetTransactionsByOwner(self, cik, path=None):
         # https://www.sec.gov/cgi-bin/own-disp
+        def LookupOwners():
+            lines = [tr for table in soup.find_all('table')
+                     for tr in table.children if isinstance(tr, bs4.Tag)
+                     and 'Type of Owner' in tr.parent.text and len(tr.contents) == 8]
+
+            lookup = {}
+            for i in lines:
+                owner_cik = str(i.contents[2].text)
+                owner_type = str(i.contents[6].text)
+                lookup[owner_cik] = owner_type
+            return lookup
+
         def GetText(tag):
             nxt = tag.next
             while type(nxt) is not bs4.element.NavigableString:
@@ -54,6 +66,7 @@ class EdgarClient:
                     self.__logger.info('No insider for %s' % cik)
                     return transactions
 
+                owners = LookupOwners()
                 for row in rows[1:]:
                     tds = list(filter(lambda x: x != '\n', row.children))
                     # A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER,
@@ -71,8 +84,9 @@ class EdgarClient:
                     line = GetText(tds[9])
                     i_cik = GetText(tds[10])
                     name = GetText(tds[11])
+                    o_type = owners[i_cik] if i_cik in owners else issuer
                     transactions.append((ad, date, issuer, form, typ, di, num.replace('\n', ''), total, line, i_cik,
-                                         name.replace(',', '')))
+                                         name.replace(',', ''), o_type.replace(',', '')))
 
                 links = (tag.attrs['onclick'] for tag in soup.find_all('input')
                          if 'type' in tag.attrs if 'button' in tag.attrs['type']
@@ -99,9 +113,9 @@ class EdgarClient:
 
             lookup = {}
             for i in lines:
-                owner_name = str(i.contents[0].text)
+                owner_cik = str(i.contents[2].text)
                 owner_type = str(i.contents[6].text)
-                lookup[owner_name] = owner_type
+                lookup[owner_cik] = owner_type
             return lookup
 
         def GetText(tag):
@@ -148,7 +162,7 @@ class EdgarClient:
                     line = GetText(tds[9])
                     o_cik = GetText(tds[10])
                     name = GetText(tds[11])
-                    o_type = owners[owner] if owner in owners else owner
+                    o_type = owners[o_cik] if o_cik in owners else owner
                     transactions.append((ad, date, owner, form, typ, di, num.replace('\n', ''), total, line, o_cik,
                                          name.replace(',', ''), o_type.replace(',', '')))
 
@@ -263,7 +277,7 @@ class Scheduler:
         futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik
                    in all_owners_that_have_inside_transactions]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
-        # A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME
+        # A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME,OWNER TYPE
         for fut in done:
             cik, payload = fut.result()
             if payload is not None and len(payload) > 1:
@@ -272,9 +286,9 @@ class Scheduler:
                 all_trans = []
                 for tran in payload:
                     count += 1
-                    ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name = tran
+                    ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name, o_type = tran
                     all_trans.append((str(ad), str(date), str(issuer), str(form), str(tran_type), str(di),
-                                      str(num), str(total), str(line), str(i_cik), str(sec_name)))
+                                      str(num), str(total), str(line), str(i_cik), str(sec_name), str(o_type)))
 
                 self.__db.UpdateOwnersTransactions(cik, all_trans)
                 self.__logger.info('Updated %s owners' % len(all_trans))

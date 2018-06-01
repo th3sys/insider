@@ -13,16 +13,16 @@ class StoreManager(object):
     def UpdateOwnersTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateOwnersTransactions query ...')
-            file = '%s_owner_transactions.csv' % cik
+            file = '%s.csv' % cik
             f = open('/tmp/%s' % file, 'w')
-            f.write('A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME\n')
+            f.write('A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME,OWNER TYPE\n')
             # items.sort(key=lambda el: (el[1], el[2]))
             for item in items:
-                ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name = item
-                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
-                        % (ad, date, issuer.replace(',', ''), form, tran_type, di, num, total, line, i_cik, sec_name))
+                ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name, o_type = item
+                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
+                        % (ad, date, issuer.replace(',', ''), form, tran_type, di, num, total, line, i_cik, sec_name, o_type))
             f.close()
-            # self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', file)
+            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', 'OWNRS/%s' % file)
 
         except Exception as e:
             self.__logger.error(e)
@@ -30,7 +30,7 @@ class StoreManager(object):
     def UpdateTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateTransactions query ...')
-            file = '%s_transactions.csv' % cik
+            file = '%s.csv' % cik
             f = open('/tmp/%s' % file, 'w')
             f.write('A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE\n')
             # items.sort(key=lambda el: (el[1], el[2]))
@@ -39,7 +39,7 @@ class StoreManager(object):
                 f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
                         % (ad, date, owner.replace(',', ''), form, tran_type, di, num, total, line, o_cik, sec_name, o_type))
             f.close()
-            # self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', file)
+            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', 'CORPS/%s' % file)
 
         except Exception as e:
             self.__logger.error(e)
