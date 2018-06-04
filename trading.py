@@ -5,6 +5,7 @@ import bs4
 from utils import Connection
 from connectors import StoreManager
 import random
+import zlib
 import socket
 
 
@@ -182,6 +183,34 @@ class EdgarClient:
             return None
 
     @Connection.ioreliable
+    async def GetDailyIndex(self, today):
+        try:
+            d = today.strftime('%Y%m%d')
+            m = today.month
+            y = today.year
+            if m <= 3:
+                quarter = 'QTR1'
+            elif 3 < m <= 6:
+                quarter = 'QTR2'
+            elif 6 < m <= 9:
+                quarter = 'QTR3'
+            else:
+                quarter = 'QTR4'
+            url = '%s/Archives/edgar/daily-index/%s/%s/master.%s.idx.gz' % (self.__params.Url, y, quarter, d)
+            with async_timeout.timeout(self.__timeout):
+                self.__logger.debug('Calling GetDailyIndex for %s ...' % today)
+                response = await self.__connection.get(url=url)
+                self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (today, response.status))
+                payload = await response.read()
+                data = zlib.decompress(payload, 16 + zlib.MAX_WBITS)
+                self.__logger.info(data)
+                return data.decode('ASCII')
+        except Exception as e:
+            self.__logger.info('Error GetDailyIndex for %s' % today)
+            self.__logger.error(e)
+            return None
+
+    @Connection.ioreliable
     async def GetCompaniesByState(self, state, path=None):
         def GetText(tag):
             nxt = tag.next
@@ -246,6 +275,15 @@ class Scheduler:
         self.__params = params
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
+
+    async def SyncDailyIndex(self, today):
+        found = {}
+        done = await self.__edgarConnection.GetDailyIndex(today)
+        for line in done.split('\n'):
+            cells = line.split('|')
+            if len(cells) == 5 and (cells[2] == '4' or cells[2] == '4/A'):
+                found[cells[0]] = cells[0]
+        return [x for x in found]
 
     async def SyncTransactions(self, companies):
         self.__logger.info('Loaded companies: %s' % len(companies))

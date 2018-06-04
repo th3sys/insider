@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import boto3
-
+import datetime
 from trading import EdgarParams, Scheduler
 
 
@@ -13,12 +13,17 @@ async def main(loop, logger):
         params.Url = os.environ['EDGAR_URL']
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
+        if 'TODAY' in os.environ:
+            today = datetime.datetime.strptime(os.environ['TODAY'], '%Y-%m-%d')
+        else:
+            today = datetime.datetime.today()
 
         notify = os.environ['NOTIFY_ARN']
-        test = ['1617667','1426800','1124524','1581720','1469510','1076682','1421461','1325879','105319','1088856','887730','1627223','880115','1574460']
-        test = ['1617667']
+
         async with Scheduler(notify, params, logger, loop) as scheduler:
-            await scheduler.SyncTransactions(test)
+            cik_list = await scheduler.SyncDailyIndex(today)
+
+            await scheduler.SyncTransactions(cik_list)
             logger.info('All transactions loaded in db')
 
     except Exception as e:
