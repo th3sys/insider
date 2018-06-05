@@ -65,7 +65,7 @@ class EdgarClient:
 
                 if len(rows) <= 1:
                     self.__logger.info('No insider for %s' % cik)
-                    return transactions
+                    return cik, transactions
 
                 owners = LookupOwners()
                 for row in rows[1:]:
@@ -74,8 +74,8 @@ class EdgarClient:
                     # ISSUER CIK,SECURITY NAME
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
-                    if date == '-':
-                        continue
+                    if date == '-' or date.startswith('2013'):
+                        return cik, transactions
                     issuer = GetText(tds[3])
                     form = GetText(tds[4])
                     typ = GetText(tds[5])
@@ -143,7 +143,7 @@ class EdgarClient:
 
                 if len(rows) <= 1:
                     self.__logger.info('No insider for %s' % cik)
-                    return transactions
+                    return cik, transactions
 
                 owners = LookupOwners()
                 for row in rows[1:]:
@@ -152,8 +152,8 @@ class EdgarClient:
                     # OWNER CIK,SECURITY NAME,OWNER TYPE
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
-                    if date == '-':
-                        continue
+                    if date == '-' or date.startswith('2013'):
+                        return cik, transactions
                     owner = GetText(tds[3])
                     form = GetText(tds[4])
                     typ = GetText(tds[5])
@@ -285,7 +285,7 @@ class Scheduler:
                 found[cells[0]] = cells[0]
         return [x for x in found]
 
-    async def SyncTransactions(self, companies):
+    async def SyncTransactions(self, companies, include=False):
         self.__logger.info('Loaded companies: %s' % len(companies))
 
         all_owners_that_have_inside_transactions = {}
@@ -312,6 +312,8 @@ class Scheduler:
                 self.__db.UpdateTransactions(cik, all_trans)
                 self.__logger.info('Updated %s transactions' % len(all_trans))
 
+        if not include:
+            return
         futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik
                    in all_owners_that_have_inside_transactions]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
