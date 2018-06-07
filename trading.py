@@ -7,6 +7,8 @@ from connectors import StoreManager
 import random
 import zlib
 import socket
+import json
+import boto3
 
 
 class EdgarParams(object):
@@ -203,7 +205,7 @@ class EdgarClient:
                 self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (today, response.status))
                 payload = await response.read()
                 data = zlib.decompress(payload, 16 + zlib.MAX_WBITS)
-                self.__logger.info(data)
+                # self.__logger.info(data)
                 return data.decode('ASCII')
         except Exception as e:
             self.__logger.info('Error GetDailyIndex for %s' % today)
@@ -276,6 +278,22 @@ class Scheduler:
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
+    def Notify(self, items, arn, today):
+        try:
+            message = {'Date': today.strftime('%Y%m%d'), 'CIK': items}
+            response = self.sns.publish(
+                TargetArn=arn,
+                Message=json.dumps({'default': json.dumps(message)}),
+                MessageStructure='json'
+            )
+            self.__logger.info(response)
+        except Exception as e:
+            self.__logger.error(e)
+
+    def Save(self, items, today, action):
+        self.__db.SaveAnalytics(action, 'CIKs that reported on the day and had direct purchases in the past',
+                                items, today)
+
     async def SyncDailyIndex(self, today):
         found = {}
         done = await self.__edgarConnection.GetDailyIndex(today)
@@ -289,6 +307,7 @@ class Scheduler:
         self.__logger.info('Loaded companies: %s' % len(companies))
 
         all_owners_that_have_inside_transactions = {}
+        issuers = []
         futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik in companies]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
@@ -297,7 +316,7 @@ class Scheduler:
             cik, payload = fut.result()
             if payload is not None and len(payload) > 1 \
                     and len([date for ad, date, owner, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
-                self.__logger.info(payload)
+                # self.__logger.info(payload)
                 count = 0
                 all_trans = []
                 for tran in payload:
@@ -310,10 +329,12 @@ class Scheduler:
                         all_owners_that_have_inside_transactions[str(o_cik)] = str(o_cik)
 
                 self.__db.UpdateTransactions(cik, all_trans)
+                issuers.append(cik)
                 self.__logger.info('Updated %s transactions' % len(all_trans))
 
         if not include:
-            return
+            return issuers, []
+        owners = []
         futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik
                    in all_owners_that_have_inside_transactions]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
@@ -331,7 +352,10 @@ class Scheduler:
                                       str(num), str(total), str(line), str(i_cik), str(sec_name), str(o_type)))
 
                 self.__db.UpdateOwnersTransactions(cik, all_trans)
+                owners.append(cik)
                 self.__logger.info('Updated %s owners' % len(all_trans))
+
+        return issuers, owners
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()
@@ -361,6 +385,7 @@ class Scheduler:
         self.__edgarConnection = await self.__client.__aenter__()
         self.__db = StoreManager(self.__logger, self.__notify, self.Timeout)
         self.__insiderSession = self.__db.__enter__()
+        self.sns = boto3.client('sns')
         self.__logger.info('Scheduler created')
         return self
 

@@ -1,6 +1,9 @@
 import asyncio
 import boto3
 import json
+import time
+from utils import DecimalEncoder
+from botocore.exceptions import ClientError
 
 
 class StoreManager(object):
@@ -114,7 +117,37 @@ class StoreManager(object):
             self.__logger.error(e)
             return None
 
+    def SaveAnalytics(self, action, description, items, today):
+        try:
+
+            response = self.__Analytics.update_item(
+                Key={
+                    'AnalyticId': action,
+                    'TransactionTime': today,
+                },
+                UpdateExpression="set #d = :d, #m = :m",
+                ExpressionAttributeNames={
+                    '#d': 'Description',
+                    '#m': 'Message'
+
+                },
+                ExpressionAttributeValues={
+                    ':d': description,
+                    ':m': items
+                },
+                ReturnValues="UPDATED_NEW")
+
+        except ClientError as e:
+            self.__logger.error(e.response['Error']['Message'])
+        except Exception as e:
+            self.__logger.error(e)
+        else:
+            self.__logger.info('Analytics Saved')
+            self.__logger.info(json.dumps(response, indent=4, cls=DecimalEncoder))
+
     def __enter__(self):
+        db = boto3.resource('dynamodb', region_name='us-east-1')
+        self.__Analytics = db.Table('Insiders.Analytics')
         self.s3 = boto3.resource('s3')
         self.sns = boto3.client('sns')
         self.__logger.info('StoreManager created')
