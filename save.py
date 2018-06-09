@@ -5,7 +5,7 @@ import os
 import time
 import datetime
 import utils
-from trading import EdgarParams, Scheduler
+from trading import EdgarParams, Scheduler, FileType
 import uvloop
 
 
@@ -19,9 +19,10 @@ async def main(loop, logger, items, today):
         notify = os.environ['NOTIFY_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
-            i, o = await scheduler.SyncTransactions(items, True)
-            scheduler.Save(i, today, 'ISSUERS')
-            scheduler.Save(o, today, 'OWNERS')
+            res = await scheduler.SyncTransactions(items, FileType.ISSUER)
+            scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS')
+            res = await scheduler.SyncTransactions(items, FileType.OWNER)
+            scheduler.Save({'Received': items, 'Processed': res}, today, 'OWNERS')
             logger.info('%s transactions loaded in db' % len(items))
 
     except Exception as e:

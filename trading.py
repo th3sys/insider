@@ -11,6 +11,11 @@ import json
 import boto3
 
 
+class FileType(object):
+    OWNER = 'OWNER'
+    ISSUER = 'ISSUER'
+
+
 class EdgarParams(object):
     def __init__(self):
         self.Url = ''
@@ -290,9 +295,9 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def Save(self, items, today, action):
+    def Save(self, message, today, action):
         self.__db.SaveAnalytics(action, 'CIKs that reported on the day and had direct purchases in the past',
-                                items, today)
+                                message, today)
 
     async def SyncDailyIndex(self, today):
         found = {}
@@ -303,59 +308,38 @@ class Scheduler:
                 found[cells[0]] = cells[0]
         return [x for x in found]
 
-    async def SyncTransactions(self, companies, include=False):
-        self.__logger.info('Loaded companies: %s' % len(companies))
+    async def SyncTransactions(self, items, file_type):
+        self.__logger.info('Loaded %s: %s' % (file_type, len(items)))
 
-        all_owners_that_have_inside_transactions = {}
-        issuers = []
-        futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik in companies]
+        successful = []
+        if file_type == FileType.ISSUER:
+            futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik in items]
+        if file_type == FileType.OWNER:
+            futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik in items]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
         for fut in done:
             cik, payload = fut.result()
             if payload is not None and len(payload) > 1 \
-                    and len([date for ad, date, owner, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
+                    and len([date for ad, date, owner_issuer, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
                 # self.__logger.info(payload)
                 count = 0
                 all_trans = []
                 for tran in payload:
                     count += 1
-                    ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = tran
-                    all_trans.append((str(ad), str(date), str(owner), str(form), str(tran_type), str(di),
+                    ad, date, owner_issuer, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = tran
+                    all_trans.append((str(ad), str(date), str(owner_issuer), str(form), str(tran_type), str(di),
                                       str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
 
-                    if str(tran_type) == 'P-Purchase':
-                        all_owners_that_have_inside_transactions[str(o_cik)] = str(o_cik)
+                if file_type == FileType.ISSUER:
+                    self.__db.UpdateTransactions(cik, all_trans)
+                if file_type == FileType.OWNER:
+                    self.__db.UpdateOwnersTransactions(cik, all_trans)
+                successful.append(cik)
+                self.__logger.info('Updated %s transactions for %s' % (len(all_trans), file_type))
 
-                self.__db.UpdateTransactions(cik, all_trans)
-                issuers.append(cik)
-                self.__logger.info('Updated %s transactions' % len(all_trans))
-
-        if not include:
-            return issuers, []
-        owners = []
-        futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik
-                   in all_owners_that_have_inside_transactions]
-        done, _ = await asyncio.wait(futures, timeout=self.Timeout)
-        # A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME,OWNER TYPE
-        for fut in done:
-            cik, payload = fut.result()
-            if payload is not None and len(payload) > 1:
-                self.__logger.info(payload)
-                count = 0
-                all_trans = []
-                for tran in payload:
-                    count += 1
-                    ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name, o_type = tran
-                    all_trans.append((str(ad), str(date), str(issuer), str(form), str(tran_type), str(di),
-                                      str(num), str(total), str(line), str(i_cik), str(sec_name), str(o_type)))
-
-                self.__db.UpdateOwnersTransactions(cik, all_trans)
-                owners.append(cik)
-                self.__logger.info('Updated %s owners' % len(all_trans))
-
-        return issuers, owners
+        return successful
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()

@@ -1,8 +1,8 @@
 import asyncio
 import boto3
 import json
-import time
 from utils import DecimalEncoder
+from datetime import datetime
 from botocore.exceptions import ClientError
 
 
@@ -117,13 +117,18 @@ class StoreManager(object):
             self.__logger.error(e)
             return None
 
-    def SaveAnalytics(self, action, description, items, today):
+    def SaveAnalytics(self, action, description, message, today):
         try:
+            date = datetime.strptime(today, '%Y%m%d')
+            currentTime = datetime.now().time()
+            todayWithCurrentTime = datetime.combine(date, currentTime)
+            key = (todayWithCurrentTime - datetime(1970, 1, 1)).total_seconds()
+            # datetime.fromtimestamp(key)
 
             response = self.__Analytics.update_item(
                 Key={
                     'AnalyticId': action,
-                    'TransactionTime': today,
+                    'TransactionTime': str(key),
                 },
                 UpdateExpression="set #d = :d, #m = :m",
                 ExpressionAttributeNames={
@@ -133,7 +138,7 @@ class StoreManager(object):
                 },
                 ExpressionAttributeValues={
                     ':d': description,
-                    ':m': items
+                    ':m': message
                 },
                 ReturnValues="UPDATED_NEW")
 
