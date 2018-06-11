@@ -14,6 +14,7 @@ async def main(loop, logger, today):
         params.Url = os.environ['EDGAR_URL']
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
+        delay = float(os.environ['DELAY'])
 
         notify = os.environ['NOTIFY_ARN']
         trn_notify = os.environ['TRN_FOUND_ARN']
@@ -24,7 +25,7 @@ async def main(loop, logger, today):
             chunks = [cik_list[x:x+100] for x in range(0, len(cik_list), 100)]
             for chunk in chunks:
                 scheduler.Notify(chunk, trn_notify, today)
-                time.sleep(1)
+                time.sleep(delay)
 
             logger.info('%s CIK numbers sent' % len(cik_list))
 
@@ -48,7 +49,7 @@ def lambda_handler(event, context):
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'NOTIFY_ARN'not in os.environ or 'TRN_FOUND_ARN' not in os.environ:
+            or 'NOTIFY_ARN'not in os.environ or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
