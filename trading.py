@@ -205,15 +205,15 @@ class EdgarClient:
                 quarter = 'QTR4'
             url = '%s/Archives/edgar/daily-index/%s/%s/master.%s.idx.gz' % (self.__params.Url, y, quarter, d)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.debug('Calling GetDailyIndex for %s ...' % today)
+                self.__logger.debug('Calling GetDailyIndex for %s ...' % d)
                 response = await self.__connection.get(url=url)
-                self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (today, response.status))
+                self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (d, response.status))
                 payload = await response.read()
                 data = zlib.decompress(payload, 16 + zlib.MAX_WBITS)
                 # self.__logger.info(data)
                 return data.decode('ASCII')
         except Exception as e:
-            self.__logger.info('Error GetDailyIndex for %s' % today)
+            self.__logger.info('Error GetDailyIndex for %s' % d)
             self.__logger.error(e)
             return None
 

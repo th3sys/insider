@@ -1,5 +1,6 @@
 import asyncio
 import json
+import utils
 import logging
 import os
 import time
@@ -43,10 +44,8 @@ def lambda_handler(event, context):
     logger.info('event %s' % event)
     logger.info('context %s' % context)
 
-    if 'TODAY' in os.environ:
-        today = datetime.datetime.strptime(os.environ['TODAY'], '%Y-%m-%d')
-    else:
-        today = datetime.datetime.today()
+    today = event['time'].split('T')[0]
+    today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
             or 'NOTIFY_ARN'not in os.environ or 'TRN_FOUND_ARN' not in os.environ:
@@ -60,4 +59,6 @@ def lambda_handler(event, context):
 
 
 if __name__ == '__main__':
-    lambda_handler(None, None)
+    with open("events/find.json") as json_file:
+        test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
+    lambda_handler(test_event, None)

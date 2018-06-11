@@ -130,15 +130,17 @@ class StoreManager(object):
                     'AnalyticId': action,
                     'TransactionTime': str(key),
                 },
-                UpdateExpression="set #d = :d, #m = :m",
+                UpdateExpression="set #desc = :desc, #m = :m, #d = :d",
                 ExpressionAttributeNames={
-                    '#d': 'Description',
-                    '#m': 'Message'
+                    '#desc': 'Description',
+                    '#m': 'Message',
+                    '#d': 'Date'
 
                 },
                 ExpressionAttributeValues={
-                    ':d': description,
-                    ':m': message
+                    ':desc': description,
+                    ':m': message,
+                    ':d': today
                 },
                 ReturnValues="UPDATED_NEW")
 

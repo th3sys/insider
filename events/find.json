@@ -1,0 +1,15 @@
+{
+   "version":"0",
+   "id":"92055830-c33b-a512-f640-d638f9e5ea86",
+   "detail-type":"Scheduled Event",
+   "source":"aws.events",
+   "account":"789021466265",
+   "time":"2014-05-12T20:20:00Z",
+   "region":"us-east-1",
+   "resources":[
+      "arn:aws:events:us-east-1:789021466265:rule/EOD1"
+   ],
+   "detail":{
+
+   }
+}
