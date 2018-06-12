@@ -38,12 +38,11 @@ def lambda_handler(event, context):
 
     logger.info('event %s' % event)
     logger.info('context %s' % context)
-    fixed = event.replace("'", '"').replace('"Date"', '\\"Date\\"').replace('"CIK"', '\\"CIK\\"')
+    fixed = event['Records'][0]['Sns']['Message']
     logger.info(fixed)
     fixed_json = json.loads(fixed, parse_float=utils.DecimalEncoder)
-    message = json.loads(fixed_json['Records'][0]['Sns']['Message'], parse_float=utils.DecimalEncoder)
-    items = message['CIK']
-    today = str(message['Date'])
+    items = fixed_json['CIK']
+    today = str(fixed_json['Date'])
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
             or 'TRN_FOUND_ARN' not in os.environ:
@@ -59,9 +58,6 @@ def lambda_handler(event, context):
 
 if __name__ == '__main__':
     with open("events/save.json") as json_file:
-        lines = json_file.readlines()
-        test_event=''
-        for line in lines:
-            test_event += line
+        test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
 
     lambda_handler(test_event, None)
