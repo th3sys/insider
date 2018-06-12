@@ -2,8 +2,8 @@ import asyncio
 import json
 import logging
 import os
-
 import utils
+
 from trading import EdgarParams, Scheduler, FileType
 
 
@@ -14,7 +14,7 @@ async def main(loop, logger, items, today):
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
 
-        notify = os.environ['NOTIFY_ARN']
+        notify = ''
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
             res = await scheduler.SyncTransactions(items, FileType.ISSUER)
@@ -38,11 +38,15 @@ def lambda_handler(event, context):
 
     logger.info('event %s' % event)
     logger.info('context %s' % context)
-    items = event['Records'][0]['Sns']['Message']['CIK']
-    today = event['Records'][0]['Sns']['Message']['Date']
+    fixed = event.replace("'", '"').replace('"Date"', '\\"Date\\"').replace('"CIK"', '\\"CIK\\"')
+    logger.info(fixed)
+    fixed_json = json.loads(fixed, parse_float=utils.DecimalEncoder)
+    message = json.loads(fixed_json['Records'][0]['Sns']['Message'], parse_float=utils.DecimalEncoder)
+    items = message['CIK']
+    today = str(message['Date'])
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'NOTIFY_ARN'not in os.environ or 'TRN_FOUND_ARN' not in os.environ:
+            or 'TRN_FOUND_ARN' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
@@ -55,5 +59,9 @@ def lambda_handler(event, context):
 
 if __name__ == '__main__':
     with open("events/save.json") as json_file:
-        test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
+        lines = json_file.readlines()
+        test_event=''
+        for line in lines:
+            test_event += line
+
     lambda_handler(test_event, None)

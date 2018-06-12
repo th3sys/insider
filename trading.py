@@ -285,11 +285,12 @@ class Scheduler:
 
     def Notify(self, items, arn, today):
         try:
-            message = {'Date': today.strftime('%Y%m%d'), 'CIK': items}
+            message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items}
             response = self.sns.publish(
                 TargetArn=arn,
                 Message=json.dumps({'default': json.dumps(message)}),
-                MessageStructure='json'
+                MessageStructure='json',
+                Subject='FOUND'
             )
             self.__logger.info(response)
         except Exception as e:
@@ -306,16 +307,16 @@ class Scheduler:
             cells = line.split('|')
             if len(cells) == 5 and (cells[2] == '4' or cells[2] == '4/A'):
                 found[cells[0]] = cells[0]
-        return [x for x in found]
+        return [int(x) for x in found]
 
     async def SyncTransactions(self, items, file_type):
         self.__logger.info('Loaded %s: %s' % (file_type, len(items)))
 
         successful = []
         if file_type == FileType.ISSUER:
-            futures = [self.__edgarConnection.GetTransactionsByCompany(cik) for cik in items]
+            futures = [self.__edgarConnection.GetTransactionsByCompany(str(cik)) for cik in items]
         if file_type == FileType.OWNER:
-            futures = [self.__edgarConnection.GetTransactionsByOwner(cik) for cik in items]
+            futures = [self.__edgarConnection.GetTransactionsByOwner(str(cik)) for cik in items]
         done, _ = await asyncio.wait(futures, timeout=self.Timeout)
 
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
@@ -362,7 +363,6 @@ class Scheduler:
                     all_companies.append((str(code), str(state), str(name)))
         self.__db.UpdateCompanies(all_companies)
         self.__logger.info('Updated %s companies' % len(all_companies))
-        self.__db.Notify('companies', len(all_companies))
 
     async def __aenter__(self):
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)

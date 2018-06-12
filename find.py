@@ -16,7 +16,7 @@ async def main(loop, logger, today):
         params.Timeout = int(os.environ['TIMEOUT'])
         delay = float(os.environ['DELAY'])
 
-        notify = os.environ['NOTIFY_ARN']
+        notify = ''
         trn_notify = os.environ['TRN_FOUND_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
@@ -49,7 +49,7 @@ def lambda_handler(event, context):
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'NOTIFY_ARN'not in os.environ or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ:
+            or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
