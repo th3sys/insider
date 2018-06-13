@@ -5,6 +5,7 @@ import logging
 import os
 import time
 import datetime
+import uuid
 from trading import EdgarParams, Scheduler
 
 
@@ -15,16 +16,20 @@ async def main(loop, logger, today):
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
         delay = float(os.environ['DELAY'])
+        buffer = int(os.environ['BUFFER_SIZE'])
 
         notify = ''
         trn_notify = os.environ['TRN_FOUND_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
+            requestId = str(uuid.uuid4().hex)
             cik_list = await scheduler.SyncDailyIndex(today)
+            scheduler.Save({'Received': cik_list}, today, 'FOUND', len(cik_list),
+                           'CIKs that reported on the day', requestId)
             logger.info('%s CIK numbers received' % len(cik_list))
-            chunks = [cik_list[x:x+100] for x in range(0, len(cik_list), 100)]
+            chunks = [cik_list[x:x+buffer] for x in range(0, len(cik_list), buffer)]
             for chunk in chunks:
-                scheduler.Notify(chunk, trn_notify, today)
+                scheduler.Notify(chunk, trn_notify, today, requestId)
                 time.sleep(delay)
 
             logger.info('%s CIK numbers sent' % len(cik_list))
@@ -49,7 +54,7 @@ def lambda_handler(event, context):
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ:
+            or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ or 'BUFFER_SIZE' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 

@@ -283,9 +283,9 @@ class Scheduler:
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
-    def Notify(self, items, arn, today):
+    def Notify(self, items, arn, today, requestId):
         try:
-            message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items}
+            message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items, 'RequestId': requestId}
             response = self.sns.publish(
                 TargetArn=arn,
                 Message=json.dumps({'default': json.dumps(message)}),
@@ -296,9 +296,9 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def Save(self, message, today, action):
-        self.__db.SaveAnalytics(action, 'CIKs that reported on the day and had direct purchases in the past',
-                                message, today)
+    def Save(self, message, today, action, count, desc, requestId):
+        self.__db.SaveAnalytics(action, desc,
+                                message, today, count, requestId)
 
     async def SyncDailyIndex(self, today):
         found = {}

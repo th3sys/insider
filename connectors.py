@@ -117,11 +117,11 @@ class StoreManager(object):
             self.__logger.error(e)
             return None
 
-    def SaveAnalytics(self, action, description, message, today):
+    def SaveAnalytics(self, action, description, message, today, count, requestId):
         try:
-            date = datetime.strptime(today, '%Y%m%d')
+            # date = datetime.strptime(today, '%Y%m%d')
             currentTime = datetime.now().time()
-            todayWithCurrentTime = datetime.combine(date, currentTime)
+            todayWithCurrentTime = datetime.combine(today, currentTime)
             key = (todayWithCurrentTime - datetime(1970, 1, 1)).total_seconds()
             # datetime.fromtimestamp(key)
 
@@ -130,17 +130,21 @@ class StoreManager(object):
                     'AnalyticId': action,
                     'TransactionTime': str(key),
                 },
-                UpdateExpression="set #desc = :desc, #m = :m, #d = :d",
+                UpdateExpression="set #desc = :desc, #m = :m, #d = :d, #c = :c, #r = :r",
                 ExpressionAttributeNames={
                     '#desc': 'Description',
                     '#m': 'Message',
-                    '#d': 'Date'
+                    '#d': 'Date',
+                    '#c': 'Count',
+                    '#r': 'RequestId'
 
                 },
                 ExpressionAttributeValues={
                     ':desc': description,
                     ':m': message,
-                    ':d': today
+                    ':d': today.strftime('%Y%m%d'),
+                    ':c': count,
+                    ':r': requestId
                 },
                 ReturnValues="UPDATED_NEW")
 

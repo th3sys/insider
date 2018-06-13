@@ -3,11 +3,12 @@ import json
 import logging
 import os
 import utils
+import datetime
 
 from trading import EdgarParams, Scheduler, FileType
 
 
-async def main(loop, logger, items, today):
+async def main(loop, logger, items, today, requestId):
     try:
         params = EdgarParams()
         params.Url = os.environ['EDGAR_URL']
@@ -18,9 +19,11 @@ async def main(loop, logger, items, today):
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
             res = await scheduler.SyncTransactions(items, FileType.ISSUER)
-            scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS')
+            scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS', len(items),
+                           'CIKs that reported on the day and had direct purchases in the past', requestId)
             res = await scheduler.SyncTransactions(items, FileType.OWNER)
-            scheduler.Save({'Received': items, 'Processed': res}, today, 'OWNERS')
+            scheduler.Save({'Received': items, 'Processed': res}, today, 'OWNERS', len(items),
+                           'CIKs that reported on the day and had direct purchases in the past', requestId)
             logger.info('%s transactions loaded in db' % len(items))
 
     except Exception as e:
@@ -43,6 +46,8 @@ def lambda_handler(event, context):
     fixed_json = json.loads(fixed, parse_float=utils.DecimalEncoder)
     items = fixed_json['CIK']
     today = str(fixed_json['Date'])
+    today = datetime.datetime.strptime(today, '%Y%m%d')
+    requestId = fixed_json['RequestId']
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
             or 'TRN_FOUND_ARN' not in os.environ:
@@ -51,7 +56,7 @@ def lambda_handler(event, context):
 
     # asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     app_loop = asyncio.get_event_loop()
-    app_loop.run_until_complete(main(app_loop, logger, items, today))
+    app_loop.run_until_complete(main(app_loop, logger, items, today, requestId))
 
     return json.dumps({'State': 'OK'})
 
