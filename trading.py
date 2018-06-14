@@ -296,6 +296,14 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
+    def ValidateResults(self, date):
+        founds = self.__db.GetAnalytics('FOUND', date)
+        if len(founds) == 0:
+            self.__logger.warn('No FOUND events on %s' % date)
+
+        for found in founds:
+            self.__logger.info('found %s on %s' % (found, date))
+
     def Save(self, message, today, action, count, desc, requestId):
         self.__db.SaveAnalytics(action, desc,
                                 message, today, count, requestId)

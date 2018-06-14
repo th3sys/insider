@@ -18,7 +18,8 @@ async def main(loop, logger, today):
         trn_notify = os.environ['TRN_FOUND_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
-            pass
+            scheduler.ValidateResults(today)
+            logger.info('Check Succeeded')
 
     except Exception as e:
         logger.error(e)

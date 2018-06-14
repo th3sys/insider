@@ -1,5 +1,6 @@
 import asyncio
 import boto3
+from boto3.dynamodb.conditions import Key, Attr
 import json
 from utils import DecimalEncoder
 from datetime import datetime
@@ -116,6 +117,25 @@ class StoreManager(object):
         except Exception as e:
             self.__logger.error(e)
             return None
+
+    def GetAnalytics(self, analytic, date):
+        try:
+            self.__logger.info('Calling GetAnalytics query ...')
+            sod = datetime(date.year, date.month, date.day, 0, 0, 0, 1)
+            sod = str((sod - datetime(1970, 1, 1)).total_seconds())
+            eod = datetime(date.year, date.month, date.day, 23, 59, 59, 999999)
+            eod = str((eod - datetime(1970, 1, 1)).total_seconds())
+            response = self.__Analytics.query(
+                KeyConditionExpression=Key('AnalyticId').eq(analytic) & Key('TransactionTime').between(sod, eod))
+        except ClientError as e:
+            self.__logger.error(e.response['Error']['Message'])
+            return None
+        except Exception as e:
+            self.__logger.error(e)
+            return None
+        else:
+            if 'Items' in response:
+                return response['Items']
 
     def SaveAnalytics(self, action, description, message, today, count, requestId):
         try:
