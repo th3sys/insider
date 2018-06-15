@@ -296,10 +296,24 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def ValidateResults(self, date):
+    def SendError(self, message, arn):
+        try:
+            response = self.sns.publish(
+                TargetArn=arn,
+                Message=message,
+                MessageStructure='text',
+                Subject='INSIDERS ERROR'
+            )
+            self.__logger.info(response)
+        except Exception as e:
+            self.__logger.error(e)
+
+    def ValidateResults(self, date, arn):
         founds = self.__db.GetAnalytics('FOUND', date)
         if len(founds) == 0:
-            self.__logger.warn('No FOUND events on %s' % date)
+            message = 'No FOUND events on %s' % date.strftime('%Y-%m-%d')
+            self.SendError(message, arn)
+            self.__logger.warn(message)
 
         for found in founds:
             self.__logger.info('found %s on %s' % (found, date))

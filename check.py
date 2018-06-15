@@ -15,10 +15,10 @@ async def main(loop, logger, today):
         delay = float(os.environ['DELAY'])
         buffer = int(os.environ['BUFFER_SIZE'])
         notify = ''
-        trn_notify = os.environ['TRN_FOUND_ARN']
+        error_arn = os.environ['TRN_ERROR_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
-            scheduler.ValidateResults(today)
+            scheduler.ValidateResults(today, error_arn)
             logger.info('Check Succeeded')
 
     except Exception as e:
@@ -40,7 +40,8 @@ def lambda_handler(event, context):
     today = event['time'].split('T')[0]
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
-    if 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ or 'BUFFER_SIZE' not in os.environ:
+    if 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ \
+            or 'BUFFER_SIZE' not in os.environ or 'TRN_ERROR_ARN' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
