@@ -7,7 +7,7 @@
    "time":"2014-05-12T20:20:00Z",
    "region":"us-east-1",
    "resources":[
-      "arn:aws:events:us-east-1::rule/EOD2"
+      "arn:aws:events:us-east-1::rule/EOD3"
    ],
    "detail":{
 

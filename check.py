@@ -9,7 +9,7 @@ import uuid
 from trading import EdgarParams, Scheduler
 
 
-async def main(loop, logger, today):
+async def main(loop, logger, today, fix):
     try:
         params = EdgarParams()
         delay = float(os.environ['DELAY'])
@@ -18,7 +18,7 @@ async def main(loop, logger, today):
         error_arn = os.environ['TRN_ERROR_ARN']
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
-            scheduler.ValidateResults(today, error_arn)
+            scheduler.ValidateResults(today, error_arn, fix)
             logger.info('Check Succeeded')
 
     except Exception as e:
@@ -39,6 +39,10 @@ def lambda_handler(event, context):
 
     today = event['time'].split('T')[0]
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
+    fix = False
+    for resource in event['resources']:
+        if 'EOD2' in resource:
+            fix = True
 
     if 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ \
             or 'BUFFER_SIZE' not in os.environ or 'TRN_ERROR_ARN' not in os.environ:
@@ -46,7 +50,7 @@ def lambda_handler(event, context):
         return json.dumps({'State': 'ERROR'})
 
     app_loop = asyncio.get_event_loop()
-    app_loop.run_until_complete(main(app_loop, logger, today))
+    app_loop.run_until_complete(main(app_loop, logger, today, fix))
 
     return json.dumps({'State': 'OK'})
 

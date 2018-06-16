@@ -308,15 +308,36 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def ValidateResults(self, date, arn):
+    def ValidateResults(self, date, arn, fix):
         founds = self.__db.GetAnalytics('FOUND', date)
+        owners = self.__db.GetAnalytics('OWNERS', date)
+        issuers = self.__db.GetAnalytics('ISSUERS', date)
         if len(founds) == 0:
             message = 'No FOUND events on %s' % date.strftime('%Y-%m-%d')
             self.SendError(message, arn)
             self.__logger.warn(message)
+            return
 
-        for found in founds:
-            self.__logger.info('found %s on %s' % (found, date))
+        if not fix:
+            for found in founds:
+                self.__logger.info('found %s on %s' % (found, date))
+
+                self.FindNotProcessed(issuers, found, date, arn)
+                self.FindNotProcessed(owners, found, date, arn)
+        else:
+            pass
+
+    def FindNotProcessed(self, items, found, date, arn):
+        all_processed_cik = []
+        all_found_cik = found['Message']['Received']
+        for item in [i for i in items if i['RequestId'] == found['RequestId']]:
+            all_processed_cik.append(item['Message']['Received'])
+        not_processed = [int(x) for x in all_found_cik if x not in all_processed_cik]
+        if len(not_processed) > 0:
+            message = '%s events are still not processed on %s for %s' % \
+                      (not_processed, date.strftime('%Y-%m-%d'), found['RequestId'])
+            self.SendError(message, arn)
+            self.__logger.warn(message)
 
     def Save(self, message, today, action, count, desc, requestId):
         self.__db.SaveAnalytics(action, desc,
