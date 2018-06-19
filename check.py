@@ -14,11 +14,11 @@ async def main(loop, logger, today, fix):
         params = EdgarParams()
         delay = float(os.environ['DELAY'])
         buffer = int(os.environ['BUFFER_SIZE'])
-        notify = ''
+        found = os.environ['TRN_FOUND_ARN']
         error_arn = os.environ['TRN_ERROR_ARN']
 
-        async with Scheduler(notify, params, logger, loop) as scheduler:
-            scheduler.ValidateResults(today, error_arn, fix)
+        async with Scheduler('', params, logger, loop) as scheduler:
+            scheduler.ValidateResults(today, error_arn, fix, found, delay, buffer)
             logger.info('Check Succeeded')
 
     except Exception as e:

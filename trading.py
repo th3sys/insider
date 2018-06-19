@@ -4,7 +4,7 @@ import async_timeout
 import bs4
 from utils import Connection
 from connectors import StoreManager
-import random
+import time
 import zlib
 import socket
 import json
@@ -308,7 +308,7 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def ValidateResults(self, date, arn, fix):
+    def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
         founds = self.__db.GetAnalytics('FOUND', date)
         owners = self.__db.GetAnalytics('OWNERS', date)
         issuers = self.__db.GetAnalytics('ISSUERS', date)
@@ -318,26 +318,36 @@ class Scheduler:
             self.__logger.warn(message)
             return
 
-        if not fix:
-            for found in founds:
-                self.__logger.info('found %s on %s' % (found, date))
+        for found in founds:
+            self.__logger.info('found %s on %s' % (found, date))
 
-                self.FindNotProcessed(issuers, found, date, arn)
-                self.FindNotProcessed(owners, found, date, arn)
-        else:
-            pass
+            not_processed_issuers = self.FindNotProcessed(issuers, found)
+            not_processed_owners = self.FindNotProcessed(owners, found)
+            not_processed_owners.extend(not_processed_issuers)
+            not_processed = list(set(not_processed_owners))
 
-    def FindNotProcessed(self, items, found, date, arn):
+            if len(not_processed) > 0:
+                if not fix:
+                    message = '%s events are still not processed on %s for %s' % \
+                              (not_processed, date.strftime('%Y-%m-%d'), found['RequestId'])
+                    self.SendError(message, arn)
+                    self.__logger.warn(message)
+                else:
+                    chunks = [not_processed[x:x + buffer] for x in range(0, len(not_processed), buffer)]
+                    for chunk in chunks:
+                        self.Notify(chunk, found_arn, date, found['RequestId'])
+                        time.sleep(delay)
+                        self.__logger.warn('Resending %s' % chunk)
+            else:
+                self.__logger.info('All events processed on %s for %s' % (date.strftime('%Y-%m-%d'), found['RequestId']))
+
+    def FindNotProcessed(self, items, found):
         all_processed_cik = []
         all_found_cik = found['Message']['Received']
         for item in [i for i in items if i['RequestId'] == found['RequestId']]:
-            all_processed_cik.append(item['Message']['Received'])
+            all_processed_cik.extend(item['Message']['Received'])
         not_processed = [int(x) for x in all_found_cik if x not in all_processed_cik]
-        if len(not_processed) > 0:
-            message = '%s events are still not processed on %s for %s' % \
-                      (not_processed, date.strftime('%Y-%m-%d'), found['RequestId'])
-            self.SendError(message, arn)
-            self.__logger.warn(message)
+        return not_processed
 
     def Save(self, message, today, action, count, desc, requestId):
         self.__db.SaveAnalytics(action, desc,
