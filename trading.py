@@ -3,7 +3,7 @@ import asyncio
 import async_timeout
 import bs4
 from utils import Connection
-from connectors import StoreManager
+from connectors import StoreManager, Period
 import time
 import zlib
 import socket
@@ -21,6 +21,7 @@ class EdgarParams(object):
         self.Url = ''
         self.PageSize = ''
         self.Timeout = 10
+        self.StartYear = ''
 
 
 class EdgarClient:
@@ -81,7 +82,7 @@ class EdgarClient:
                     # ISSUER CIK,SECURITY NAME
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
-                    if date == '-' or date.startswith('2013'):
+                    if date == '-' or date.startswith(self.__params.StartYear):
                         return cik, transactions
                     issuer = GetText(tds[3])
                     form = GetText(tds[4])
@@ -308,10 +309,16 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
+    def AnalyseThat(self, date, arn):
+        issuers = self.__db.GetAnalytics('ISSUERS', date, Period.MONTH)
+        if len(issuers) == 0:
+            self.SendError('No ISSUERS to analyse on %s' % date.strftime('%Y-%m-%d'), arn)
+            return
+
     def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
-        founds = self.__db.GetAnalytics('FOUND', date)
-        owners = self.__db.GetAnalytics('OWNERS', date)
-        issuers = self.__db.GetAnalytics('ISSUERS', date)
+        founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)
+        owners = self.__db.GetAnalytics('OWNERS', date, Period.DAY)
+        issuers = self.__db.GetAnalytics('ISSUERS', date, Period.DAY)
         if len(founds) == 0:
             message = 'No FOUND events on %s' % date.strftime('%Y-%m-%d')
             self.SendError(message, arn)

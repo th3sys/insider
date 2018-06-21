@@ -3,8 +3,13 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import json
 from utils import DecimalEncoder
-from datetime import datetime
+from datetime import datetime, timedelta
 from botocore.exceptions import ClientError
+
+
+class Period(object):
+    DAY = 'DAY'
+    MONTH = 'MONTH'
 
 
 class StoreManager(object):
@@ -118,15 +123,24 @@ class StoreManager(object):
             self.__logger.error(e)
             return None
 
-    def GetAnalytics(self, analytic, date):
+    def GetAnalytics(self, analytic, date, period):
         try:
             self.__logger.info('Calling GetAnalytics query ...')
-            sod = datetime(date.year, date.month, date.day, 0, 0, 0, 1)
-            sod = str((sod - datetime(1970, 1, 1)).total_seconds())
-            eod = datetime(date.year, date.month, date.day, 23, 59, 59, 999999)
-            eod = str((eod - datetime(1970, 1, 1)).total_seconds())
+            if period == Period.DAY:
+                start = datetime(date.year, date.month, date.day, 0, 0, 0, 1)
+                start = str((start - datetime(1970, 1, 1)).total_seconds())
+                end = datetime(date.year, date.month, date.day, 23, 59, 59, 999999)
+                end = str((end - datetime(1970, 1, 1)).total_seconds())
+            if period == Period.MONTH:
+                startDate = datetime(date.year, date.month, date.day, 0, 0, 0, 1)
+                end = str((startDate - datetime(1970, 1, 1)).total_seconds())
+
+                first = startDate.replace(day=1)
+                lastMonth = first - timedelta(days=1)
+                endDate = datetime(date.year, lastMonth.month, date.day, 0, 0, 0, 1)
+                start = str((endDate - datetime(1970, 1, 1)).total_seconds())
             response = self.__Analytics.query(
-                KeyConditionExpression=Key('AnalyticId').eq(analytic) & Key('TransactionTime').between(sod, eod))
+                KeyConditionExpression=Key('AnalyticId').eq(analytic) & Key('TransactionTime').between(start, end))
         except ClientError as e:
             self.__logger.error(e.response['Error']['Message'])
             return None

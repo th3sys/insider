@@ -14,6 +14,7 @@ async def main(loop, logger, items, today, requestId):
         params.Url = os.environ['EDGAR_URL']
         params.PageSize = os.environ['PAGE_SIZE']
         params.Timeout = int(os.environ['TIMEOUT'])
+        params.StartYear = os.environ['START_YEAR']
 
         notify = ''
 
@@ -50,7 +51,7 @@ def lambda_handler(event, context):
     requestId = fixed_json['RequestId']
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'TRN_FOUND_ARN' not in os.environ:
+            or 'TRN_FOUND_ARN' not in os.environ or 'START_YEAR' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
