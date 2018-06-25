@@ -1,0 +1,322 @@
+A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
+D, 2018-04-30, Atkinson James Robert, 4, M-Exempt, --D, 675.0000,  0.0000, 4, 0001674150, Performance Rights, officer: EVP Life Sciences 
+D, 2018-04-30, Atkinson James Robert, 4, F-InKind, --D, 460.0000,  9412.0000, 3, 0001674150, Common Stock, officer: EVP Life Sciences 
+A, 2018-04-30, Atkinson James Robert, 4, M-Exempt, --D, 679.0000,  9872.0000, 2, 0001674150, Common Stock, officer: EVP Life Sciences 
+A, 2018-04-30, Atkinson James Robert, 4, A-Award, --D, 990.0000,  9193.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2018-04-30, Qualters Christopher J., 4, F-InKind, --D, 190.0000,  13304.0000, 1, 0001707268, Common Stock, officer: EVP Power Solutions 
+D, 2018-04-30, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 1540.0000,  0.0000, 4, 0001529081, Performance Rights, officer: See Remarks 
+D, 2018-04-30, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 1050.0000,  39329.0000, 3, 0001529081, Common Stock, officer: See Remarks 
+A, 2018-04-30, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 1549.0000,  40379.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2018-04-30, BURWELL THOMAS C. Jr., 4, A-Award, --D, 2258.0000,  38830.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2018-04-30, NIXON D. GAIL, 4, M-Exempt, --D, 1335.0000,  0.0000, 4, 0001713507, Performance Rights, officer: See Remarks 
+D, 2018-04-30, NIXON D. GAIL, 4, F-InKind, --D, 911.0000,  19600.0000, 3, 0001713507, Common Stock, officer: See Remarks 
+A, 2018-04-30, NIXON D. GAIL, 4, M-Exempt, --D, 1343.0000,  20511.0000, 2, 0001713507, Common Stock, officer: See Remarks 
+A, 2018-04-30, NIXON D. GAIL, 4, A-Award, --D, 1958.0000,  19168.0000, 1, 0001713507, Common Stock, officer: See Remarks 
+D, 2018-04-30, Veltman Warren A, 4, M-Exempt, --D, 3460.0000,  0.0000, 4, 0001618759, Performance Rights, officer: EVP Mobile Solutions 
+D, 2018-04-30, Veltman Warren A, 4, F-InKind, --D, 2775.0000,  29921.0000, 3, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2018-04-30, Veltman Warren A, 4, M-Exempt, --D, 3480.0000,  32696.0000, 2, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2018-04-30, Veltman Warren A, 4, A-Award, --D, 5074.0000,  29216.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2018-04-30, Holder Richard D, 4, M-Exempt, --D, 14665.0000,  0.0000, 4, 0001360591, Performance Rights, director officer: President & CEO 
+D, 2018-04-30, Holder Richard D, 4, F-InKind, --D, 10019.0000,  170301.0000, 3, 0001360591, Common Stock, director officer: President & CEO 
+A, 2018-04-30, Holder Richard D, 4, M-Exempt, --D, 14752.0000,  180320.0000, 2, 0001360591, Common Stock, director officer: President & CEO 
+A, 2018-04-30, Holder Richard D, 4, A-Award, --D, 21509.0000,  165568.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2018-03-19, Holder Richard D, 4, F-InKind, --D, 811.0000,  144059.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2018-03-19, Atkinson James Robert, 4, F-InKind, --D, 98.0000,  8203.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2018-03-19, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 195.0000,  36572.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2018-03-19, NIXON D. GAIL, 4, F-InKind, --D, 187.0000,  17210.0000, 1, 0001713507, Common Stock, officer: See Remarks 
+D, 2018-03-19, Veltman Warren A, 4, F-InKind, --D, 184.0000,  24142.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2018-03-17, Heiter Matthew S., 4, F-InKind, --D, 301.0000,  16034.0000, 2, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+D, 2018-03-17, Holder Richard D, 4, F-InKind, --D, 2013.0000,  144870.0000, 2, 0001360591, Common Stock, director officer: President & CEO 
+D, 2018-03-17, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 306.0000,  36767.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+D, 2018-03-17, Qualters Christopher J., 4, F-InKind, --D, 254.0000,  13494.0000, 2, 0001707268, Common Stock, officer: EVP Power Solutions 
+D, 2018-03-17, Atkinson James Robert, 4, F-InKind, --D, 150.0000,  8301.0000, 2, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2018-03-17, NIXON D. GAIL, 4, F-InKind, --D, 179.0000,  17397.0000, 2, 0001713507, Common Stock, officer: See Remarks 
+D, 2018-03-17, Veltman Warren A, 4, F-InKind, --D, 374.0000,  24326.0000, 2, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2018-03-16, Heiter Matthew S., 4, F-InKind, --D, 751.0000,  16335.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+D, 2018-03-16, Holder Richard D, 4, F-InKind, --D, 2931.0000,  146883.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2018-03-16, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 389.0000,  37073.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2018-03-16, Qualters Christopher J., 4, F-InKind, --D, 522.0000,  13748.0000, 1, 0001707268, Common Stock, officer: EVP Power Solutions 
+D, 2018-03-16, Atkinson James Robert, 4, F-InKind, --D, 290.0000,  8451.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2018-03-16, NIXON D. GAIL, 4, F-InKind, --D, 360.0000,  17576.0000, 1, 0001713507, Common Stock, officer: See Remarks 
+D, 2018-03-16, Veltman Warren A, 4, F-InKind, --D, 877.0000,  24700.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2018-03-14, Qualters Christopher J., 4, A-Award, --D, 3523.0000,  3523.0000, 2, 0001707268, Performance Rights, officer: EVP Power Solutions 
+A, 2018-03-14, Qualters Christopher J., 4, A-Award, --D, 3523.0000,  14270.0000, 1, 0001707268, Common Stock, officer: EVP Power Solutions 
+A, 2018-03-14, BURWELL THOMAS C. Jr., 4, A-Award, --D, 4081.0000,  4081.0000, 2, 0001529081, Performance Rights, officer: See Remarks 
+A, 2018-03-14, BURWELL THOMAS C. Jr., 4, A-Award, --D, 4081.0000,  37462.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2018-03-14, NIXON D. GAIL, 4, A-Award, --D, 2161.0000,  2161.0000, 2, 0001713507, Performance Rights, officer: See Remarks 
+A, 2018-03-14, NIXON D. GAIL, 4, A-Award, --D, 2161.0000,  17936.0000, 1, 0001713507, Common Stock, officer: See Remarks 
+A, 2018-03-14, Floyd David, 4, A-Award, --D, 4073.0000,  11050.0000, 1, 0001564203, Common Stock, director 
+A, 2018-03-14, Heiter Matthew S., 4, A-Award, --D, 3908.0000,  3908.0000, 2, 0001647819, Performance Rights, officer: Senior VP and General Counsel 
+A, 2018-03-14, Heiter Matthew S., 4, A-Award, --D, 3908.0000,  17086.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+A, 2018-03-14, WARSHAW STEVEN T, 4, A-Award, --D, 4073.0000,  60805.0000, 1, 0001196823, Common Stock, director 
+A, 2018-03-14, Holder Richard D, 4, A-Award, --D, 30549.0000,  30549.0000, 2, 0001360591, Performance Rights, director officer: President & CEO 
+A, 2018-03-14, Holder Richard D, 4, A-Award, --D, 30549.0000,  149814.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2018-03-14, Brunner Robert E, 4, A-Award, --D, 4073.0000,  29605.0000, 1, 0001380372, Common Stock, director 
+A, 2018-03-14, PUGH DAVID L, 4, A-Award, --D, 4073.0000,  87905.0000, 1, 0001208344, Common Stock, director 
+A, 2018-03-14, DRIES WILLIAM, 4, A-Award, --D, 4073.0000,  32905.0000, 1, 0001176412, Common Stock, director 
+A, 2018-03-14, Smith Carey A., 4, A-Award, --D, 4073.0000,  6331.0000, 1, 0001707270, Common Stock, director 
+A, 2018-03-14, Atkinson James Robert, 4, A-Award, --D, 3000.0000,  3000.0000, 2, 0001674150, Performance Rights, officer: EVP Life Sciences 
+A, 2018-03-14, Atkinson James Robert, 4, A-Award, --D, 3000.0000,  8741.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+A, 2018-03-14, Veltman Warren A, 4, A-Award, --D, 4149.0000,  4149.0000, 2, 0001618759, Performance Rights, officer: EVP Mobile Solutions 
+A, 2018-03-14, Veltman Warren A, 4, A-Award, --D, 4149.0000,  25577.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2017-12-01, Floyd David, 4, P-Purchase, --I, 1865.0000,  3323.0000, 1, 0001564203, Common Stock, director 
+D, 2017-10-25, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 2000.0000,  6000.0000, 3, 0001529081, Stock Options (Right to Buy), officer: See Remarks 
+D, 2017-10-25, BURWELL THOMAS C. Jr., 4, S-Sale, --D, 2000.0000,  33381.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2017-10-25, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 2000.0000,  35381.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-10-20, Qualters Christopher J., 4, F-InKind, --D, 316.0000,  10747.0000, 1, 0001707268, Common Stock, officer: EVP Power Solutions 
+D, 2017-10-20, Veltman Warren A, 4, F-InKind, --D, 483.0000,  21428.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2017-09-19, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  0.0000, 6, 0001196823, Stock Options (Right to Buy), director 
+D, 2017-09-19, WARSHAW STEVEN T, 4, S-Sale, --D, 2000.0000,  56732.0000, 4, 0001196823, Common Stock, director 
+A, 2017-09-19, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  58732.0000, 3, 0001196823, Common Stock, director 
+D, 2017-09-18, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  2000.0000, 5, 0001196823, Stock Options (Right to Buy), director 
+D, 2017-09-18, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  56732.0000, 2, 0001196823, Common Stock, director 
+A, 2017-09-18, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  57732.0000, 1, 0001196823, Common Stock, director 
+D, 2017-09-18, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 1500.0000,  0.0000, 6, 0001529081, Stock Options (Right to Buy), officer: See Remarks 
+D, 2017-09-18, BURWELL THOMAS C. Jr., 4, S-Sale, --D, 1500.0000,  33381.0000, 4, 0001529081, Common Stock, officer: See Remarks 
+A, 2017-09-18, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 1500.0000,  34881.0000, 3, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-09-15, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 4500.0000,  1500.0000, 5, 0001529081, Stock Options (Right to Buy), officer: See Remarks 
+D, 2017-09-15, BURWELL THOMAS C. Jr., 4, S-Sale, --D, 4500.0000,  33381.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2017-09-15, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 4500.0000,  37881.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-09-15, WARSHAW STEVEN T, 4, M-Exempt, --D, 3000.0000,  3000.0000, 6, 0001196823, Stock Options (Right to Buy), director 
+D, 2017-09-15, WARSHAW STEVEN T, 4, S-Sale, --D, 3000.0000,  56732.0000, 4, 0001196823, Common Stock, director 
+A, 2017-09-15, WARSHAW STEVEN T, 4, M-Exempt, --D, 3000.0000,  59732.0000, 3, 0001196823, Common Stock, director 
+D, 2017-09-14, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  6000.0000, 5, 0001196823, Stock Options (Right to Buy), director 
+D, 2017-09-14, WARSHAW STEVEN T, 4, S-Sale, --D, 2000.0000,  56732.0000, 2, 0001196823, Common Stock, director 
+A, 2017-09-14, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  58732.0000, 1, 0001196823, Common Stock, director 
+D, 2017-05-19, Smith Carey A., 4, A-Award, --D, 2258.0000,  2258.0000, 1, 0001707270, Common Stock, director 
+D, 2017-04-28, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 128.0000,  33381.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-04-28, WIDDERS JAMES R., 4, F-InKind, --D, 238.0000,  30295.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+D, 2017-04-28, MANZAGOL L JEFFREY, 4, F-InKind, --D, 288.0000,  23767.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2017-04-28, Atkinson James Robert, 4, F-InKind, --D, 56.0000,  5741.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2017-04-28, Holder Richard D, 4, F-InKind, --D, 1222.0000,  119265.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2017-04-28, Veltman Warren A, 4, F-InKind, --D, 288.0000,  21911.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2017-03-17, PUGH DAVID L, 4, A-Award, --D, 4132.0000,  83832.0000, 1, 0001208344, Common Stock, director 
+A, 2017-03-17, Atkinson James Robert, 4, A-Award, --D, 1328.0000,  1328.0000, 5, 0001674150, Performance Rights, officer: EVP Life Sciences 
+A, 2017-03-17, Atkinson James Robert, 4, A-Award, --D, 13200.0000,  13200.0000, 4, 0001674150, Stock Options (Right to Buy), officer: EVP Life Sciences 
+A, 2017-03-17, Atkinson James Robert, 4, A-Award, --D, 1515.0000,  5797.0000, 3, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2017-03-17, Atkinson James Robert, 4, F-InKind, --D, 83.0000,  4282.0000, 2, 0001674150, Common Stock, officer: EVP Life Sciences 
+A, 2017-03-17, Heiter Matthew S., 4, A-Award, --D, 3374.0000,  3374.0000, 3, 0001647819, Performance Rights, officer: Senior VP and General Counsel 
+A, 2017-03-17, Heiter Matthew S., 4, A-Award, --D, 3849.0000,  13178.0000, 2, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+D, 2017-03-17, Floyd David, 4, A-Award, --D, 4132.0000,  6977.0000, 1, 0001564203, Common Stock, director 
+D, 2017-03-17, DRIES WILLIAM, 4, A-Award, --D, 4132.0000,  28832.0000, 1, 0001176412, Common Stock, director 
+A, 2017-03-17, WIDDERS JAMES R., 4, A-Award, --D, 2824.0000,  2824.0000, 4, 0001511320, Performance Rights, officer: SVP/Integration & Corp. 
+A, 2017-03-17, WIDDERS JAMES R., 4, A-Award, --D, 3222.0000,  30533.0000, 3, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+D, 2017-03-17, WIDDERS JAMES R., 4, F-InKind, --D, 682.0000,  27311.0000, 2, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2017-03-17, Manzi John, 4, A-Award, --D, 3355.0000,  3355.0000, 3, 0001656665, Performance Rights, officer: SVP/GM-Precision Eng. Products 
+A, 2017-03-17, Manzi John, 4, A-Award, --D, 3828.0000,  11152.0000, 2, 0001656665, Common Stock, officer: SVP/GM-Precision Eng. Products 
+D, 2017-03-17, WARSHAW STEVEN T, 4, A-Award, --D, 4132.0000,  56732.0000, 1, 0001196823, Common Stock, director 
+A, 2017-03-17, Veltman Warren A, 4, A-Award, --D, 3547.0000,  3547.0000, 4, 0001618759, Performance Rights, officer: EVP Mobile Solutions 
+A, 2017-03-17, Veltman Warren A, 4, A-Award, --D, 4047.0000,  22199.0000, 3, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2017-03-17, Veltman Warren A, 4, F-InKind, --D, 166.0000,  18152.0000, 2, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2017-03-17, Brunner Robert E, 4, A-Award, --D, 4132.0000,  25532.0000, 1, 0001380372, Common Stock, director 
+A, 2017-03-17, BURWELL THOMAS C. Jr., 4, A-Award, --D, 2996.0000,  2996.0000, 5, 0001529081, Performance Rights, officer: See Remarks 
+A, 2017-03-17, BURWELL THOMAS C. Jr., 4, A-Award, --D, 21500.0000,  21500.0000, 4, 0001529081, Stock Options (Right to Buy), officer: See Remarks 
+A, 2017-03-17, BURWELL THOMAS C. Jr., 4, A-Award, --D, 3418.0000,  33509.0000, 3, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-03-17, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 624.0000,  30091.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2017-03-17, Holder Richard D, 4, A-Award, --D, 21731.0000,  21731.0000, 4, 0001360591, Performance Rights, director officer: President & CEO 
+A, 2017-03-17, Holder Richard D, 4, A-Award, --D, 24793.0000,  120487.0000, 3, 0001360591, Common Stock, director officer: President & CEO 
+D, 2017-03-17, Holder Richard D, 4, F-InKind, --D, 2916.0000,  95694.0000, 2, 0001360591, Common Stock, director officer: President & CEO 
+A, 2017-03-17, MANZAGOL L JEFFREY, 4, A-Award, --D, 3362.0000,  3362.0000, 7, 0001624139, Performance Rights, officer: SVP/GM-Precision Bearings Comp 
+A, 2017-03-17, MANZAGOL L JEFFREY, 4, A-Award, --D, 3836.0000,  24055.0000, 6, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2017-03-17, MANZAGOL L JEFFREY, 4, F-InKind, --D, 125.0000,  20219.0000, 5, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2017-03-16, Atkinson James Robert, 4, F-InKind, --D, 245.0000,  4365.0000, 1, 0001674150, Common Stock, officer: EVP Life Sciences 
+D, 2017-03-16, Heiter Matthew S., 4, F-InKind, --D, 666.0000,  9329.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+D, 2017-03-16, WIDDERS JAMES R., 4, F-InKind, --D, 558.0000,  27993.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+D, 2017-03-16, Manzi John, 4, F-InKind, --D, 666.0000,  7324.0000, 1, 0001656665, Common Stock, officer: SVP/GM-Precision Eng. Products 
+D, 2017-03-16, Veltman Warren A, 4, F-InKind, --D, 687.0000,  18318.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2017-03-16, BURWELL THOMAS C. Jr., 4, F-InKind, --D, 329.0000,  30715.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2017-03-16, Holder Richard D, 4, F-InKind, --D, 3010.0000,  98610.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2017-03-16, MANZAGOL L JEFFREY, 4, F-InKind, --D, 671.0000,  20344.0000, 4, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2017-01-25, WARSHAW STEVEN T, 4, M-Exempt, --D, 7500.0000,  0.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2017-01-25, WARSHAW STEVEN T, 4, S-Sale, --D, 7500.0000,  52600.0000, 2, 0001196823, Common Stock, director 
+A, 2017-01-25, WARSHAW STEVEN T, 4, M-Exempt, --D, 7500.0000,  60100.0000, 1, 0001196823, Common Stock, director 
+A, 2016-11-07, MANZAGOL L JEFFREY, 4, P-Purchase, --D, 1000.0000,  20244.0000, 2, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2016-11-06, MANZAGOL L JEFFREY, 4, F-InKind, --D, 441.0000,  19244.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2016-08-19, Floyd David, 4, P-Purchase, --I, 1458.0000,  1458.0000, 1, 0001564203, Common Stock, director 
+D, 2016-06-22, WARSHAW STEVEN T, 4, M-Exempt, --D, 4000.0000,  0.0000, 2, 0001196823, Stock Options (Right to Buy), director 
+A, 2016-06-22, WARSHAW STEVEN T, 4, M-Exempt, --D, 4000.0000,  52600.0000, 1, 0001196823, Common Stock, director 
+D, 2016-06-20, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  4000.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2016-06-20, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  48600.0000, 2, 0001196823, Common Stock, director 
+A, 2016-06-20, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  49600.0000, 1, 0001196823, Common Stock, director 
+D, 2016-06-13, MORRIS G RONALD, 4, M-Exempt, --D, 7500.0000,  0.0000, 2, 0001196829, Stock Options (Right to Buy), director 
+A, 2016-06-13, MORRIS G RONALD, 4, M-Exempt, --D, 7500.0000,  108100.0000, 1, 0001196829, Common Stock, director 
+D, 2016-06-07, WARSHAW STEVEN T, 4/A, M-Exempt, --D, 2500.0000,  5000.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2016-06-07, WARSHAW STEVEN T, 4/A, S-Sale, --D, 2500.0000,  48600.0000, 2, 0001196823, Common Stock, director 
+A, 2016-06-07, WARSHAW STEVEN T, 4/A, M-Exempt, --D, 2500.0000,  51100.0000, 1, 0001196823, Common Stock, director 
+D, 2016-06-07, WARSHAW STEVEN T, 4, S-Sale, --D, 2500.0000,  46100.0000, 1, 0001196823, Common Stock, director 
+D, 2016-06-03, Holder Richard D, 4, F-InKind, --D, 2083.0000,  101620.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2016-05-12, Floyd David, 4, A-Award, --D, 2845.0000,  2845.0000, 1, 0001564203, Common Stock, director 
+D, 2016-04-30, MANZAGOL L JEFFREY, 4, F-InKind, --D, 288.0000,  21015.0000, 3, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2016-03-29, WIDDERS JAMES R., 4, F-InKind, --D, 1073.0000,  28551.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+D, 2016-03-29, DORTON JAMES HAROLD, 4, F-InKind, --D, 1483.0000,  60973.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+D, 2016-03-29, Holder Richard D, 4, F-InKind, --D, 2916.0000,  103703.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2016-03-29, MANZAGOL L JEFFREY, 4, F-InKind, --D, 125.0000,  19685.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2016-03-16, KELLY WILLIAM C JR, 4, A-Award, --D, 3800.0000,  37514.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2016-03-16, Manzi John, 4, A-Award, --D, 7990.0000,  7990.0000, 2, 0001656665, Performance Rights, officer: SVP/GM-Precision Eng. Products 
+A, 2016-03-16, Manzi John, 4, A-Award, --D, 7990.0000,  7990.0000, 1, 0001656665, Common Stock, officer: SVP/GM-Precision Eng. Products 
+A, 2016-03-16, Heiter Matthew S., 4, A-Award, --D, 7995.0000,  7995.0000, 2, 0001647819, Performance Rights, officer: Senior VP and General Counsel 
+A, 2016-03-16, Heiter Matthew S., 4, A-Award, --D, 7995.0000,  9995.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+A, 2016-03-16, BURWELL THOMAS C. Jr., 4, A-Award, --D, 3945.0000,  3945.0000, 2, 0001529081, Performance Rights, officer: See Remarks 
+A, 2016-03-16, BURWELL THOMAS C. Jr., 4, A-Award, --D, 3945.0000,  31044.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2016-03-16, WIDDERS JAMES R., 4, A-Award, --D, 6695.0000,  6695.0000, 2, 0001511320, Performance Rights, officer: SVP/Integration & Corp. 
+A, 2016-03-16, WIDDERS JAMES R., 4, A-Award, --D, 6695.0000,  29624.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2016-03-16, Veltman Warren A, 4, A-Award, --D, 8245.0000,  8245.0000, 2, 0001618759, Performance Rights, officer: EVP Mobile Solutions 
+A, 2016-03-16, Veltman Warren A, 4, A-Award, --D, 8245.0000,  19005.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2016-03-16, MANZAGOL L JEFFREY, 4, A-Award, --D, 8050.0000,  8050.0000, 2, 0001624139, Performance Rights, officer: SVP/GM-Precision Bearings Comp 
+A, 2016-03-16, MANZAGOL L JEFFREY, 4, A-Award, --D, 8050.0000,  19810.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2016-03-16, DORTON JAMES HAROLD, 4, A-Award, --D, 8850.0000,  8850.0000, 2, 0001329962, Performance Rights, officer: Sr. VP/Chief Financial Officer 
+A, 2016-03-16, DORTON JAMES HAROLD, 4, A-Award, --D, 8850.0000,  62456.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2016-03-16, Holder Richard D, 4, A-Award, --D, 36120.0000,  36120.0000, 2, 0001360591, Performance Rights, director officer: President & CEO 
+A, 2016-03-16, Holder Richard D, 4, A-Award, --D, 36120.0000,  106619.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2016-03-16, Brunner Robert E, 4, A-Award, --D, 6200.0000,  21400.0000, 1, 0001380372, Common Stock, director 
+A, 2016-03-16, DRIES WILLIAM, 4, A-Award, --D, 6200.0000,  24700.0000, 1, 0001176412, Common Stock, director 
+A, 2016-03-16, WARSHAW STEVEN T, 4, A-Award, --D, 6200.0000,  48600.0000, 1, 0001196823, Common Stock, director 
+A, 2016-03-16, PUGH DAVID L, 4, A-Award, --D, 6200.0000,  79700.0000, 1, 0001208344, Common Stock, director 
+A, 2016-03-16, MORRIS G RONALD, 4, A-Award, --D, 6200.0000,  100600.0000, 1, 0001196829, Common Stock, director 
+A, 2016-03-11, MORRIS G RONALD, 4, P-Purchase, --D, 10000.0000,  94400.0000, 1, 0001196829, Common Stock, director 
+A, 2015-12-01, PUGH DAVID L, 4, P-Purchase, --D, 5314.0000,  73500.0000, 2, 0001208344, Common Stock, director 
+A, 2015-11-30, PUGH DAVID L, 4, P-Purchase, --D, 41266.0000,  68186.0000, 1, 0001208344, Common Stock, director 
+A, 2015-11-25, Heiter Matthew S., 4, P-Purchase, --D, 50.0000,  2000.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+A, 2015-11-25, PUGH DAVID L, 4, P-Purchase, --D, 1820.0000,  26920.0000, 3, 0001208344, Common Stock, director 
+A, 2015-11-24, PUGH DAVID L, 4, P-Purchase, --D, 5900.0000,  25100.0000, 2, 0001208344, Common Stock, director 
+A, 2015-11-23, PUGH DAVID L, 4, P-Purchase, --D, 5000.0000,  19200.0000, 1, 0001208344, Common Stock, director 
+A, 2015-11-12, MORRIS G RONALD, 4, P-Purchase, --D, 5000.0000,  84400.0000, 1, 0001196829, Common Stock, director 
+A, 2015-11-12, Heiter Matthew S., 4, P-Purchase, --D, 1950.0000,  1950.0000, 1, 0001647819, Common Stock, officer: Senior VP and General Counsel 
+D, 2015-11-06, MANZAGOL L JEFFREY, 4, F-InKind, --D, 441.0000,  21303.0000, 2, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+D, 2015-06-03, Holder Richard D, 4, F-InKind, --D, 2083.0000,  70499.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2015-06-01, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  0.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-06-01, WARSHAW STEVEN T, 4, S-Sale, --D, 2000.0000,  42400.0000, 2, 0001196823, Common Stock, director 
+A, 2015-06-01, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  44400.0000, 1, 0001196823, Common Stock, director 
+D, 2015-05-20, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  0.0000, 2, 0001196829, Stock Options (Right to buy), director 
+A, 2015-05-20, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  79400.0000, 1, 0001196829, Common Stock, director 
+D, 2015-05-19, WERNER MICHAEL E, 4, M-Exempt, --D, 10000.0000,  0.0000, 4, 0001196824, Stock Options (Right to Buy), director 
+D, 2015-05-19, WERNER MICHAEL E, 4, S-Sale, --D, 10000.0000,  26333.0000, 2, 0001196824, Common Stock, director 
+A, 2015-05-19, WERNER MICHAEL E, 4, M-Exempt, --D, 10000.0000,  36333.0000, 1, 0001196824, Common Stock, director 
+D, 2015-05-18, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  2000.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-05-18, WARSHAW STEVEN T, 4, S-Sale, --D, 2000.0000,  42400.0000, 2, 0001196823, Common Stock, director 
+A, 2015-05-18, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  44400.0000, 1, 0001196823, Common Stock, director 
+D, 2015-05-15, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  4000.0000, 7, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-05-15, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  42400.0000, 5, 0001196823, Common Stock, director 
+A, 2015-05-15, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  43400.0000, 4, 0001196823, Common Stock, director 
+D, 2015-05-14, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  5000.0000, 6, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-05-14, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  42400.0000, 3, 0001196823, Common Stock, director 
+D, 2015-05-14, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  43400.0000, 2, 0001196823, Common Stock, director 
+A, 2015-05-14, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  44400.0000, 1, 0001196823, Common Stock, director 
+D, 2015-05-11, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  7000.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-05-11, WARSHAW STEVEN T, 4, S-Sale, --D, 1000.0000,  42400.0000, 2, 0001196823, Common Stock, director 
+A, 2015-05-11, WARSHAW STEVEN T, 4, M-Exempt, --D, 1000.0000,  43400.0000, 1, 0001196823, Common Stock, director 
+A, 2015-04-30, MANZAGOL L JEFFREY, 4, A-Award, --D, 3460.0000,  3460.0000, 2, 0001624139, Performance Rights, officer: SVP/GM-Precision Bearings Comp 
+A, 2015-04-30, MANZAGOL L JEFFREY, 4, A-Award, --D, 3460.0000,  11760.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2015-04-30, WIDDERS JAMES R., 4, A-Award, --D, 2850.0000,  2850.0000, 2, 0001511320, Performance Rights, officer: SVP/Integration & Corp. 
+A, 2015-04-30, WIDDERS JAMES R., 4, A-Award, --D, 2850.0000,  22929.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2015-04-30, BURWELL THOMAS C. Jr., 4, A-Award, --D, 1540.0000,  1540.0000, 2, 0001529081, Performance Rights, officer: See Remarks 
+A, 2015-04-30, BURWELL THOMAS C. Jr., 4, A-Award, --D, 1540.0000,  27099.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2015-04-30, Veltman Warren A, 4, A-Award, --D, 3460.0000,  3460.0000, 2, 0001618759, Performance Rights, officer: EVP Mobile Solutions 
+A, 2015-04-30, Veltman Warren A, 4, A-Award, --D, 3460.0000,  10760.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2015-04-30, Holder Richard D, 4, A-Award, --D, 14665.0000,  14665.0000, 2, 0001360591, Performance Rights, director officer: President & CEO 
+A, 2015-04-30, Holder Richard D, 4, A-Award, --D, 14665.0000,  72582.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2015-04-30, DORTON JAMES HAROLD, 4, A-Award, --D, 3865.0000,  3865.0000, 2, 0001329962, Performance Rights, officer: Sr. VP/Chief Financial Officer 
+A, 2015-04-30, DORTON JAMES HAROLD, 4, A-Award, --D, 3865.0000,  53606.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-04-30, KELLY WILLIAM C JR, 4, A-Award, --D, 1655.0000,  1655.0000, 2, 0001196831, Performance Rights, officer: VP Chief Adm. Officer & Secty 
+A, 2015-04-30, KELLY WILLIAM C JR, 4, A-Award, --D, 1655.0000,  33714.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2015-04-15, DORTON JAMES HAROLD, 4, M-Exempt, --D, 5000.0000,  0.0000, 3, 0001329962, Stock Options (Right to Buy), officer: Sr. VP/Chief Financial Officer 
+D, 2015-04-15, DORTON JAMES HAROLD, 4, S-Sale, --D, 5000.0000,  49741.0000, 2, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-04-15, DORTON JAMES HAROLD, 4, M-Exempt, --D, 5000.0000,  54741.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+D, 2015-03-27, Holder Richard D, 4, F-InKind, --D, 2083.0000,  57917.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+D, 2015-03-27, DORTON JAMES HAROLD, 4, F-InKind, --D, 1634.0000,  49741.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+D, 2015-03-27, WIDDERS JAMES R., 4, F-InKind, --D, 1200.0000,  20709.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+D, 2015-03-24, DORTON JAMES HAROLD, 4, M-Exempt, --D, 6000.0000,  5000.0000, 6, 0001329962, Stock Options (Right to Buy), officer: Sr. VP/Chief Financial Officer 
+D, 2015-03-24, DORTON JAMES HAROLD, 4, S-Sale, --D, 4000.0000,  51375.0000, 4, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-03-24, DORTON JAMES HAROLD, 4, M-Exempt, --D, 6000.0000,  55375.0000, 3, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+D, 2015-03-23, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  8000.0000, 3, 0001196823, Stock Options (Right to Buy), director 
+D, 2015-03-23, WARSHAW STEVEN T, 4, S-Sale, --D, 2000.0000,  42400.0000, 2, 0001196823, Common Stock, director 
+A, 2015-03-23, WARSHAW STEVEN T, 4, M-Exempt, --D, 2000.0000,  44400.0000, 1, 0001196823, Common Stock, director 
+D, 2015-03-23, DORTON JAMES HAROLD, 4, M-Exempt, --D, 4000.0000,  11000.0000, 5, 0001329962, Stock Options (Right to Buy), officer: Sr. VP/Chief Financial Officer 
+D, 2015-03-23, DORTON JAMES HAROLD, 4, S-Sale, --D, 4000.0000,  49375.0000, 2, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-03-23, DORTON JAMES HAROLD, 4, M-Exempt, --D, 4000.0000,  53375.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-03-20, MANZAGOL L JEFFREY, 4, P-Purchase, --D, 1500.0000,  21744.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2015-03-19, PUGH DAVID L, 4/A, A-Award, --D, 4800.0000,  15200.0000, 1, 0001208344, Common Stock, director 
+A, 2015-03-19, WARSHAW STEVEN T, 4/A, A-Award, --D, 4800.0000,  42400.0000, 1, 0001196823, Common Stock, director 
+A, 2015-03-19, MORRIS G RONALD, 4/A, A-Award, --D, 4800.0000,  70400.0000, 1, 0001196829, Common Stock, director 
+A, 2015-03-19, KENNEDY JOHN C, 4/A, A-Award, --D, 4200.0000,  1093156.0000, 1, 0001098541, Common Stock, director 
+A, 2015-03-19, WERNER MICHAEL E, 4/A, A-Award, --D, 4800.0000,  27333.0000, 1, 0001196824, Common Stock, director 
+A, 2015-03-19, DRIES WILLIAM, 4/A, A-Award, --D, 4500.0000,  18500.0000, 1, 0001176412, Common Stock, director 
+A, 2015-03-19, Brunner Robert E, 4/A, A-Award, --D, 4800.0000,  15200.0000, 1, 0001380372, Common Stock, director 
+A, 2015-03-19, PUGH DAVID L, 4/A, A-Award, --D, 4800.0000,  15200.0000, 1, 0001208344, Common Stock, director 
+A, 2015-03-19, DRIES WILLIAM, 4/A, A-Award, --D, 4500.0000,  18500.0000, 1, 0001176412, Common Stock, director 
+A, 2015-03-19, MORRIS G RONALD, 4/A, A-Award, --D, 4800.0000,  70400.0000, 1, 0001196829, Common Stock, director 
+A, 2015-03-19, WARSHAW STEVEN T, 4/A, A-Award, --D, 4800.0000,  42400.0000, 1, 0001196823, Common Stock, director 
+A, 2015-03-19, WERNER MICHAEL E, 4/A, A-Award, --D, 4800.0000,  27333.0000, 1, 0001196824, Common Stock, director 
+A, 2015-03-19, Brunner Robert E, 4/A, A-Award, --D, 4800.0000,  15200.0000, 1, 0001380372, Common Stock, director 
+A, 2015-03-19, KENNEDY JOHN C, 4/A, A-Award, --D, 4200.0000,  1093156.0000, 1, 0001098541, Common Stock, director 
+A, 2015-03-19, WERNER MICHAEL E, 4, A-Award, --D, 3800.0000,  26333.0000, 1, 0001196824, Common Stock, director 
+A, 2015-03-19, MORRIS G RONALD, 4, A-Award, --D, 3800.0000,  69400.0000, 1, 0001196829, Common Stock, director 
+A, 2015-03-19, WARSHAW STEVEN T, 4, A-Award, --D, 3800.0000,  41400.0000, 1, 0001196823, Common Stock, director 
+A, 2015-03-19, PUGH DAVID L, 4, A-Award, --D, 3800.0000,  14200.0000, 1, 0001208344, Common Stock, director 
+A, 2015-03-19, Brunner Robert E, 4, A-Award, --D, 3800.0000,  14200.0000, 1, 0001380372, Common Stock, director 
+A, 2015-03-19, KENNEDY JOHN C, 4, A-Award, --D, 3800.0000,  1092756.0000, 1, 0001098541, Common Stock, director 
+A, 2015-03-19, DRIES WILLIAM, 4, A-Award, --D, 3800.0000,  17800.0000, 1, 0001176412, Common Stock, director 
+A, 2015-03-19, BURWELL THOMAS C. Jr., 4, A-Award, --D, 2500.0000,  25559.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2015-03-19, KELLY WILLIAM C JR, 4, A-Award, --D, 2500.0000,  32059.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2015-03-19, DORTON JAMES HAROLD, 4, A-Award, --D, 4500.0000,  49375.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2015-03-19, Veltman Warren A, 4, A-Award, --D, 2000.0000,  7300.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+A, 2015-03-19, MANZAGOL L JEFFREY, 4, A-Award, --D, 1500.0000,  8300.0000, 1, 0001624139, Common Stock, officer: SVP/GM-Precision Bearings Comp 
+A, 2015-03-19, WIDDERS JAMES R., 4, A-Award, --D, 3200.0000,  21909.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2015-03-19, Holder Richard D, 4, A-Award, --D, 10000.0000,  60000.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2014-12-02, MORRIS G RONALD, 4, P-Purchase, --D, 5000.0000,  65600.0000, 1, 0001196829, Common Stock, director 
+A, 2014-11-24, DRIES WILLIAM, 4, P-Purchase, --D, 5000.0000,  14000.0000, 2, 0001176412, Common Stock, director 
+A, 2014-11-21, DRIES WILLIAM, 4, P-Purchase, --D, 5000.0000,  9000.0000, 1, 0001176412, Common Stock, director 
+A, 2014-10-20, Veltman Warren A, 4, A-Award, --D, 3000.0000,  3000.0000, 2, 0001618759, Stock Option (Right to buy), officer: EVP Mobile Solutions 
+A, 2014-10-20, Veltman Warren A, 4, A-Award, --D, 5300.0000,  5300.0000, 1, 0001618759, Common Stock, officer: EVP Mobile Solutions 
+D, 2014-09-17, GENTRY FRANK T, 4, S-Sale, --I, 10000.0000,  4000.0000, 6, 0001196826, Common Stock, officer: SVP - Managing Director 
+D, 2014-09-16, GENTRY FRANK T, 4, S-Sale, --I, 12500.0000,  14000.0000, 5, 0001196826, Common Stock, officer: SVP - Managing Director 
+D, 2014-09-09, WERNER MICHAEL E, 4, S-Sale, --D, 2000.0000,  22533.0000, 1, 0001196824, Common Stock, director 
+A, 2014-07-09, KELLY WILLIAM C JR, 5, W-Will, --D, 160.0000,  29559.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2014-06-11, KELLY WILLIAM C JR, 4, S-Sale, --D, 12000.0000,  29399.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2014-06-03, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  0.0000, 3, 0001196831, Stock Options (Right to buy), officer: VP Chief Adm. Officer & Secty 
+D, 2014-06-03, KELLY WILLIAM C JR, 4, S-Sale, --D, 13701.0000,  41399.0000, 2, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2014-06-03, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  55100.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2014-06-03, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 6000.0000,  0.0000, 3, 0001529081, Stock Options (Right to buy), officer: See Remarks 
+D, 2014-06-03, BURWELL THOMAS C. Jr., 4, S-Sale, --D, 7000.0000,  23059.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2014-06-03, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 6000.0000,  30059.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2014-05-15, DRIES WILLIAM, 4, A-Award, --D, 2000.0000,  2000.0000, 2, 0001176412, Stock Options (Right to buy), director 
+A, 2014-05-15, DRIES WILLIAM, 4, A-Award, --D, 4000.0000,  4000.0000, 1, 0001176412, Common Stock, director 
+D, 2014-05-12, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  0.0000, 6, 0001196831, Stock Options (Right to Buy), officer: VP Chief Adm. Officer & Secty 
+D, 2014-05-12, KELLY WILLIAM C JR, 4, S-Sale, --D, 11667.0000,  46100.0000, 4, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2014-05-12, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  57767.0000, 3, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2014-05-09, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  0.0000, 5, 0001196831, Stock Options (Right to buy), officer: VP Chief Adm. Officer & Secty 
+D, 2014-05-09, KELLY WILLIAM C JR, 4, S-Sale, --D, 10783.0000,  48767.0000, 2, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2014-05-09, KELLY WILLIAM C JR, 4, M-Exempt, --D, 9000.0000,  59550.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+D, 2014-05-09, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 3000.0000,  0.0000, 3, 0001529081, Stock Options (Right to buy), officer: See Remarks 
+D, 2014-05-09, BURWELL THOMAS C. Jr., 4, S-Sale, --D, 3000.0000,  24059.0000, 2, 0001529081, Common Stock, officer: See Remarks 
+A, 2014-05-09, BURWELL THOMAS C. Jr., 4, M-Exempt, --D, 3000.0000,  27059.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+D, 2014-03-25, DORTON JAMES HAROLD, 4, F-InKind, --D, 525.0000,  44875.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+D, 2014-03-25, WIDDERS JAMES R., 4, F-InKind, --D, 391.0000,  18709.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2014-03-19, WIDDERS JAMES R., 4, A-Award, --D, 3000.0000,  3000.0000, 2, 0001511320, Stock Options (Right to buy), officer: SVP/Integration & Corp. 
+A, 2014-03-19, WIDDERS JAMES R., 4, A-Award, --D, 5000.0000,  19100.0000, 1, 0001511320, Common Stock, officer: SVP/Integration & Corp. 
+A, 2014-03-19, GENTRY FRANK T, 4, A-Award, --D, 4000.0000,  4000.0000, 2, 0001196826, Stock Option (Right to buy), officer: SVP - Managing Director 
+A, 2014-03-19, GENTRY FRANK T, 4, A-Award, --D, 7000.0000,  46100.0000, 1, 0001196826, Common Stock, officer: SVP - Managing Director 
+A, 2014-03-19, BURWELL THOMAS C. Jr., 4, A-Award, --D, 3000.0000,  3000.0000, 2, 0001529081, Stock Options (Right to buy), officer: See Remarks 
+A, 2014-03-19, BURWELL THOMAS C. Jr., 4, A-Award, --D, 5000.0000,  24059.0000, 1, 0001529081, Common Stock, officer: See Remarks 
+A, 2014-03-19, DORTON JAMES HAROLD, 4, A-Award, --D, 4000.0000,  4000.0000, 2, 0001329962, Stock Option (Right to buy), officer: Sr. VP/Chief Financial Officer 
+A, 2014-03-19, DORTON JAMES HAROLD, 4, A-Award, --D, 7000.0000,  45400.0000, 1, 0001329962, Common Stock, officer: Sr. VP/Chief Financial Officer 
+A, 2014-03-19, KELLY WILLIAM C JR, 4, A-Award, --D, 3000.0000,  3000.0000, 2, 0001196831, Stock Options (Right to buy), officer: VP Chief Adm. Officer & Secty 
+A, 2014-03-19, KELLY WILLIAM C JR, 4, A-Award, --D, 5000.0000,  50550.0000, 1, 0001196831, Common Stock, officer: VP Chief Adm. Officer & Secty 
+A, 2014-03-19, Holder Richard D, 4, A-Award, --D, 25000.0000,  25000.0000, 2, 0001360591, Stock Options (Right to buy), director officer: President & CEO 
+A, 2014-03-19, Holder Richard D, 4, A-Award, --D, 25000.0000,  50000.0000, 1, 0001360591, Common Stock, director officer: President & CEO 
+A, 2014-03-19, Brunner Robert E, 4, A-Award, --D, 2000.0000,  2000.0000, 2, 0001380372, Stock Options (Right to buy), director 
+A, 2014-03-19, Brunner Robert E, 4, A-Award, --D, 4000.0000,  10400.0000, 1, 0001380372, Common Stock, director 
+A, 2014-03-19, WARSHAW STEVEN T, 4, A-Award, --D, 2000.0000,  2000.0000, 2, 0001196823, Stock Option (Right to buy), director 
+A, 2014-03-19, WARSHAW STEVEN T, 4, A-Award, --D, 4000.0000,  37600.0000, 1, 0001196823, Common Stock, director 
+A, 2014-03-19, MORRIS G RONALD, 4, A-Award, --D, 2000.0000,  2000.0000, 2, 0001196829, Stock Options (Right to Buy), director 
+A, 2014-03-19, MORRIS G RONALD, 4, A-Award, --D, 4000.0000,  60600.0000, 1, 0001196829, Common Stock, director 
+A, 2014-03-19, PUGH DAVID L, 4, A-Award, --D, 2000.0000,  2000.0000, 2, 0001208344, Stock Options (Right to Buy), director 
+A, 2014-03-19, PUGH DAVID L, 4, A-Award, --D, 4000.0000,  10400.0000, 1, 0001208344, Common Stock, director 
+A, 2014-03-19, WERNER MICHAEL E, 4, A-Award, --D, 2000.0000,  2000.0000, 3, 0001196824, Stock Options (Right to Buy), director 
+A, 2014-03-19, WERNER MICHAEL E, 4, A-Award, --D, 4000.0000,  24533.0000, 1, 0001196824, Common Stock, director 
+D, 2014-02-21, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  0.0000, 3, 0001196829, Stock Options (Right to buy), director 
+D, 2014-02-21, MORRIS G RONALD, 4, S-Sale, --D, 10000.0000,  56600.0000, 2, 0001196829, Common Stock, director 
+A, 2014-02-21, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  66600.0000, 1, 0001196829, Common Stock, director 
+D, 2014-02-14, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  10000.0000, 3, 0001196829, Stock Options (Right to buy), director 
+D, 2014-02-14, MORRIS G RONALD, 4, S-Sale, --D, 10000.0000,  56600.0000, 2, 0001196829, Common Stock, director 
+A, 2014-02-14, MORRIS G RONALD, 4, M-Exempt, --D, 10000.0000,  66600.0000, 1, 0001196829, Common Stock, director 

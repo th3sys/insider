@@ -3,17 +3,14 @@ import asyncio
 import async_timeout
 import bs4
 from utils import Connection
-from connectors import StoreManager, Period
+from connectors import StoreManager, Period, FileType
 import time
 import zlib
 import socket
 import json
 import boto3
-
-
-class FileType(object):
-    OWNER = 'OWNER'
-    ISSUER = 'ISSUER'
+import pandas as pd
+from datetime import datetime, timedelta
 
 
 class EdgarParams(object):
@@ -314,6 +311,24 @@ class Scheduler:
         if len(issuers) == 0:
             self.SendError('No ISSUERS to analyse on %s' % date.strftime('%Y-%m-%d'), arn)
             return
+        all_processed_cik = list(set([cik for found in issuers for cik in found['Message']['Processed']]))
+        for cik in all_processed_cik:
+            df = self.__db.GetTimeSeries(cik, FileType.ISSUER)
+
+            df['DATE'] = pd.to_datetime(df['DATE'])
+            df = df.sort_values(by='DATE')
+
+            first = date.replace(day=1)
+            lastMonth = first - timedelta(days=1)
+            fromDate = datetime(date.year, lastMonth.month, date.day)
+            df = df[(df['DATE'] >= fromDate) & (df['DATE'] < date)]
+            df['TYPE'] = df['TYPE'].str.strip()
+            df = df[df['TYPE'] == 'P-Purchase']
+
+            if len(df.groupby('OWNER').count()) > 3:
+                self.__logger.info('transactions found in %s' % cik)
+
+        self.__logger.info('Processing %s CIK issuers' % len(all_processed_cik))
 
     def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
         founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)

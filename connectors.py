@@ -1,10 +1,17 @@
 import asyncio
 import boto3
+import io
 from boto3.dynamodb.conditions import Key, Attr
 import json
 from utils import DecimalEncoder
 from datetime import datetime, timedelta
 from botocore.exceptions import ClientError
+import pandas as pd
+
+
+class FileType(object):
+    OWNER = 'OWNER'
+    ISSUER = 'ISSUER'
 
 
 class Period(object):
@@ -52,6 +59,20 @@ class StoreManager(object):
 
         except Exception as e:
             self.__logger.error(e)
+
+    def GetTimeSeries(self, name, fileType):
+        try:
+            key = name
+            if fileType == FileType.ISSUER:
+                key = 'CORPS/%s.csv' % name
+            if fileType == FileType.OWNER:
+                key = 'OWNRS/%s.csv' % name
+            obj = self.s3.meta.client.get_object(Bucket='chaos-insider', Key=key)
+            df = pd.read_csv(io.BytesIO(obj['Body'].read()))
+            return df
+        except Exception as e:
+            self.__logger.error(e)
+            return None
 
     def UpdateCompanies(self, items):
         try:
