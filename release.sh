@@ -4,6 +4,8 @@ echo 'packaging files ...'
 cd ~/insiderpy/lib/python3.6/site-packages/
 zip -r9 ~/insider.$1.zip *
 cd ~/th3sys/insider
+zip -g ~/insider.$1.zip analyse.py
+zip -g ~/insider.$1.zip analytics.py
 zip -g ~/insider.$1.zip check.py
 zip -g ~/insider.$1.zip companies.py
 zip -g ~/insider.$1.zip connectors.py

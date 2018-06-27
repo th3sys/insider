@@ -11,6 +11,7 @@ import json
 import boto3
 import pandas as pd
 from datetime import datetime, timedelta
+from analytics import DecisionEngine
 
 
 class EdgarParams(object):
@@ -281,6 +282,19 @@ class Scheduler:
         self.__notify = notify
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
+    def InvestmentFound(self, items, arn, date):
+        try:
+            message = {'DATE': date.strftime('%Y-%m-%d'), 'FOUND': items}
+            response = self.sns.publish(
+                TargetArn=arn,
+                Message=json.dumps({'default': json.dumps(message)}),
+                MessageStructure='json',
+                Subject='Blue Horseshoe loves Anacott Steel'
+            )
+            self.__logger.info(response)
+        except Exception as e:
+            self.__logger.error(e)
+
     def Notify(self, items, arn, today, requestId):
         try:
             message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items, 'RequestId': requestId}
@@ -306,29 +320,23 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def AnalyseThat(self, date, arn):
+    def AnalyseThat(self, date, arn, count):
         issuers = self.__db.GetAnalytics('ISSUERS', date, Period.MONTH)
         if len(issuers) == 0:
             self.SendError('No ISSUERS to analyse on %s' % date.strftime('%Y-%m-%d'), arn)
             return
         all_processed_cik = list(set([cik for found in issuers for cik in found['Message']['Processed']]))
+        investments = []
         for cik in all_processed_cik:
             df = self.__db.GetTimeSeries(cik, FileType.ISSUER)
 
-            df['DATE'] = pd.to_datetime(df['DATE'])
-            df = df.sort_values(by='DATE')
-
-            first = date.replace(day=1)
-            lastMonth = first - timedelta(days=1)
-            fromDate = datetime(date.year, lastMonth.month, date.day)
-            df = df[(df['DATE'] >= fromDate) & (df['DATE'] < date)]
-            df['TYPE'] = df['TYPE'].str.strip()
-            df = df[df['TYPE'] == 'P-Purchase']
-
-            if len(df.groupby('OWNER').count()) > 3:
-                self.__logger.info('transactions found in %s' % cik)
+            if self.__engine.ClusterBuying(df, date, count):
+                self.__logger.info('investment found in %s' % cik)
+                investments.append(cik)
 
         self.__logger.info('Processing %s CIK issuers' % len(all_processed_cik))
+        if len(investments) > 0:
+            self.InvestmentFound(investments, self.__notify, date)
 
     def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
         founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)
@@ -440,6 +448,7 @@ class Scheduler:
         self.__logger.info('Updated %s companies' % len(all_companies))
 
     async def __aenter__(self):
+        self.__engine = DecisionEngine(self.__notify)
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
         self.__edgarConnection = await self.__client.__aenter__()
         self.__db = StoreManager(self.__logger, self.__notify, self.Timeout)

@@ -111,18 +111,6 @@ class StoreManager(object):
             self.__logger.error(e)
             return None
 
-    def Notify(self, label, count):
-        try:
-            message = {label: count}
-            response = self.sns.publish(
-                TargetArn=self.__notify,
-                Message=json.dumps({'default': json.dumps(message)}),
-                MessageStructure='json'
-            )
-            self.__logger.info(response)
-        except Exception as e:
-            self.__logger.error(e)
-
     def GetStates(self):
         try:
             self.__logger.info('Calling GetStates query ...')

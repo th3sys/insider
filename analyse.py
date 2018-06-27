@@ -1,11 +1,10 @@
 import asyncio
+import datetime
 import json
-import utils
 import logging
 import os
-import time
-import datetime
-import uuid
+
+import utils
 from trading import EdgarParams, Scheduler
 
 
@@ -14,9 +13,11 @@ async def main(loop, logger, today):
         params = EdgarParams()
         timeout = os.environ['TIMEOUT']
         arn = os.environ['TRN_ERROR_ARN']
+        count = int(os.environ['TRN_COUNT'])
+        notify = os.environ['TRN_NOTIFY']
 
-        async with Scheduler('', params, logger, loop) as scheduler:
-            scheduler.AnalyseThat(today, arn)
+        async with Scheduler(notify, params, logger, loop) as scheduler:
+            scheduler.AnalyseThat(today, arn, count)
             logger.info('Analyse That Succeeded')
 
     except Exception as e:
@@ -38,7 +39,8 @@ def lambda_handler(event, context):
     today = event['time'].split('T')[0]
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
 
-    if 'TIMEOUT' not in os.environ or 'TRN_ERROR_ARN' not in os.environ:
+    if 'TIMEOUT' not in os.environ or 'TRN_ERROR_ARN' not in os.environ or 'TRN_COUNT' not in os.environ \
+            or 'TRN_NOTIFY' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
