@@ -6,6 +6,7 @@ import os
 import time
 import datetime
 import uuid
+import uvloop
 from trading import EdgarParams, Scheduler
 
 
@@ -58,6 +59,7 @@ def lambda_handler(event, context):
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 
+    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     app_loop = asyncio.get_event_loop()
     app_loop.run_until_complete(main(app_loop, logger, today))
 

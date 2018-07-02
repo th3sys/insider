@@ -146,7 +146,7 @@ class StoreManager(object):
 
                 first = startDate.replace(day=1)
                 lastMonth = first - timedelta(days=1)
-                endDate = datetime(date.year, lastMonth.month, date.day, 0, 0, 0, 1)
+                endDate = datetime(lastMonth.year, lastMonth.month, date.day, 0, 0, 0, 1)
                 start = str((endDate - datetime(1970, 1, 1)).total_seconds())
             response = self.__Analytics.query(
                 KeyConditionExpression=Key('AnalyticId').eq(analytic) & Key('TransactionTime').between(start, end))

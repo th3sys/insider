@@ -5,12 +5,9 @@ import bs4
 from utils import Connection
 from connectors import StoreManager, Period, FileType
 import time
-import zlib
 import socket
 import json
 import boto3
-import pandas as pd
-from datetime import datetime, timedelta
 from analytics import DecisionEngine
 
 
@@ -202,15 +199,14 @@ class EdgarClient:
                 quarter = 'QTR3'
             else:
                 quarter = 'QTR4'
-            url = '%s/Archives/edgar/daily-index/%s/%s/master.%s.idx.gz' % (self.__params.Url, y, quarter, d)
+            url = '%s/Archives/edgar/daily-index/%s/%s/master.%s.idx' % (self.__params.Url, y, quarter, d)
             with async_timeout.timeout(self.__timeout):
                 self.__logger.debug('Calling GetDailyIndex for %s ...' % d)
                 response = await self.__connection.get(url=url)
                 self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (d, response.status))
-                payload = await response.read()
-                data = zlib.decompress(payload, 16 + zlib.MAX_WBITS)
-                # self.__logger.info(data)
-                return data.decode('ASCII')
+                payload = await response.text()
+
+                return payload
         except Exception as e:
             self.__logger.info('Error GetDailyIndex for %s' % d)
             self.__logger.error(e)
