@@ -205,7 +205,7 @@ class EdgarClient:
                 response = await self.__connection.get(url=url)
                 self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (d, response.status))
                 payload = await response.text()
-
+                self.__logger.info('url: %s. payload: %s' % (url,payload))
                 return payload
         except Exception as e:
             self.__logger.info('Error GetDailyIndex for %s' % d)
@@ -338,7 +338,7 @@ class Scheduler:
         founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)
         owners = self.__db.GetAnalytics('OWNERS', date, Period.DAY)
         issuers = self.__db.GetAnalytics('ISSUERS', date, Period.DAY)
-        if len(founds) == 0:
+        if len(founds) == 0 or len([f for f in founds if f['Count'] == 0]):
             message = 'No FOUND events on %s' % date.strftime('%Y-%m-%d')
             self.SendError(message, arn)
             self.__logger.warn(message)
