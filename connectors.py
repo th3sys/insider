@@ -43,6 +43,23 @@ class StoreManager(object):
         except Exception as e:
             self.__logger.error(e)
 
+    def UpdateResults(self, date, items):
+        try:
+            # cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio
+            self.__logger.info('Calling UpdateResults query ...')
+            file = 'cluster_buying_%s.csv' % date.strftime('%Y%m%d')
+            f = open('/tmp/%s' % file, 'w')
+            f.write('CIK,PLM,PBLM,P_RATIO,MLM,MBLM,M_RATIO\n')
+            for item in items:
+                cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio = item
+                f.write('%s, %s, %s, %s, %s, %s, %s\n'
+                        % (cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio))
+            f.close()
+            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', 'ANALYTICS/%s' % file)
+
+        except Exception as e:
+            self.__logger.error(e)
+
     def UpdateTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateTransactions query ...')

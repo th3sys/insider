@@ -6,7 +6,7 @@
       "Sns": {
         "Type": "Notification",
         "Subject": "FOUND",
-        "Message": "{\"RequestId\": \"244d966cae8a4ee19ad4bd599f9d6289\", \"Date\": 20151201, \"CIK\": [ 1001601,100493,1006057,1006424,1007190,1007273,1010552,1011006,1011060,101199]}",
+        "Message": "{\"RequestId\": \"244d966cae8a4ee19ad4bd599f9d6289\", \"Date\": 20151201, \"CIK\": [ 1378706]}",
         "Timestamp": "2015-12-01T05:55:11.715Z",
         "SignatureVersion": "1"
 

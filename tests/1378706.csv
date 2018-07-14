@@ -1,0 +1,213 @@
+A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
+D, 2017-05-23, KLASKIN CHRISTINE M, 4, J-Other, --D, 100000.0000,  0.0000, 2, 0001288123, Stock Option (right to buy), director 
+D, 2017-05-23, KLASKIN CHRISTINE M, 4, J-Other, --D, 1000.0000,  0.0000, 1, 0001288123, Common Stock, director 
+D, 2017-05-23, ROWE JOHN W, 4, J-Other, --D, 80000.0000,  0.0000, 3, 0001067838, Stock Option (right to buy), director 
+D, 2017-05-23, ROWE JOHN W, 4, J-Other, --D, 20000.0000,  0.0000, 2, 0001067838, Stock Option (right to buy), director 
+D, 2017-05-23, ROWE JOHN W, 4, J-Other, --D, 200842.0000,  0.0000, 1, 0001067838, Common Stock, director 
+D, 2017-05-23, GIACINTI JOAN, 4, J-Other, --D, 104497.0000,  0.0000, 1, 0001563313, Common Stock, director 
+D, 2017-05-23, Samaras Elias, 4, J-Other, --D, 100000.0000,  0.0000, 2, 0001632898, Stock Option (right to buy), director 
+D, 2017-05-23, Samaras Elias, 4, J-Other, --D, 2321371.0000,  0.0000, 1, 0001632898, Common Stock, director 
+D, 2017-05-23, Petersen Deanna M, 4, J-Other, --D, 100000.0000,  0.0000, 2, 0001493139, Stock Option (right to buy), director 
+D, 2017-05-23, Petersen Deanna M, 4, J-Other, --D, 60507.0000,  0.0000, 1, 0001493139, Common Stock, director 
+D, 2017-05-23, BROWN BONNIE JEAN, 4, J-Other, --D, 100000.0000,  0.0000, 1, 0001585816, Stock Option (right to buy), officer: CFO Treasurer and Secretary 
+D, 2017-05-23, Benjamin Locke M., 4, J-Other, --D, 200000.0000,  0.0000, 5, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+D, 2017-05-23, Benjamin Locke M., 4, J-Other, --D, 100000.0000,  0.0000, 4, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+D, 2017-05-23, Benjamin Locke M., 4, J-Other, --D, 150000.0000,  0.0000, 3, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+D, 2017-05-23, Benjamin Locke M., 4, J-Other, --D, 100000.0000,  0.0000, 2, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+D, 2017-05-23, Benjamin Locke M., 4, J-Other, --D, 15418.0000,  0.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+D, 2017-05-23, HATSOPOULOS JOHN, 4, J-Other, --D, 514546.0000,  0.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+D, 2017-05-23, MAXWELL CHARLEST, 4, J-Other, --D, 200000.0000,  0.0000, 2, 0001193409, Stock Option (right to buy), director 
+D, 2017-05-23, MAXWELL CHARLEST, 4, J-Other, --D, 1275232.0000,  0.0000, 1, 0001193409, Common Stock, director 
+D, 2016-09-30, Natsis Tryfon, 4, J-Other, --D, , $3418681.0000, 2, 0001674697, 6% Senior Unsecured Debenture Due 2018, other: Former 10% Owner 
+D, 2016-09-30, Natsis Tryfon, 4, J-Other, --D, , $5618681.0000, 1, 0001674697, 6% Senior Unsecured Debenture Due 2018, other: Former 10% Owner 
+D, 2016-09-27, RBC Holdings (Channel Islands) Ltd, 4, J-Other, --I, 10100000.0000,  0.0000, 2, 0001472125, 6% Senior Unsecured Convertible Debentures Due 2018, 10 percent owner 
+D, 2016-09-27, RBC Holdings (Channel Islands) Ltd, 4, J-Other, --I, 920407.0000,  0.0000, 1, 0001472125, Common Stock, 10 percent owner 
+D, 2016-05-04, HATSOPOULOS JOHN, 4, J-Other, --D, 1137441.0000,  0.0000, 1, 0001274775, 6% Senior Unsecured Convertible Debenture, director officer: Co-Chief Executive Officer 
+A, 2016-04-25, KLASKIN CHRISTINE M, 4, A-Award, --D, 100000.0000,  0.0000, 1, 0001288123, Stock Option (right to buy), director 
+A, 2016-04-05, Petersen Deanna M, 5, A-Award, --D, 100000.0000,  100000.0000, 1, 0001493139, Stock Option (right to buy), director 
+A, 2016-03-29, Samaras Elias, 4, G-Gift, -EI, 1088985.0000,  1088985.0000, 4, 0001632898, Common Stock, director 
+D, 2016-03-29, Samaras Elias, 4, G-Gift, -ED, 1088985.0000,  143401.0000, 3, 0001632898, Common Stock, director 
+A, 2016-03-29, Samaras Elias, 4, G-Gift, -EI, 1088985.0000,  1088985.0000, 2, 0001632898, Common Stock, director 
+D, 2016-03-29, Samaras Elias, 4, G-Gift, -ED, 1088985.0000,  1232386.0000, 1, 0001632898, Common Stock, director 
+A, 2016-01-29, Nicolaides Paris, 4, A-Award, --I, 1106016.0000,  10196847.0000, 1, 0001667611, Common Stock, 10 percent owner 
+D, 2016-01-29, RBC Holdings (Channel Islands) Ltd, 4/A, J-Other, --I, 6900000.0000,  4786729.0000, 2, 0001472125, 6% Senior Unsecured Convertible Debentures Due 2018, 10 percent owner 
+D, 2016-01-29, RBC Holdings (Channel Islands) Ltd, 4/A, J-Other, --I, 701257.0000,  920407.0000, 1, 0001472125, Common Stock, 10 percent owner 
+D, 2016-01-29, RBC Holdings (Channel Islands) Ltd, 4, J-Other, --I, 701257.0000,  920407.0000, 1, 0001472125, Common Stock, 10 percent owner 
+D, 2015-12-18, HATSOPOULOS JOHN, 5, G-Gift, --D, 101400.0000,  428397.0000, 3, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+D, 2015-12-17, HATSOPOULOS JOHN, 5, G-Gift, --D, 600000.0000,  529797.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+D, 2015-12-17, HATSOPOULOS JOHN, 5, G-Gift, --I, 506016.0000,  0.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-12-09, MAXWELL CHARLEST, 4, P-Purchase, --D, 2068.0000,  1175232.0000, 1, 0001193409, Common Stock, director 
+A, 2015-12-09, ROWE JOHN W, 4, P-Purchase, --D, 13487.0000,  200842.0000, 1, 0001067838, Common Stock, director 
+A, 2015-12-09, HATSOPOULOS JOHN, 4, P-Purchase, --D, 42507.0000,  1129797.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-12-09, Benjamin Locke M., 4, P-Purchase, --D, 1007.0000,  15418.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-12-09, Petersen Deanna M, 4, P-Purchase, --D, 2067.0000,  35507.0000, 1, 0001493139, Common Stock, director 
+A, 2015-12-09, Samaras Elias, 4, P-Purchase, --D, 13490.0000,  2321371.0000, 1, 0001632898, Common Stock, director 
+A, 2015-12-09, GIACINTI JOAN, 4, P-Purchase, --D, 10374.0000,  104497.0000, 1, 0001563313, Common Stock, director 
+A, 2015-12-08, ROWE JOHN W, 4, P-Purchase, --D, 7927.0000,  187355.0000, 1, 0001067838, Common Stock, director 
+A, 2015-12-08, Benjamin Locke M., 4, P-Purchase, --D, 610.0000,  14411.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-12-08, Samaras Elias, 4, P-Purchase, --D, 7927.0000,  2307881.0000, 1, 0001632898, Common Stock, director 
+A, 2015-12-08, Petersen Deanna M, 4, P-Purchase, --D, 1220.0000,  33440.0000, 1, 0001493139, Common Stock, director 
+A, 2015-12-08, HATSOPOULOS JOHN, 4, P-Purchase, --D, 24998.0000,  1087290.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-12-08, MAXWELL CHARLEST, 4, P-Purchase, --D, 1220.0000,  1173164.0000, 1, 0001193409, Common Stock, director 
+A, 2015-12-08, GIACINTI JOAN, 4, P-Purchase, --D, 6098.0000,  94123.0000, 1, 0001563313, Common Stock, director 
+A, 2015-12-03, Petersen Deanna M, 4, P-Purchase, --D, 144.0000,  32220.0000, 2, 0001493139, Common Stock, director 
+A, 2015-12-03, ROWE JOHN W, 4, P-Purchase, --D, 935.0000,  179428.0000, 2, 0001067838, Common Stock, director 
+A, 2015-12-03, HATSOPOULOS JOHN, 4, P-Purchase, --D, 2950.0000,  1062292.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-12-03, Benjamin Locke M., 4, P-Purchase, --D, 72.0000,  13801.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-12-03, Samaras Elias, 4, P-Purchase, --D, 935.0000,  2299954.0000, 2, 0001632898, Common Stock, director 
+A, 2015-12-03, MAXWELL CHARLEST, 4, P-Purchase, --D, 144.0000,  1171944.0000, 2, 0001193409, Common Stock, director 
+A, 2015-12-03, GIACINTI JOAN, 4, P-Purchase, --D, 720.0000,  88025.0000, 2, 0001563313, Common Stock, director 
+A, 2015-12-02, Petersen Deanna M, 4, P-Purchase, --D, 80.0000,  32076.0000, 1, 0001493139, Common Stock, director 
+A, 2015-12-02, ROWE JOHN W, 4, P-Purchase, --D, 521.0000,  178493.0000, 1, 0001067838, Common Stock, director 
+A, 2015-12-02, HATSOPOULOS JOHN, 4, P-Purchase, --D, 1644.0000,  1059342.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-12-02, Benjamin Locke M., 4, P-Purchase, --D, 40.0000,  13729.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-12-02, Samaras Elias, 4, P-Purchase, --D, 521.0000,  2299019.0000, 1, 0001632898, Common Stock, director 
+A, 2015-12-02, MAXWELL CHARLEST, 4, P-Purchase, --D, 80.0000,  1171800.0000, 1, 0001193409, Common Stock, director 
+A, 2015-12-02, GIACINTI JOAN, 4, P-Purchase, --D, 401.0000,  87305.0000, 1, 0001563313, Common Stock, director 
+A, 2015-11-30, Petersen Deanna M, 4, P-Purchase, --D, 148.0000,  31996.0000, 1, 0001493139, Common Stock, director 
+A, 2015-11-30, Samaras Elias, 4, P-Purchase, --D, 960.0000,  2308498.0000, 1, 0001632898, Common Stock, director 
+A, 2015-11-30, ROWE JOHN W, 4, P-Purchase, --D, 960.0000,  177972.0000, 1, 0001067838, Common Stock, director 
+A, 2015-11-30, HATSOPOULOS JOHN, 4, P-Purchase, --D, 3029.0000,  1057698.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-11-30, MAXWELL CHARLEST, 4, P-Purchase, --D, 148.0000,  1171720.0000, 1, 0001193409, Common Stock, director 
+A, 2015-11-30, GIACINTI JOAN, 4, P-Purchase, --D, 739.0000,  86904.0000, 1, 0001563313, Common Stock, director 
+A, 2015-11-30, Benjamin Locke M., 4, P-Purchase, --D, 74.0000,  13689.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-11-27, Samaras Elias, 4, P-Purchase, --D, 1261.0000,  2307538.0000, 1, 0001632898, Common Stock, director 
+A, 2015-11-27, Petersen Deanna M, 4, P-Purchase, --D, 194.0000,  31848.0000, 1, 0001493139, Common Stock, director 
+A, 2015-11-27, Benjamin Locke M., 4, P-Purchase, --D, 97.0000,  13615.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-11-27, MAXWELL CHARLEST, 4, P-Purchase, --D, 194.0000,  1171572.0000, 1, 0001193409, Common Stock, director 
+A, 2015-11-27, ROWE JOHN W, 4, P-Purchase, --D, 1261.0000,  177012.0000, 1, 0001067838, Common Stock, director 
+A, 2015-11-27, GIACINTI JOAN, 4, P-Purchase, --D, 971.0000,  86165.0000, 1, 0001563313, Common Stock, director 
+A, 2015-11-27, HATSOPOULOS JOHN, 4, P-Purchase, --D, 3979.0000,  1054669.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-11-20, Petersen Deanna M, 4, P-Purchase, --D, 784.0000,  31654.0000, 1, 0001493139, Common Stock, director 
+A, 2015-11-20, ROWE JOHN W, 4, P-Purchase, --D, 5094.0000,  175751.0000, 1, 0001067838, Common Stock, director 
+A, 2015-11-20, HATSOPOULOS JOHN, 4, P-Purchase, --D, 16064.0000,  1050690.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-11-20, Samaras Elias, 4, P-Purchase, --D, 5094.0000,  2298718.0000, 1, 0001632898, Common Stock, director 
+A, 2015-11-20, GIACINTI JOAN, 4, P-Purchase, --D, 3918.0000,  85194.0000, 1, 0001563313, Common Stock, director 
+A, 2015-11-20, Benjamin Locke M., 4, P-Purchase, --D, 392.0000,  13518.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-11-20, MAXWELL CHARLEST, 4, P-Purchase, --D, 784.0000,  1171378.0000, 1, 0001193409, Common Stock, director 
+D, 2015-11-11, Samaras Elias, 4, G-Gift, --D, 10000.0000,  2321371.0000, 1, 0001632898, Common Stock, director 
+A, 2015-11-10, Samaras Elias, 4, P-Purchase, --D, 1357.0000,  2293624.0000, 2, 0001632898, Common Stock, director 
+A, 2015-11-10, Petersen Deanna M, 4, P-Purchase, --D, 209.0000,  30870.0000, 2, 0001493139, Common Stock, director 
+A, 2015-11-10, GIACINTI JOAN, 4, P-Purchase, --D, 1044.0000,  81276.0000, 2, 0001563313, Common Stock, director 
+A, 2015-11-10, Benjamin Locke M., 4, P-Purchase, --D, 104.0000,  13126.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-11-10, ROWE JOHN W, 4, P-Purchase, --D, 1358.0000,  170657.0000, 2, 0001067838, Common Stock, director 
+A, 2015-11-10, HATSOPOULOS JOHN, 4, P-Purchase, --D, 4282.0000,  1034626.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-11-10, MAXWELL CHARLEST, 4, P-Purchase, --D, 209.0000,  1170594.0000, 2, 0001193409, Common Stock, director 
+A, 2015-11-06, Samaras Elias, 4, P-Purchase, --D, 2314.0000,  2292267.0000, 1, 0001632898, Common Stock, director 
+A, 2015-11-06, Petersen Deanna M, 4, P-Purchase, --D, 356.0000,  30661.0000, 1, 0001493139, Common Stock, director 
+A, 2015-11-06, GIACINTI JOAN, 4, P-Purchase, --D, 1780.0000,  80232.0000, 1, 0001563313, Common Stock, director 
+A, 2015-11-06, Benjamin Locke M., 4, P-Purchase, --D, 177.0000,  13022.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-11-06, ROWE JOHN W, 4, P-Purchase, --D, 2314.0000,  169299.0000, 1, 0001067838, Common Stock, director 
+A, 2015-11-06, HATSOPOULOS JOHN, 4, P-Purchase, --D, 7297.0000,  1030344.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-11-06, MAXWELL CHARLEST, 4, P-Purchase, --D, 356.0000,  1170385.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-21, Samaras Elias, 4, P-Purchase, --D, 6923.0000,  2289953.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-21, Petersen Deanna M, 4, P-Purchase, --D, 1065.0000,  30305.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-21, Benjamin Locke M., 4, P-Purchase, --D, 533.0000,  12845.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-21, MAXWELL CHARLEST, 4, P-Purchase, --D, 1065.0000,  1170029.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-21, HATSOPOULOS JOHN, 4, P-Purchase, --D, 21834.0000,  1023047.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-21, GIACINTI JOAN, 4, P-Purchase, --D, 5325.0000,  78452.0000, 1, 0001563313, Common Stock, director 
+A, 2015-10-21, ROWE JOHN W, 4, P-Purchase, --D, 6923.0000,  166985.0000, 1, 0001067838, Common Stock, director 
+A, 2015-10-20, Samaras Elias, 4, P-Purchase, --D, 17597.0000,  2283030.0000, 2, 0001632898, Common Stock, director 
+A, 2015-10-20, Petersen Deanna M, 4, P-Purchase, --D, 2707.0000,  29240.0000, 2, 0001493139, Common Stock, director 
+A, 2015-10-20, GIACINTI JOAN, 4, P-Purchase, --D, 13537.0000,  73127.0000, 2, 0001563313, Common Stock, director 
+A, 2015-10-20, ROWE JOHN W, 4, P-Purchase, --D, 17598.0000,  160062.0000, 2, 0001067838, Common Stock, director 
+A, 2015-10-20, MAXWELL CHARLEST, 4, P-Purchase, --D, 2707.0000,  1168964.0000, 2, 0001193409, Common Stock, director 
+A, 2015-10-20, HATSOPOULOS JOHN, 4, P-Purchase, --D, 55500.0000,  1001213.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-20, Benjamin Locke M., 4, P-Purchase, --D, 1354.0000,  12312.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-19, Samaras Elias, 4, P-Purchase, --D, 3741.0000,  2265433.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-19, Petersen Deanna M, 4, P-Purchase, --D, 576.0000,  26533.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-19, GIACINTI JOAN, 4, P-Purchase, --D, 2878.0000,  59590.0000, 1, 0001563313, Common Stock, director 
+A, 2015-10-19, ROWE JOHN W, 4, P-Purchase, --D, 3741.0000,  142464.0000, 1, 0001067838, Common Stock, director 
+A, 2015-10-19, MAXWELL CHARLEST, 4, P-Purchase, --D, 576.0000,  1166257.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-19, HATSOPOULOS JOHN, 4, P-Purchase, --D, 11800.0000,  945713.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-19, Benjamin Locke M., 4, P-Purchase, --D, 288.0000,  10958.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-14, HATSOPOULOS JOHN, 4, P-Purchase, --D, 35153.0000,  933913.0000, 4, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-14, MAXWELL CHARLEST, 4, P-Purchase, --D, 1715.0000,  1165681.0000, 2, 0001193409, Common Stock, director 
+A, 2015-10-14, Benjamin Locke M., 4, P-Purchase, --D, 857.0000,  10670.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-14, Petersen Deanna M, 4, P-Purchase, --D, 1715.0000,  25957.0000, 2, 0001493139, Common Stock, director 
+A, 2015-10-14, ROWE JOHN W, 4, P-Purchase, --D, 11146.0000,  138723.0000, 2, 0001067838, Common Stock, director 
+A, 2015-10-14, Samaras Elias, 4, P-Purchase, --D, 11146.0000,  2261692.0000, 2, 0001632898, Common Stock, director 
+A, 2015-10-14, GIACINTI JOAN, 4, P-Purchase, --D, 8573.0000,  56712.0000, 2, 0001563313, Common Stock, director 
+A, 2015-10-13, HATSOPOULOS JOHN, 4, P-Purchase, --D, 15050.0000,  898760.0000, 3, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-13, MAXWELL CHARLEST, 4, P-Purchase, --D, 734.0000,  1163966.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-13, Benjamin Locke M., 4, P-Purchase, --D, 367.0000,  9813.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-13, Petersen Deanna M, 4, P-Purchase, --D, 734.0000,  24242.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-13, ROWE JOHN W, 4, P-Purchase, --D, 4772.0000,  127577.0000, 1, 0001067838, Common Stock, director 
+A, 2015-10-13, Samaras Elias, 4, P-Purchase, --D, 4772.0000,  2250546.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-13, GIACINTI JOAN, 4, P-Purchase, --D, 3671.0000,  48139.0000, 1, 0001563313, Common Stock, director 
+A, 2015-10-12, Petersen Deanna M, 4, P-Purchase, --D, 2715.0000,  23508.0000, 2, 0001493139, Common Stock, director 
+A, 2015-10-12, Benjamin Locke M., 4, P-Purchase, --D, 1357.0000,  9446.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-12, HATSOPOULOS JOHN, 4, P-Purchase, --D, 55650.0000,  820160.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-12, Samaras Elias, 4, P-Purchase, --D, 17645.0000,  2245774.0000, 2, 0001632898, Common Stock, director 
+A, 2015-10-12, MAXWELL CHARLEST, 4, P-Purchase, --D, 2715.0000,  1163232.0000, 2, 0001193409, Common Stock, director 
+A, 2015-10-12, GIACINTI JOAN, 4, P-Purchase, --D, 13573.0000,  44468.0000, 2, 0001563313, Common Stock, director 
+A, 2015-10-12, ROWE JOHN W, 4, P-Purchase, --D, 17645.0000,  122805.0000, 4, 0001067838, Common Stock, director 
+A, 2015-10-09, Petersen Deanna M, 4, P-Purchase, --D, 679.0000,  20793.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-09, Benjamin Locke M., 4, P-Purchase, --D, 339.0000,  8089.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-09, HATSOPOULOS JOHN, 4, P-Purchase, --D, 13910.0000,  764510.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-09, Samaras Elias, 4, P-Purchase, --D, 4410.0000,  2228129.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-09, MAXWELL CHARLEST, 4, P-Purchase, --D, 679.0000,  1160517.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-09, GIACINTI JOAN, 4, P-Purchase, --D, 3393.0000,  30895.0000, 1, 0001563313, Common Stock, director 
+A, 2015-10-09, ROWE JOHN W, 4, P-Purchase, --D, 4410.0000,  105160.0000, 3, 0001067838, Common Stock, director 
+A, 2015-10-08, HATSOPOULOS JOHN, 4, P-Purchase, --D, 20550.0000,  883710.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-08, ROWE JOHN W, 4, P-Purchase, --D, 6516.0000,  100750.0000, 2, 0001067838, Common Stock, director 
+A, 2015-10-08, MAXWELL CHARLEST, 4, P-Purchase, --D, 1002.0000,  1159838.0000, 2, 0001193409, Common Stock, director 
+A, 2015-10-08, Samaras Elias, 4, P-Purchase, --D, 6516.0000,  2223719.0000, 2, 0001632898, Common Stock, director 
+A, 2015-10-08, Benjamin Locke M., 4, P-Purchase, --D, 501.0000,  7750.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-08, Petersen Deanna M, 4, P-Purchase, --D, 1002.0000,  20114.0000, 2, 0001493139, Common Stock, director 
+A, 2015-10-08, GIACINTI JOAN, 4, P-Purchase, --D, 5013.0000,  27502.0000, 4, 0001563313, Common Stock, director 
+A, 2015-10-07, HATSOPOULOS JOHN, 4, P-Purchase, --D, 43000.0000,  863160.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-07, ROWE JOHN W, 4, P-Purchase, --D, 13634.0000,  94234.0000, 1, 0001067838, Common Stock, director 
+A, 2015-10-07, MAXWELL CHARLEST, 4, P-Purchase, --D, 2097.0000,  1158836.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-07, Samaras Elias, 4, P-Purchase, --D, 13634.0000,  2217203.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-07, Benjamin Locke M., 4, P-Purchase, --D, 1049.0000,  7249.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-07, Petersen Deanna M, 4, P-Purchase, --D, 2098.0000,  19112.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-07, GIACINTI JOAN, 4, P-Purchase, --D, 10488.0000,  22489.0000, 3, 0001563313, Common Stock, director 
+A, 2015-10-06, GIACINTI JOAN, 4, P-Purchase, --D, 6512.0000,  12001.0000, 2, 0001563313, Common Stock, director 
+A, 2015-10-06, MAXWELL CHARLEST, 4, P-Purchase, --D, 1302.0000,  1156739.0000, 2, 0001193409, Common Stock, director 
+A, 2015-10-06, ROWE JOHN W, 4, P-Purchase, --D, 8467.0000,  80600.0000, 2, 0001067838, Common Stock, director 
+A, 2015-10-06, Samaras Elias, 4, P-Purchase, --D, 8466.0000,  2203569.0000, 2, 0001632898, Common Stock, director 
+A, 2015-10-06, Benjamin Locke M., 4, P-Purchase, --D, 651.0000,  6200.0000, 2, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-06, Petersen Deanna M, 4, P-Purchase, --D, 1302.0000,  17014.0000, 2, 0001493139, Common Stock, director 
+A, 2015-10-06, HATSOPOULOS JOHN, 4, P-Purchase, --D, 26700.0000,  750600.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-10-05, GIACINTI JOAN, 4, P-Purchase, --D, 5489.0000,  5489.0000, 1, 0001563313, Common Stock, director 
+A, 2015-10-05, MAXWELL CHARLEST, 4, P-Purchase, --D, 1098.0000,  1155437.0000, 1, 0001193409, Common Stock, director 
+A, 2015-10-05, ROWE JOHN W, 4, P-Purchase, --D, 7133.0000,  72133.0000, 1, 0001067838, Common Stock, director 
+A, 2015-10-05, Samaras Elias, 4, P-Purchase, --D, 7133.0000,  2195103.0000, 1, 0001632898, Common Stock, director 
+A, 2015-10-05, Benjamin Locke M., 4, P-Purchase, --D, 549.0000,  5549.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2015-10-05, Petersen Deanna M, 4, P-Purchase, --D, 1098.0000,  15712.0000, 1, 0001493139, Common Stock, director 
+A, 2015-10-05, HATSOPOULOS JOHN, 4, P-Purchase, --D, 22500.0000,  723900.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-09-10, BROWN BONNIE JEAN, 4, A-Award, --D, 100000.0000,  0.0000, 1, 0001585816, Stock Option (right to buy), officer: CFO Treasurer and Secretary 
+D, 2015-09-02, HATSOPOULOS JOHN, 4, G-Gift, --I, 6993984.0000,  506016.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2015-07-21, Samaras Elias, 4, P-Purchase, --D, 2187970.0000,  2187970.0000, 1, 0001632898, Common Stock, director 
+A, 2015-07-02, ROWE JOHN W, 4, P-Purchase, --D, 16000.0000,  65000.0000, 1, 0001067838, Common Stock, director 
+A, 2015-07-01, ROWE JOHN W, 4, P-Purchase, --D, 9000.0000,  49000.0000, 2, 0001067838, Common Stock, director 
+A, 2015-06-30, ROWE JOHN W, 4, P-Purchase, --D, 25000.0000,  40000.0000, 1, 0001067838, Common Stock, director 
+A, 2015-06-10, Benjamin Locke M., 4, A-Award, --D, 100000.0000,  100000.0000, 1, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+A, 2015-05-18, Petersen Deanna M, 4, P-Purchase, --D, 2564.0000,  14614.0000, 1, 0001493139, Common Stock, director 
+A, 2015-04-02, Samaras Elias, 4, P-Purchase, --D, 6986.0000,  2306965.0000, 2, 0001632898, Common Stock, director 
+A, 2015-04-01, Samaras Elias, 4, P-Purchase, --D, 573.0000,  2307538.0000, 3, 0001632898, Common Stock, director 
+A, 2014-12-15, MAXWELL CHARLEST, 4, P-Purchase, --D, 5000.0000,  1154339.0000, 2, 0001193409, Common Stock, director 
+A, 2014-12-15, MAXWELL CHARLEST, 4, P-Purchase, --D, 5000.0000,  1149339.0000, 1, 0001193409, Common Stock, director 
+A, 2014-12-11, Parmese Gabriel, 4, A-Award, --D, 50000.0000,  50000.0000, 1, 0001607985, Common Stock, officer: CFO Treasurer and Secretary 
+A, 2014-12-11, Benjamin Locke M., 4, A-Award, --D, 200000.0000,  200000.0000, 1, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+A, 2014-12-05, Sanders Barry J, 4, P-Purchase, --D, 2000.0000,  472000.0000, 1, 0001385182, Common Stock, officer: COO & President 
+A, 2014-12-05, Mlynarczyk Francis A Jr, 4, P-Purchase, --D, 7609.0000,  25000.0000, 1, 0001500977, Common Stock, director 
+A, 2014-12-01, Petersen Deanna M, 4, P-Purchase, --D, 12050.0000,  12050.0000, 1, 0001493139, Common Stock, director 
+A, 2014-11-24, ROWE JOHN W, 4, P-Purchase, --D, 7500.0000,  15000.0000, 1, 0001067838, Common Stock, director 
+A, 2014-11-21, KLASKIN CHRISTINE M, 4, P-Purchase, --D, 1000.0000,  1000.0000, 1, 0001288123, Common Stock, director 
+A, 2014-11-21, Parmese Gabriel, 4, P-Purchase, --D, 1000.0000,  1000.0000, 1, 0001607985, Common Stock, officer: CFO Treasurer and Secretary 
+A, 2014-11-21, Benjamin Locke M., 4, P-Purchase, --D, 5000.0000,  5000.0000, 1, 0001625781, Common Stock, officer: Co-CEO 
+A, 2014-11-21, ROWE JOHN W, 4, P-Purchase, --D, 7500.0000,  7500.0000, 1, 0001067838, Common Stock, director 
+A, 2014-11-19, Benjamin Locke M., 4, A-Award, --D, 100000.0000,  100000.0000, 1, 0001625781, Stock Option (right to buy), officer: Co-CEO 
+A, 2014-11-18, ROWE JOHN W, 4, A-Award, --D, 20000.0000,  20000.0000, 1, 0001067838, Stock Option (right to buy), director 
+D, 2014-10-29, HATSOPOULOS JOHN, 5, G-Gift, --D, 550419.0000,  1201400.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-09-22, HATSOPOULOS JOHN, 4, A-Award, --I, 10000.0000,  50000.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-08-28, Sanders Barry J, 4, A-Award, --D, 100000.0000,  100000.0000, 2, 0001385182, Employee Stock Option (right to buy), officer: COO & President 
+A, 2014-08-22, HATSOPOULOS JOHN, 4, P-Purchase, --I, 10000.0000,  40000.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-08-21, HATSOPOULOS JOHN, 4, P-Purchase, --I, 10000.0000,  20000.0000, 1, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-08-18, HATSOPOULOS JOHN, 4, P-Purchase, --I, 10000.0000,  30000.0000, 2, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-05-23, HATSOPOULOS JOHN, 4, J-Other, --D, 32184.0000,  1476820.0000, 3, 0001274775, Common Stock, director officer: Co-Chief Executive Officer 
+A, 2014-05-23, RBC Holdings (Channel Islands) Ltd, 4/A, J-Other, --I, 227970.0000,  1621664.0000, 1, 0001472125, Senior Unsecured Convertible Debentures due 2018, 10 percent owner 
+A, 2014-05-23, RBC Holdings (Channel Islands) Ltd, 4/A, J-Other, --I, 227970.0000,  1621664.0000, 1, 0001472125, Senior Unsecured Convertible Debentures due 2018, 10 percent owner 
+A, 2014-05-23, RBC Holdings (Channel Islands) Ltd, 4, J-Other, --I, 227970.0000,  1621664.0000, 1, 0001472125, Common Stock, 10 percent owner 

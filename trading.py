@@ -280,7 +280,8 @@ class Scheduler:
 
     def InvestmentFound(self, items, arn, date):
         try:
-            message = {'DATE': date.strftime('%Y-%m-%d'), 'FOUND': items}
+            self.__db.UpdateResults(date, items)
+            message = {'DATE': date.strftime('%Y-%m-%d'), 'FOUND': [cik for cik, *other in items]}
             response = self.sns.publish(
                 TargetArn=arn,
                 Message=json.dumps({'default': json.dumps(message)}),
@@ -322,13 +323,15 @@ class Scheduler:
             self.SendError('No ISSUERS to analyse on %s' % date.strftime('%Y-%m-%d'), arn)
             return
         all_processed_cik = list(set([cik for found in issuers for cik in found['Message']['Processed']]))
+        self.__logger.info(all_processed_cik)
         investments = []
         for cik in all_processed_cik:
             df = self.__db.GetTimeSeries(cik, FileType.ISSUER)
 
-            if self.__engine.ClusterBuying(df, date, count):
+            cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio = self.__engine.ClusterBuying(df, date, count, cik)
+            if pLM > count:
                 self.__logger.info('investment found in %s' % cik)
-                investments.append(cik)
+                investments.append((cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio))
 
         self.__logger.info('Processing %s CIK issuers' % len(all_processed_cik))
         if len(investments) > 0:
@@ -444,7 +447,7 @@ class Scheduler:
         self.__logger.info('Updated %s companies' % len(all_companies))
 
     async def __aenter__(self):
-        self.__engine = DecisionEngine(self.__notify)
+        self.__engine = DecisionEngine(self.__notify, self.__logger)
         self.__client = EdgarClient(self.__params, self.__logger, self.__loop)
         self.__edgarConnection = await self.__client.__aenter__()
         self.__db = StoreManager(self.__logger, self.__notify, self.Timeout)
