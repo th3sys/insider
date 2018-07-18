@@ -23,9 +23,11 @@ async def main(loop, logger, items, today, requestId):
             res = await scheduler.SyncTransactions(items, FileType.ISSUER)
             scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS', len(items),
                            'CIKs that reported on the day and had direct purchases in the past', requestId)
+            logger.info('%s issuers loaded in db reqId: %s' % (len(res), requestId))
             res = await scheduler.SyncTransactions(items, FileType.OWNER)
             scheduler.Save({'Received': items, 'Processed': res}, today, 'OWNERS', len(items),
                            'CIKs that reported on the day and had direct purchases in the past', requestId)
+            logger.info('%s owners loaded in db reqId: %s' % (len(res), requestId))
             logger.info('%s transactions loaded in db' % len(items))
 
     except Exception as e:

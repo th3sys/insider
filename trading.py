@@ -1,5 +1,6 @@
 import aiohttp
 import asyncio
+import concurrent
 import async_timeout
 import bs4
 from utils import Connection
@@ -56,10 +57,11 @@ class EdgarClient:
                 'action=getowner&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.debug('Calling SearchByOwner for %s ...' % cik)
+                self.__logger.info('Calling SearchByOwner for %s ...' % cik)
                 response = await self.__connection.get(url=url)
-                self.__logger.debug('SearchByOwner Response for %s Code: %s' % (cik, response.status))
+                self.__logger.info('SearchByOwner Response for %s Code: %s' % (cik, response.status))
                 payload = await response.text()
+                self.__logger.debug(payload)
                 soup = bs4.BeautifulSoup(payload, "html.parser")
 
                 rows = [tr for table in soup.find_all('table')
@@ -134,10 +136,11 @@ class EdgarClient:
                 'action=getissuer&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.debug('Calling SearchByCIK for %s ...' % cik)
+                self.__logger.info('Calling SearchByCIK for %s ...' % cik)
                 response = await self.__connection.get(url=url)
-                self.__logger.debug('SearchByCIK Response for %s Code: %s' % (cik, response.status))
+                self.__logger.info('SearchByCIK Response for %s Code: %s' % (cik, response.status))
                 payload = await response.text()
+                self.__logger.debug(payload)
                 soup = bs4.BeautifulSoup(payload, "html.parser")
 
                 rows = [tr for table in soup.find_all('table')
@@ -399,29 +402,35 @@ class Scheduler:
             futures = [self.__edgarConnection.GetTransactionsByCompany(str(cik)) for cik in items]
         if file_type == FileType.OWNER:
             futures = [self.__edgarConnection.GetTransactionsByOwner(str(cik)) for cik in items]
-        done, _ = await asyncio.wait(futures, timeout=self.Timeout)
+        done, pending = await asyncio.wait(futures, timeout=self.Timeout, return_when=concurrent.futures.FIRST_EXCEPTION)
+
+        for pending_task in pending:
+            self.__logger.warn('Cancelling the task: {}'.format(pending_task))
+            pending_task.cancel()
 
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
         for fut in done:
-            cik, payload = fut.result()
-            if payload is not None and len(payload) > 1 \
-                    and len([date for ad, date, owner_issuer, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
-                # self.__logger.info(payload)
-                count = 0
-                all_trans = []
-                for tran in payload:
-                    count += 1
-                    ad, date, owner_issuer, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = tran
-                    all_trans.append((str(ad), str(date), str(owner_issuer), str(form), str(tran_type), str(di),
-                                      str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
+            try:
+                cik, payload = fut.result()
+                if payload is not None and len(payload) > 1 \
+                        and len([date for ad, date, owner_issuer, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
+                    # self.__logger.info(payload)
+                    count = 0
+                    all_trans = []
+                    for tran in payload:
+                        count += 1
+                        ad, date, owner_issuer, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = tran
+                        all_trans.append((str(ad), str(date), str(owner_issuer), str(form), str(tran_type), str(di),
+                                          str(num), str(total), str(line), str(o_cik), str(sec_name), str(o_type)))
 
-                if file_type == FileType.ISSUER:
-                    self.__db.UpdateTransactions(cik, all_trans)
-                if file_type == FileType.OWNER:
-                    self.__db.UpdateOwnersTransactions(cik, all_trans)
-                successful.append(cik)
-                self.__logger.info('Updated %s transactions for %s' % (len(all_trans), file_type))
-
+                    if file_type == FileType.ISSUER:
+                        self.__db.UpdateTransactions(cik, all_trans)
+                    if file_type == FileType.OWNER:
+                        self.__db.UpdateOwnersTransactions(cik, all_trans)
+                    successful.append(cik)
+                    self.__logger.info('Updated %s transactions for %s. CIK %s' % (len(all_trans), file_type, cik))
+            except Exception as e:
+                self.__logger.error('Exception in SyncTransactions: {}'.format(e))
         return successful
 
     async def SyncCompanies(self):
