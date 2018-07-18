@@ -27,8 +27,8 @@ def create_order():
 
         ],
         ProvisionedThroughput={
-            'ReadCapacityUnits': 1,
-            'WriteCapacityUnits': 1
+            'ReadCapacityUnits': 3,
+            'WriteCapacityUnits': 3
         }
     )
 
