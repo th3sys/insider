@@ -4,7 +4,7 @@
    "detail-type":"Scheduled Event",
    "source":"aws.events",
    "account":"",
-   "time":"2015-12-25T20:20:00Z",
+   "time":"2016-03-01T20:20:00Z",
    "region":"us-east-1",
    "resources":[
       "arn:aws:events:us-east-1::rule/EOD1"

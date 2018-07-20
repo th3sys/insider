@@ -298,12 +298,17 @@ class Scheduler:
     def Notify(self, items, arn, today, requestId):
         try:
             message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items, 'RequestId': requestId}
+
+            queue = self.sqs.get_queue_by_name(QueueName=arn)
+            response = queue.send_message(MessageBody=json.dumps(message))
+            '''
             response = self.sns.publish(
                 TargetArn=arn,
                 Message=json.dumps({'default': json.dumps(message)}),
                 MessageStructure='json',
                 Subject='FOUND'
             )
+            '''
             self.__logger.info(response)
         except Exception as e:
             self.__logger.error(e)
@@ -462,6 +467,7 @@ class Scheduler:
         self.__db = StoreManager(self.__logger, self.__notify, self.Timeout)
         self.__insiderSession = self.__db.__enter__()
         self.sns = boto3.client('sns')
+        self.sqs = boto3.resource('sqs')
         self.__logger.info('Scheduler created')
         return self
 

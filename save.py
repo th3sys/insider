@@ -45,11 +45,11 @@ def lambda_handler(event, context):
 
     logger.info('event %s' % event)
     logger.info('context %s' % context)
-    fixed = event['Records'][0]['Sns']['Message']
+    fixed = event['Records'][0]['body']
     logger.info(fixed)
     fixed_json = json.loads(fixed, parse_float=utils.DecimalEncoder)
     items = fixed_json['CIK']
-    today = str(fixed_json['Date'])
+    today = str(fixed_json['Date']).strip()
     today = datetime.datetime.strptime(today, '%Y%m%d')
     requestId = fixed_json['RequestId']
 
