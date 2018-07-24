@@ -25,14 +25,20 @@ async def main(loop, logger, today):
         async with Scheduler(notify, params, logger, loop) as scheduler:
             requestId = str(uuid.uuid4().hex)
             cik_list = await scheduler.SyncDailyIndex(today)
-            scheduler.Save({'Received': cik_list}, today, 'FOUND', len(cik_list),
-                           'CIKs that reported on the day', requestId)
             logger.info('%s CIK numbers received' % len(cik_list))
             chunks = [cik_list[x:x+buffer] for x in range(0, len(cik_list), buffer)]
+            i = 0
+            chunk_ids = {}
             for chunk in chunks:
-                scheduler.Notify(chunk, trn_notify, today, requestId)
+                i += 1
+                chunk_ids[str(i)] = chunk
+            scheduler.Save({'Received': cik_list}, today, 'FOUND', len(cik_list),
+                           'CIKs that reported on the day', requestId, chunk_ids)
+            i = 0
+            for chunk in chunks:
+                i += 1
+                scheduler.Notify(chunk, trn_notify, today, requestId, i)
                 time.sleep(delay)
-
             logger.info('%s CIK numbers sent' % len(cik_list))
 
     except Exception as e:

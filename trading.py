@@ -295,9 +295,9 @@ class Scheduler:
         except Exception as e:
             self.__logger.error(e)
 
-    def Notify(self, items, arn, today, requestId):
+    def Notify(self, items, arn, today, requestId, chunk):
         try:
-            message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items, 'RequestId': requestId}
+            message = {'Date': int(today.strftime('%Y%m%d')), 'CIK': items, 'RequestId': requestId, 'ChunkId': chunk}
 
             queue = self.sqs.get_queue_by_name(QueueName=arn)
             response = queue.send_message(MessageBody=json.dumps(message))
@@ -386,9 +386,9 @@ class Scheduler:
         not_processed = [int(x) for x in all_found_cik if x not in all_processed_cik]
         return not_processed
 
-    def Save(self, message, today, action, count, desc, requestId):
+    def Save(self, message, today, action, count, desc, requestId, chunk=None):
         self.__db.SaveAnalytics(action, desc,
-                                message, today, count, requestId)
+                                message, today, count, requestId, chunk)
 
     async def SyncDailyIndex(self, today):
         found = {}

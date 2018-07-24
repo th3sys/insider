@@ -177,7 +177,7 @@ class StoreManager(object):
             if 'Items' in response:
                 return response['Items']
 
-    def SaveAnalytics(self, action, description, message, today, count, requestId):
+    def SaveAnalytics(self, action, description, message, today, count, requestId, chunks):
         try:
             # date = datetime.strptime(today, '%Y%m%d')
             currentTime = datetime.now().time()
@@ -190,13 +190,14 @@ class StoreManager(object):
                     'AnalyticId': action,
                     'TransactionTime': str(key),
                 },
-                UpdateExpression="set #desc = :desc, #m = :m, #d = :d, #c = :c, #r = :r",
+                UpdateExpression="set #desc = :desc, #m = :m, #d = :d, #c = :c, #r = :r, #ch = :ch",
                 ExpressionAttributeNames={
                     '#desc': 'Description',
                     '#m': 'Message',
                     '#d': 'Date',
                     '#c': 'Count',
-                    '#r': 'RequestId'
+                    '#r': 'RequestId',
+                    '#ch': 'Chunks'
 
                 },
                 ExpressionAttributeValues={
@@ -204,7 +205,8 @@ class StoreManager(object):
                     ':m': message,
                     ':d': today.strftime('%Y%m%d'),
                     ':c': count,
-                    ':r': requestId
+                    ':r': requestId,
+                    ':ch': chunks
                 },
                 ReturnValues="UPDATED_NEW")
 
