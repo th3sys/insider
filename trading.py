@@ -345,6 +345,18 @@ class Scheduler:
         if len(investments) > 0:
             self.InvestmentFound(investments, self.__notify, date)
 
+    def CheckIfProcessed(self, items, today, requestId, chunk_id):
+        savings = self.__db.GetAnalytics('SAVING', today, Period.DAY)
+        for saving in savings:
+            if saving['RequestId'] == requestId and saving['Chunks'] == chunk_id:
+                self.__logger.info('Already processed requestId: %s, chunkId: %s' % (requestId, chunk_id))
+                return True
+
+        self.__db.SaveAnalytics('SAVING', 'Batch of CIKs to process',
+                                {'Received': items}, today, len(items), requestId, chunk_id)
+        self.__logger.info('Start processing requestId: %s, chunkId: %s' % (requestId, chunk_id))
+        return False
+
     def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
         founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)
         owners = self.__db.GetAnalytics('OWNERS', date, Period.DAY)

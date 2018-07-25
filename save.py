@@ -9,7 +9,7 @@ import uvloop
 from trading import EdgarParams, Scheduler, FileType
 
 
-async def main(loop, logger, items, today, requestId):
+async def main(loop, logger, items, today, requestId, chunk_id):
     try:
         params = EdgarParams()
         params.Url = os.environ['EDGAR_URL']
@@ -20,6 +20,10 @@ async def main(loop, logger, items, today, requestId):
         notify = ''
 
         async with Scheduler(notify, params, logger, loop) as scheduler:
+            if scheduler.CheckIfProcessed(items, today, requestId, chunk_id):
+                logger.info('Stop processing')
+                return
+
             res = await scheduler.SyncTransactions(items, FileType.ISSUER)
             scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS', len(items),
                            'CIKs that reported on the day and had direct purchases in the past', requestId)
@@ -52,6 +56,7 @@ def lambda_handler(event, context):
     today = str(fixed_json['Date']).strip()
     today = datetime.datetime.strptime(today, '%Y%m%d')
     requestId = fixed_json['RequestId']
+    chunk_id = fixed_json['ChunkId']
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
             or 'TRN_FOUND_ARN' not in os.environ or 'START_YEAR' not in os.environ:
@@ -60,7 +65,7 @@ def lambda_handler(event, context):
 
     asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     app_loop = asyncio.get_event_loop()
-    app_loop.run_until_complete(main(app_loop, logger, items, today, requestId))
+    app_loop.run_until_complete(main(app_loop, logger, items, today, requestId, chunk_id))
 
     return json.dumps({'State': 'OK'})
 
