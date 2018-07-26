@@ -345,6 +345,13 @@ class Scheduler:
         if len(investments) > 0:
             self.InvestmentFound(investments, self.__notify, date)
 
+    def UpdateProcessed(self, today, requestId, chunk_id):
+        savings = self.__db.GetAnalytics('SAVING', today, Period.DAY)
+        for saving in savings:
+            if saving['RequestId'] == requestId and saving['Chunks'] == chunk_id:
+                self.__db.UpdateAnalytics('SAVING', saving['TransactionTime'], True)
+                self.__logger.info('Updated SAVING: %s, chunkId: %s' % (requestId, chunk_id))
+
     def CheckIfProcessed(self, items, today, requestId, chunk_id):
         savings = self.__db.GetAnalytics('SAVING', today, Period.DAY)
         for saving in savings:
@@ -398,7 +405,7 @@ class Scheduler:
         not_processed = [int(x) for x in all_found_cik if x not in all_processed_cik]
         return not_processed
 
-    def Save(self, message, today, action, count, desc, requestId, chunk=None):
+    def Save(self, message, today, action, count, desc, requestId, chunk):
         self.__db.SaveAnalytics(action, desc,
                                 message, today, count, requestId, chunk)
 

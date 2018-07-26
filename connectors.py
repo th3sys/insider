@@ -177,6 +177,32 @@ class StoreManager(object):
             if 'Items' in response:
                 return response['Items']
 
+    def UpdateAnalytics(self, action, time, processed):
+        try:
+
+            response = self.__Analytics.update_item(
+                Key={
+                    'AnalyticId': action,
+                    'TransactionTime': time,
+                },
+                UpdateExpression="set #p = :p",
+                ExpressionAttributeNames={
+                    '#p': 'Processed'
+
+                },
+                ExpressionAttributeValues={
+                    ':p': processed
+                },
+                ReturnValues="UPDATED_NEW")
+
+        except ClientError as e:
+            self.__logger.error(e.response['Error']['Message'])
+        except Exception as e:
+            self.__logger.error(e)
+        else:
+            self.__logger.info('Analytics Updated')
+            self.__logger.info(json.dumps(response, indent=4, cls=DecimalEncoder))
+
     def SaveAnalytics(self, action, description, message, today, count, requestId, chunks):
         try:
             # date = datetime.strptime(today, '%Y%m%d')
