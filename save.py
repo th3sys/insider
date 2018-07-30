@@ -62,7 +62,7 @@ def lambda_handler(event, context):
     chunk_id = fixed_json['ChunkId']
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
-            or 'TRN_FOUND_ARN' not in os.environ or 'START_YEAR' not in os.environ:
+            or 'START_YEAR' not in os.environ:
         logger.error('ENVIRONMENT VARS are not set')
         return json.dumps({'State': 'ERROR'})
 

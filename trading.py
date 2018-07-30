@@ -208,7 +208,7 @@ class EdgarClient:
                 response = await self.__connection.get(url=url)
                 self.__logger.debug('GetDailyIndex Response for %s Code: %s' % (d, response.status))
                 payload = await response.text()
-                self.__logger.info('url: %s. payload: %s' % (url,payload))
+                self.__logger.info('url: %s. payload: %s' % (url, payload))
                 return payload
         except Exception as e:
             self.__logger.info('Error GetDailyIndex for %s' % d)
@@ -366,6 +366,7 @@ class Scheduler:
 
     def ValidateResults(self, date, arn, fix, found_arn, delay, buffer):
         founds = self.__db.GetAnalytics('FOUND', date, Period.DAY)
+        savings = self.__db.GetAnalytics('SAVING', date, Period.DAY)
         owners = self.__db.GetAnalytics('OWNERS', date, Period.DAY)
         issuers = self.__db.GetAnalytics('ISSUERS', date, Period.DAY)
         if len(founds) == 0 or len([f for f in founds if f['Count'] == 0]):
@@ -374,36 +375,42 @@ class Scheduler:
             self.__logger.warn(message)
             return
 
-        for found in founds:
-            self.__logger.info('found %s on %s' % (found, date))
+        for item in owners:
+            if len(item['Message']['Processed']) == 0:
+                message = 'OWNERS events have 429 errors on %s' % date.strftime('%Y-%m-%d')
+                self.SendError(message, arn)
+                self.__logger.warn(message)
+                return
 
-            not_processed_issuers = self.FindNotProcessed(issuers, found)
-            not_processed_owners = self.FindNotProcessed(owners, found)
-            not_processed_owners.extend(not_processed_issuers)
-            not_processed = list(set(not_processed_owners))
+        for item in issuers:
+            if len(item['Message']['Processed']) == 0:
+                message = 'ISSUERS events have 429 errors on %s' % date.strftime('%Y-%m-%d')
+                self.SendError(message, arn)
+                self.__logger.warn(message)
+                return
 
-            if len(not_processed) > 0:
+        for saving in savings:
+            if 'Processed' not in saving:
+                self.__logger.info('resending %s %s on %s' % (saving['RequestId'], saving['Chunks'], date))
+                not_processed = saving['Message']['Received']
                 if not fix:
-                    message = '%s events are still not processed on %s for %s' % \
-                              (not_processed, date.strftime('%Y-%m-%d'), found['RequestId'])
+                    message = '%s events are still not processed on %s for %s %s' % \
+                              (not_processed, date.strftime('%Y-%m-%d'), saving['RequestId'], saving['Chunks'])
                     self.SendError(message, arn)
                     self.__logger.warn(message)
                 else:
                     chunks = [not_processed[x:x + buffer] for x in range(0, len(not_processed), buffer)]
+                    i = 0
                     for chunk in chunks:
-                        self.Notify(chunk, found_arn, date, found['RequestId'])
+                        i += 1
+                        chunk_id = '%s.%s' % (saving['Chunks'], i)
+                        chunk = [int(x) for x in chunk]
+                        self.Notify(chunk, found_arn, date, saving['RequestId'], chunk_id)
                         time.sleep(delay)
                         self.__logger.warn('Resending %s' % chunk)
             else:
-                self.__logger.info('All events processed on %s for %s' % (date.strftime('%Y-%m-%d'), found['RequestId']))
-
-    def FindNotProcessed(self, items, found):
-        all_processed_cik = []
-        all_found_cik = found['Message']['Received']
-        for item in [i for i in items if i['RequestId'] == found['RequestId']]:
-            all_processed_cik.extend(item['Message']['Received'])
-        not_processed = [int(x) for x in all_found_cik if x not in all_processed_cik]
-        return not_processed
+                self.__logger.info('All events processed on %s for %s %s' % (date.strftime('%Y-%m-%d'),
+                                                                             saving['RequestId'], saving['Chunks']))
 
     def Save(self, message, today, action, count, desc, requestId, chunk):
         self.__db.SaveAnalytics(action, desc,
@@ -426,7 +433,8 @@ class Scheduler:
             futures = [self.__edgarConnection.GetTransactionsByCompany(str(cik)) for cik in items]
         if file_type == FileType.OWNER:
             futures = [self.__edgarConnection.GetTransactionsByOwner(str(cik)) for cik in items]
-        done, pending = await asyncio.wait(futures, timeout=self.Timeout, return_when=concurrent.futures.FIRST_EXCEPTION)
+        done, pending = await asyncio.wait(futures, timeout=self.Timeout,
+                                           return_when=concurrent.futures.FIRST_EXCEPTION)
 
         for pending_task in pending:
             self.__logger.warn('Cancelling the task: {}'.format(pending_task))
