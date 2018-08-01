@@ -53,13 +53,15 @@ class EdgarClient:
 
         try:
             transactions = []
+            statuses = []
             path = path if path is not None else \
                 'action=getowner&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.info('Calling SearchByOwner for %s ...' % cik)
+                self.__logger.debug('Calling SearchByOwner for %s ...' % cik)
                 response = await self.__connection.get(url=url)
-                self.__logger.info('SearchByOwner Response for %s Code: %s' % (cik, response.status))
+                self.__logger.debug('SearchByOwner Response for %s Code: %s' % (cik, response.status))
+                statuses.append(response.status)
                 payload = await response.text()
                 self.__logger.debug(payload)
                 soup = bs4.BeautifulSoup(payload, "html.parser")
@@ -70,7 +72,7 @@ class EdgarClient:
 
                 if len(rows) <= 1:
                     self.__logger.info('No insider for %s' % cik)
-                    return cik, transactions
+                    return cik, transactions, statuses
 
                 owners = LookupOwners()
                 for row in rows[1:]:
@@ -80,7 +82,7 @@ class EdgarClient:
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
                     if date == '-' or date.startswith(self.__params.StartYear):
-                        return cik, transactions
+                        return cik, transactions, statuses
                     issuer = GetText(tds[3])
                     form = GetText(tds[4])
                     typ = GetText(tds[5])
@@ -101,9 +103,10 @@ class EdgarClient:
                     self.__logger.debug(link)
                     parts = link.split('?')
                     lnk = parts[1].replace("\\", '').replace("'", '')
-                    c, more = await self.GetTransactionsByOwner(cik, lnk)
+                    c, more, moreStatuses = await self.GetTransactionsByOwner(cik, lnk)
                     transactions.extend(more)
-                return cik, transactions
+                    statuses.extend(moreStatuses)
+                return cik, transactions, statuses
         except Exception as e:
             self.__logger.info('Error GetTransactionsByOwner for %s' % cik)
             self.__logger.error(e)
@@ -132,13 +135,15 @@ class EdgarClient:
 
         try:
             transactions = []
+            statuses = []
             path = path if path is not None else \
                 'action=getissuer&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
             with async_timeout.timeout(self.__timeout):
-                self.__logger.info('Calling SearchByCIK for %s ...' % cik)
+                self.__logger.debug('Calling SearchByCIK for %s ...' % cik)
                 response = await self.__connection.get(url=url)
-                self.__logger.info('SearchByCIK Response for %s Code: %s' % (cik, response.status))
+                self.__logger.debug('SearchByCIK Response for %s Code: %s' % (cik, response.status))
+                statuses.append(response.status)
                 payload = await response.text()
                 self.__logger.debug(payload)
                 soup = bs4.BeautifulSoup(payload, "html.parser")
@@ -149,7 +154,7 @@ class EdgarClient:
 
                 if len(rows) <= 1:
                     self.__logger.info('No insider for %s' % cik)
-                    return cik, transactions
+                    return cik, transactions, statuses
 
                 owners = LookupOwners()
                 for row in rows[1:]:
@@ -158,8 +163,8 @@ class EdgarClient:
                     # OWNER CIK,SECURITY NAME,OWNER TYPE
                     ad = GetText(tds[0])
                     date = GetText(tds[1])
-                    if date == '-' or date.startswith('2013'):
-                        return cik, transactions
+                    if date == '-' or date.startswith(self.__params.StartYear):
+                        return cik, transactions, statuses
                     owner = GetText(tds[3])
                     form = GetText(tds[4])
                     typ = GetText(tds[5])
@@ -180,9 +185,10 @@ class EdgarClient:
                     self.__logger.debug(link)
                     parts = link.split('?')
                     lnk = parts[1].replace("\\", '').replace("'", '')
-                    c, more = await self.GetTransactionsByCompany(cik, lnk)
+                    c, more, moreStatuses = await self.GetTransactionsByCompany(cik, lnk)
                     transactions.extend(more)
-                return cik, transactions
+                    statuses.extend(moreStatuses)
+                return cik, transactions, statuses
         except Exception as e:
             self.__logger.info('Error GetTransactionsByCompany for %s' % cik)
             self.__logger.error(e)
@@ -351,6 +357,9 @@ class Scheduler:
             if saving['RequestId'] == requestId and saving['Chunks'] == chunk_id:
                 self.__db.UpdateAnalytics('SAVING', saving['TransactionTime'], True)
                 self.__logger.info('Updated SAVING: %s, chunkId: %s' % (requestId, chunk_id))
+            if saving['RequestId'] == requestId and '.' in str(chunk_id) and str(chunk_id).startswith(str(saving['Chunks'])):
+                self.__db.UpdateAnalytics('SAVING', saving['TransactionTime'], True)
+                self.__logger.info('Updated parent SAVING: %s, chunkId: %s' % (requestId, saving['Chunks']))
 
     def CheckIfProcessed(self, items, today, requestId, chunk_id):
         savings = self.__db.GetAnalytics('SAVING', today, Period.DAY)
@@ -376,18 +385,20 @@ class Scheduler:
             return
 
         for item in owners:
-            if len(item['Message']['Processed']) == 0:
-                message = 'OWNERS events have 429 errors on %s' % date.strftime('%Y-%m-%d')
+            errors = [code for code in item['Message']['Codes'] if code != 200]
+            if len(errors) > 0:
+                message = 'OWNERS events have %s errors on %s for %s %s' \
+                          % (errors, date.strftime('%Y-%m-%d'), item['RequestId'], item['Chunks'])
                 self.SendError(message, arn)
                 self.__logger.warn(message)
-                return
 
         for item in issuers:
-            if len(item['Message']['Processed']) == 0:
-                message = 'ISSUERS events have 429 errors on %s' % date.strftime('%Y-%m-%d')
+            errors = [code for code in item['Message']['Codes'] if code != 200]
+            if len(errors) > 0:
+                message = 'ISSUERS events have %s errors on %s for %s %s' \
+                          % (errors, date.strftime('%Y-%m-%d'), item['RequestId'], item['Chunks'])
                 self.SendError(message, arn)
                 self.__logger.warn(message)
-                return
 
         for saving in savings:
             if 'Processed' not in saving:
@@ -429,6 +440,7 @@ class Scheduler:
         self.__logger.info('Loaded %s: %s' % (file_type, len(items)))
 
         successful = []
+        all_stats = []
         if file_type == FileType.ISSUER:
             futures = [self.__edgarConnection.GetTransactionsByCompany(str(cik)) for cik in items]
         if file_type == FileType.OWNER:
@@ -443,7 +455,8 @@ class Scheduler:
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
         for fut in done:
             try:
-                cik, payload = fut.result()
+                cik, payload, status = fut.result()
+                all_stats.extend(status)
                 if payload is not None and len(payload) > 1 \
                         and len([date for ad, date, owner_issuer, form, tt, *o in payload if tt == 'P-Purchase']) > 1:
                     # self.__logger.info(payload)
@@ -463,7 +476,7 @@ class Scheduler:
                     self.__logger.info('Updated %s transactions for %s. CIK %s' % (len(all_trans), file_type, cik))
             except Exception as e:
                 self.__logger.error('Exception in SyncTransactions: {}'.format(e))
-        return successful
+        return successful, all_stats
 
     async def SyncCompanies(self):
         states = self.__insiderSession.GetStates()

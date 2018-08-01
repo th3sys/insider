@@ -24,12 +24,12 @@ async def main(loop, logger, items, today, requestId, chunk_id):
                 logger.info('Stop processing')
                 return
 
-            res = await scheduler.SyncTransactions(items, FileType.ISSUER)
-            scheduler.Save({'Received': items, 'Processed': res}, today, 'ISSUERS', len(items),
+            res, stats = await scheduler.SyncTransactions(items, FileType.ISSUER)
+            scheduler.Save({'Received': items, 'Processed': res, 'Codes': stats}, today, 'ISSUERS', len(items),
                            'CIKs that reported on the day and had direct purchases in the past', requestId, chunk_id)
             logger.info('%s issuers loaded in db reqId: %s' % (len(res), requestId))
-            res = await scheduler.SyncTransactions(items, FileType.OWNER)
-            scheduler.Save({'Received': items, 'Processed': res}, today, 'OWNERS', len(items),
+            res, stats = await scheduler.SyncTransactions(items, FileType.OWNER)
+            scheduler.Save({'Received': items, 'Processed': res, 'Codes': stats}, today, 'OWNERS', len(items),
                            'CIKs that reported on the day and had direct purchases in the past', requestId, chunk_id)
             logger.info('%s owners loaded in db reqId: %s' % (len(res), requestId))
             logger.info('%s transactions loaded in db' % len(items))
