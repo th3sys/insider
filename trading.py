@@ -342,6 +342,11 @@ class Scheduler:
         for cik in all_processed_cik:
             df = self.__db.GetTimeSeries(cik, FileType.ISSUER)
 
+            if df is None:
+                self.__logger.error('Error: %s' % cik)
+                self.SendError('Error reading %s from S3 on %s' % (cik, date.strftime('%Y-%m-%d')), arn)
+                continue
+
             cik, pLM, pBLM, pRatio, mLM, mBLM, mRatio = self.__engine.ClusterBuying(df, date, count, cik)
             if pLM > count:
                 self.__logger.info('investment found in %s' % cik)

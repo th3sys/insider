@@ -88,7 +88,7 @@ class StoreManager(object):
             df = pd.read_csv(io.BytesIO(obj['Body'].read()))
             return df
         except Exception as e:
-            self.__logger.error(e)
+            self.__logger.error('Error: %s, Key: %s, Type: %s' % (e, name, fileType))
             return None
 
     def UpdateCompanies(self, items):
