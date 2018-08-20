@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+import boto3
 import os
 import utils
 import datetime
@@ -52,7 +53,7 @@ def lambda_handler(event, context):
 
     logger.info('event %s' % event)
     logger.info('context %s' % context)
-    fixed = event['Records'][0]['body']
+    fixed = event['Records'][0]['body'] if isinstance(event, dict) else event.body
     logger.info(fixed)
     fixed_json = json.loads(fixed, parse_float=utils.DecimalEncoder)
     items = fixed_json['CIK']
@@ -74,7 +75,25 @@ def lambda_handler(event, context):
 
 
 if __name__ == '__main__':
-    with open("events/save.json") as json_file:
-        test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
+    if 'DEPLOYMENT_MODE' not in os.environ or 'TRN_FOUND_ARN' not in os.environ:
+        raise Exception('DEPLOYMENT_MODE or TRN_FOUND_ARN is not set')
 
-    lambda_handler(test_event, None)
+    if os.environ['DEPLOYMENT_MODE'] == 'LAMBDA':
+        with open("events/save.json") as json_file:
+            test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
+
+        lambda_handler(test_event, None)
+    else:
+        # Get the service resource
+        sqs = boto3.resource('sqs')
+
+        # Get the queue
+        queue = sqs.get_queue_by_name(QueueName=os.environ['TRN_FOUND_ARN'])
+
+        messages = queue.receive_messages(MaxNumberOfMessages=1, WaitTimeSeconds=20, VisibilityTimeout=3600)
+        while messages:
+            for message in messages:
+                lambda_handler(message, None)
+                # Let the queue know that the message is processed
+                message.delete()
+            messages = queue.receive_messages(MaxNumberOfMessages=1, WaitTimeSeconds=20, VisibilityTimeout=3600)
