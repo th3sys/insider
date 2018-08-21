@@ -9,6 +9,7 @@ RUN pip3 install uvloop
 RUN pip3 install aiohttp
 RUN pip3 install beautifulsoup4
 RUN pip3 install pandas
+RUN pip3 install numpy
 
 # setup
 ENV START_YEAR 2014
