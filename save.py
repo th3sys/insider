@@ -6,6 +6,9 @@ import os
 import utils
 import datetime
 import uvloop
+import warnings
+warnings.filterwarnings("ignore", message="numpy.dtype size changed")
+warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 
 from trading import EdgarParams, Scheduler, FileType
 
