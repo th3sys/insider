@@ -47,15 +47,13 @@ async def main(loop, logger, items, today, requestId, chunk_id):
 
 def lambda_handler(event, context):
 
+    level = logging.DEBUG if 'LOGGING_LEVEL' in os.environ and os.environ['LOGGING_LEVEL'] == 'DEBUG' else logging.INFO
     if os.environ['DEPLOYMENT_MODE'] == 'LAMBDA':
         logger = logging.getLogger()
-        if 'LOGGING_LEVEL' in os.environ and os.environ['LOGGING_LEVEL'] == 'DEBUG':
-            logger.setLevel(logging.DEBUG)
-        else:
-            logger.setLevel(logging.INFO)
+        logger.setLevel(level)
         logging.basicConfig(format='%(asctime)s - %(levelname)s - %(threadName)s - %(message)s')
     else:
-        logger = utils.CloudLogger()
+        logger = utils.CloudLogger(level)
 
     logger.info('event %s' % event)
     logger.info('context %s' % context)

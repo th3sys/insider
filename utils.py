@@ -9,9 +9,9 @@ import inspect
 
 
 class CloudLogger(object):
-    def __init__(self):
+    def __init__(self, level):
         self.__fileLogger = logging.getLogger()
-        self.__fileLogger.setLevel(logging.INFO)
+        self.__fileLogger.setLevel(level)
         logging.basicConfig(format='%(asctime)s - %(levelname)s - %(threadName)s - %(message)s')
         self.__cloudWatchLogger = boto3.client('logs')
         self.__groupName = '/aws/docker/Insider_Save'
