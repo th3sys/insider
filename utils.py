@@ -9,6 +9,15 @@ import inspect
 
 
 class CloudLogger(object):
+    CRITICAL = 50
+    FATAL = CRITICAL
+    ERROR = 40
+    WARNING = 30
+    WARN = WARNING
+    INFO = 20
+    DEBUG = 10
+    NOTSET = 0
+
     def __init__(self, level):
         self.__fileLogger = logging.getLogger()
         self.__fileLogger.setLevel(level)
@@ -16,6 +25,7 @@ class CloudLogger(object):
         self.__cloudWatchLogger = boto3.client('logs')
         self.__groupName = '/aws/docker/Insider_Save'
         self.__sequenceToken = None
+        self.__level = level
         self.__stream = (datetime.datetime.today().strftime('%Y/%m/%d/[$LATEST]'), uuid.uuid4().hex)
         response = self.__cloudWatchLogger.create_log_stream(
             logGroupName=self.__groupName,
@@ -38,24 +48,24 @@ class CloudLogger(object):
         self.__sequenceToken = response['nextSequenceToken']
 
     def info(self, msg):
+        if self.__level not in [CloudLogger.INFO, CloudLogger.DEBUG]: return
         self.__fileLogger.info(msg)
-        name = inspect.getframeinfo(inspect.currentframe()).function.upper()
-        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), name,  msg))
+        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'INFO',  msg))
 
     def debug(self, msg):
+        if self.__level not in [CloudLogger.DEBUG]: return
         self.__fileLogger.debug(msg)
-        name = inspect.getframeinfo(inspect.currentframe()).function.upper()
-        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), name, msg))
+        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'DEBUG', msg))
 
-    def warning(self, msg):
-        self.__fileLogger.warning(msg)
-        name = inspect.getframeinfo(inspect.currentframe()).function.upper()
-        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), name, msg))
+    def warn(self, msg):
+        if self.__level not in [CloudLogger.INFO, CloudLogger.DEBUG, CloudLogger.WARN]: return
+        self.__fileLogger.warn(msg)
+        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'WARN', msg))
 
     def error(self, msg):
+        if self.__level not in [CloudLogger.INFO, CloudLogger.DEBUG, CloudLogger.WARN, CloudLogger.ERROR]: return
         self.__fileLogger.error(msg)
-        name = inspect.getframeinfo(inspect.currentframe()).function.upper()
-        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), name, msg))
+        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'ERROR', msg))
 
 
 class DecimalEncoder(json.JSONEncoder):
