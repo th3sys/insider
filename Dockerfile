@@ -21,11 +21,11 @@ ENV EDGAR_URL https://www.sec.gov
 # Python
 RUN mkdir insider
 RUN cd insider
-RUN wget https://raw.githubusercontent.com/th3sys/insider/master/save.py
-RUN wget https://raw.githubusercontent.com/th3sys/insider/master/utils.py
-RUN wget https://raw.githubusercontent.com/th3sys/insider/master/connectors.py
-RUN wget https://raw.githubusercontent.com/th3sys/insider/master/trading.py
-RUN wget https://raw.githubusercontent.com/th3sys/insider/master/analytics.py
+ADD save.py save.py
+ADD utils.py utils.py
+ADD connectors.py connectors.py
+ADD trading.py trading.py
+ADD analytics.py analytics.py
 
 ADD docker_files/credentials /root/.aws/credentials
 ADD docker_files/config /root/.aws/config

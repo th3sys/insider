@@ -110,7 +110,7 @@ class EdgarClient:
         except Exception as e:
             self.__logger.info('Error GetTransactionsByOwner for %s' % cik)
             self.__logger.error(e)
-            return None
+            return cik, None, [500]
 
     @Connection.ioreliable
     async def GetTransactionsByCompany(self, cik, path=None):
@@ -192,7 +192,7 @@ class EdgarClient:
         except Exception as e:
             self.__logger.info('Error GetTransactionsByCompany for %s' % cik)
             self.__logger.error(e)
-            return None
+            return cik, None, [500]
 
     @Connection.ioreliable
     async def GetDailyIndex(self, today):
@@ -454,7 +454,7 @@ class Scheduler:
                                            return_when=concurrent.futures.FIRST_EXCEPTION)
 
         for pending_task in pending:
-            self.__logger.warn('Cancelling the task: {}'.format(pending_task))
+            self.__logger.error('Cancelling the task: {}'.format(pending_task))
             pending_task.cancel()
 
         # A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE

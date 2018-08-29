@@ -7,6 +7,7 @@ from utils import DecimalEncoder
 from datetime import datetime, timedelta
 from botocore.exceptions import ClientError
 import pandas as pd
+import base64
 
 
 class FileType(object):
@@ -29,16 +30,19 @@ class StoreManager(object):
     def UpdateOwnersTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateOwnersTransactions query ...')
-            file = '%s.csv' % cik
-            f = open('/tmp/%s' % file, 'w')
-            f.write('A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME,OWNER TYPE\n')
-            # items.sort(key=lambda el: (el[1], el[2]))
+            all_records = []
+            # CIK,A/D,DATE,ISSUER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, ISSUER CIK,SECURITY NAME,OWNER TYPE
             for item in items:
                 ad, date, issuer, form, tran_type, di, num, total, line, i_cik, sec_name, o_type = item
-                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
-                        % (ad, date, issuer.replace(',', ''), form, tran_type, di, num, total, line, i_cik, sec_name, o_type))
-            f.close()
-            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', 'OWNRS/%s' % file)
+                all_records.append('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s \n'
+                               % (cik, ad, date, issuer.replace(',', ''), form, tran_type, di, num, total, line, i_cik,
+                                  sec_name, o_type))
+            chunks = [all_records[x:x + 500] for x in range(0, len(all_records), 500)]
+            for records in chunks:
+                self.firehose.put_record_batch(
+                    DeliveryStreamName='InsiderOWNRS',
+                    Records=[{'Data': base64.b64encode(r.encode())}
+                             for r in records])
 
         except Exception as e:
             self.__logger.error(e)
@@ -63,17 +67,21 @@ class StoreManager(object):
     def UpdateTransactions(self, cik, items):
         try:
             self.__logger.info('Calling UpdateTransactions query ...')
-            file = '%s.csv' % cik
-            f = open('/tmp/%s' % file, 'w')
-            f.write('A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE\n')
-            # items.sort(key=lambda el: (el[1], el[2]))
+            all_records = []
+            # CIK,A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE
             for item in items:
                 ad, date, owner, form, tran_type, di, num, total, line, o_cik, sec_name, o_type = item
-                f.write('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s \n'
-                        % (ad, date, owner.replace(',', ''), form, tran_type, di, num, total, line, o_cik, sec_name, o_type))
-            f.close()
-            self.s3.meta.client.upload_file('/tmp/%s' % file, 'chaos-insider', 'CORPS/%s' % file)
+                all_records.append('%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\n'
+                               % (cik, ad, date, owner.replace(',', ''), form, tran_type, di, num, total, line, o_cik,
+                                  sec_name,
+                                  o_type))
 
+            chunks = [all_records[x:x + 500] for x in range(0, len(all_records), 500)]
+            for records in chunks:
+                self.firehose.put_record_batch(
+                    DeliveryStreamName='InsiderCORPS',
+                    Records=[{'Data': base64.b64encode(r.encode())}
+                             for r in records])
         except Exception as e:
             self.__logger.error(e)
 
@@ -249,6 +257,7 @@ class StoreManager(object):
         self.__Analytics = db.Table('Insiders.Analytics')
         self.s3 = boto3.resource('s3')
         self.sns = boto3.client('sns')
+        self.firehose = boto3.client('firehose', region_name='us-east-1')
         self.__logger.info('StoreManager created')
         return self
 
