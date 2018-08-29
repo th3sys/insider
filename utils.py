@@ -89,11 +89,14 @@ class Connection(object):
         async def _decorator(self, *args, **kwargs):
             tries = 0
             result = await func(self, *args, **kwargs)
-            if result is None:
-                while result is None and tries < Connection.retries:
+            check = result is None or (isinstance(result, tuple) and None in result)
+
+            if check:
+                while check and tries < Connection.retries:
                     tries += 1
                     time.sleep(2 ** tries)
                     result = await func(self, *args, **kwargs)
+                    check = result is None or (isinstance(result, tuple) and None in result)
             return result
 
         return _decorator

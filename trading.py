@@ -54,6 +54,7 @@ class EdgarClient:
         try:
             transactions = []
             statuses = []
+            response = None
             path = path if path is not None else \
                 'action=getowner&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
@@ -108,7 +109,7 @@ class EdgarClient:
                     statuses.extend(moreStatuses)
                 return cik, transactions, statuses
         except Exception as e:
-            self.__logger.info('Error GetTransactionsByOwner for %s' % cik)
+            self.__logger.error('Error GetTransactionsByOwner for %s. Response: %s' % (cik, response))
             self.__logger.error(e)
             return cik, None, [500]
 
@@ -136,6 +137,7 @@ class EdgarClient:
         try:
             transactions = []
             statuses = []
+            response = None
             path = path if path is not None else \
                 'action=getissuer&CIK=%s' % cik
             url = '%s/cgi-bin/own-disp?%s' % (self.__params.Url, path)
@@ -190,7 +192,7 @@ class EdgarClient:
                     statuses.extend(moreStatuses)
                 return cik, transactions, statuses
         except Exception as e:
-            self.__logger.info('Error GetTransactionsByCompany for %s' % cik)
+            self.__logger.error('Error GetTransactionsByCompany for %s. Response: %s' % (cik, response))
             self.__logger.error(e)
             return cik, None, [500]
 
