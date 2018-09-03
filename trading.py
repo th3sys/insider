@@ -270,13 +270,15 @@ class EdgarClient:
 
     async def __aenter__(self):
 
-        connector = aiohttp.TCPConnector(verify_ssl=False, family=socket.AF_INET)
+        connector = aiohttp.TCPConnector(verify_ssl=False, family=socket.AF_INET, force_close=True,
+                                         limit=None, enable_cleanup_closed=True, loop=self.__loop)
         self.__session = aiohttp.ClientSession(loop=self.__loop, connector=connector)
         self.__connection = await self.__session.__aenter__()
         self.__logger.info('Session created')
         return self
 
     async def __aexit__(self, *args, **kwargs):
+        await self.__connection.close()
         await self.__session.__aexit__(*args, **kwargs)
         self.__logger.info('Session destroyed')
 
