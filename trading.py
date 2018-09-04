@@ -30,7 +30,7 @@ class EdgarClient:
         self.__tokens = None
         self.__loop = loop if loop is not None else asyncio.get_event_loop()
 
-    @Connection.ioreliable
+    @Connection.ioreliablehttp
     async def GetTransactionsByOwner(self, cik, path=None):
         # https://www.sec.gov/cgi-bin/own-disp
         def LookupOwners():
@@ -62,6 +62,9 @@ class EdgarClient:
                 self.__logger.debug('Calling SearchByOwner for %s ...' % cik)
                 response = await self.__connection.get(url=url)
                 self.__logger.debug('SearchByOwner Response for %s Code: %s' % (cik, response.status))
+                if response.status != 200:
+                    self.__logger.error('Status Error GetTransactionsByOwner for %s. Response: %s' % (cik, response))
+                    return cik, None, [response.status]
                 statuses.append(response.status)
                 payload = await response.text()
                 self.__logger.debug(payload)
@@ -113,7 +116,7 @@ class EdgarClient:
             self.__logger.error(e)
             return cik, None, [500]
 
-    @Connection.ioreliable
+    @Connection.ioreliablehttp
     async def GetTransactionsByCompany(self, cik, path=None):
         # https://www.sec.gov/cgi-bin/own-disp
         def LookupOwners():
@@ -145,6 +148,9 @@ class EdgarClient:
                 self.__logger.debug('Calling SearchByCIK for %s ...' % cik)
                 response = await self.__connection.get(url=url)
                 self.__logger.debug('SearchByCIK Response for %s Code: %s' % (cik, response.status))
+                if response.status != 200:
+                    self.__logger.error('Status Error GetTransactionsByCompany for %s. Response: %s' % (cik, response))
+                    return cik, None, [response.status]
                 statuses.append(response.status)
                 payload = await response.text()
                 self.__logger.debug(payload)

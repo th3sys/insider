@@ -35,12 +35,12 @@ class CloudLogger(object):
 
     def __logToStream(self, msg):
         if self.__sequenceToken is None:
-            response = self.__cloudWatchLogger\
+            response = self.__cloudWatchLogger \
                 .put_log_events(logGroupName=self.__groupName, logStreamName='%s%s' % self.__stream,
                                 logEvents=[dict(timestamp=int(round(time.time() * 1000)),
                                                 message=time.strftime("%m/%d/%Y %H:%M:%S") + msg)])
         else:
-            response = self.__cloudWatchLogger\
+            response = self.__cloudWatchLogger \
                 .put_log_events(logGroupName=self.__groupName, logStreamName='%s%s' % self.__stream,
                                 logEvents=[dict(timestamp=int(round(time.time() * 1000)),
                                                 message=msg)],
@@ -50,7 +50,7 @@ class CloudLogger(object):
     def info(self, msg):
         if self.__level not in [CloudLogger.INFO, CloudLogger.DEBUG]: return
         self.__fileLogger.info(msg)
-        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'INFO',  msg))
+        self.__logToStream('%s [%s] %s' % (time.strftime("%m/%d/%Y %H:%M:%S"), 'INFO', msg))
 
     def debug(self, msg):
         if self.__level not in [CloudLogger.DEBUG]: return
@@ -83,6 +83,25 @@ class Connection(object):
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def ioreliablehttp(func):
+        async def _decorator(self, *args, **kwargs):
+            tries = 0
+            result = await func(self, *args, **kwargs)
+            check = result is None or (isinstance(result, tuple) and None in result) or \
+                    (len(result[2]) == 1 and result[2] != [200])
+
+            if check:
+                while check and tries < Connection.retries:
+                    tries += 1
+                    time.sleep(2 ** tries)
+                    result = await func(self, *args, **kwargs)
+                    check = result is None or (isinstance(result, tuple) and None in result) or \
+                            (len(result[2]) == 1 and result[2] != [200])
+            return result
+
+        return _decorator
 
     @staticmethod
     def ioreliable(func):
