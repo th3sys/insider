@@ -108,7 +108,8 @@ class EdgarClient:
                     parts = link.split('?')
                     lnk = parts[1].replace("\\", '').replace("'", '')
                     c, more, moreStatuses = await self.GetTransactionsByOwner(cik, lnk)
-                    transactions.extend(more)
+                    if more is not None:
+                        transactions.extend(more)
                     statuses.extend(moreStatuses)
                 return cik, transactions, statuses
         except Exception as e:
@@ -194,7 +195,8 @@ class EdgarClient:
                     parts = link.split('?')
                     lnk = parts[1].replace("\\", '').replace("'", '')
                     c, more, moreStatuses = await self.GetTransactionsByCompany(cik, lnk)
-                    transactions.extend(more)
+                    if more is not None:
+                        transactions.extend(more)
                     statuses.extend(moreStatuses)
                 return cik, transactions, statuses
         except Exception as e:
@@ -460,8 +462,7 @@ class Scheduler:
             futures = [self.__edgarConnection.GetTransactionsByCompany(str(cik)) for cik in items]
         if file_type == FileType.OWNER:
             futures = [self.__edgarConnection.GetTransactionsByOwner(str(cik)) for cik in items]
-        done, pending = await asyncio.wait(futures, timeout=self.Timeout,
-                                           return_when=concurrent.futures.FIRST_EXCEPTION)
+        done, pending = await asyncio.wait(futures, timeout=self.Timeout)
 
         for pending_task in pending:
             self.__logger.error('Cancelling the task: {}'.format(pending_task))
