@@ -59,6 +59,7 @@ def lambda_handler(event, context):
 
     today = event['time'].split('T')[0]
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
+    today = today - datetime.timedelta(1)
 
     if 'EDGAR_URL' not in os.environ or 'PAGE_SIZE' not in os.environ or 'TIMEOUT' not in os.environ \
             or 'TRN_FOUND_ARN' not in os.environ or 'DELAY' not in os.environ or 'BUFFER_SIZE' not in os.environ:

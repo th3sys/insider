@@ -39,6 +39,7 @@ def lambda_handler(event, context):
 
     today = event['time'].split('T')[0]
     today = datetime.datetime.strptime(today, '%Y-%m-%d')
+    today = today - datetime.timedelta(1)
     fix = False
     for resource in event['resources']:
         if 'EOD2' in resource:
