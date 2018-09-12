@@ -96,40 +96,42 @@ class StoreManager(object):
         except Exception as e:
             self.__logger.error(e)
 
-    def ReadFireHose(self, fileType):
+    def ReadFireHose(self, fileType, all_processed_cik):
         try:
             recordType = 'CORPS'
             if fileType == FileType.ISSUER:
                 recordType = 'CORPS'
             if fileType == FileType.OWNER:
                 recordType = 'OWNRS'
-            all_lines = ''
+
             objects = self.s3.meta.client.list_objects(Bucket='chaos-insider')
-            for key in objects['Contents']:
+            for key in sorted(objects['Contents'], key=lambda k: k['LastModified']):
                 if recordType not in key['Key']:
                     continue
                 obj = self.s3.meta.client.get_object(Bucket='chaos-insider', Key=key['Key'])
                 self.__logger.info('Processing %s' % key['Key'])
                 data = zlib.decompress(obj["Body"].read(), 32 + zlib.MAX_WBITS)
                 chunks = [data[x:x + 4] for x in range(0, len(data), 4)]
+                all_lines = ''
                 for chunk in chunks:
                     line = base64.b64decode(chunk)
                     all_lines += line.decode()
-
-            return all_lines.split('\n')
+                lines_list = all_lines.split('\n')
+                for cik in all_processed_cik:
+                    saved = [i for i in lines_list if i.startswith(cik)]
+                    if len(saved) > 0:
+                        with open('/tmp/%s.csv' % cik, 'w') as f:
+                            f.write('CIK,A/D,DATE,OWNER,FORM,TYPE,DIRECT/INDIRECT,NUMBER,TOTAL NUMBER,LINE NUMBER, OWNER CIK,SECURITY NAME,OWNER TYPE\n')
+                            for save in saved:
+                                f.write("%s\n" % save)
+                            self.__logger.info('Saving %s' % cik)
         except Exception as e:
             self.__logger.error('Error: %s,Type: %s' % (e, fileType))
             return None
 
     def GetTimeSeries(self, name, fileType):
         try:
-            key = name
-            if fileType == FileType.ISSUER:
-                key = 'CORPS/%s.csv' % name
-            if fileType == FileType.OWNER:
-                key = 'OWNRS/%s.csv' % name
-            obj = self.s3.meta.client.get_object(Bucket='chaos-insider', Key=key)
-            df = pd.read_csv(io.BytesIO(obj['Body'].read()))
+            df = pd.read_csv('/tmp/%s.csv' % name)
             return df
         except Exception as e:
             self.__logger.error('Error: %s, Key: %s, Type: %s' % (e, name, fileType))

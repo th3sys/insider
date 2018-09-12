@@ -344,19 +344,15 @@ class Scheduler:
             self.__logger.error(e)
 
     def AnalyseThat(self, date, arn, count):
-        data = self.__db.ReadFireHose(FileType.ISSUER)
         issuers = self.__db.GetAnalytics('ISSUERS', date, Period.MONTH)
         if len(issuers) == 0:
             self.SendError('No ISSUERS to analyse on %s' % date.strftime('%Y-%m-%d'), arn)
             return
         all_processed_cik = list(set([cik for found in issuers for cik in found['Message']['Processed']]))
         self.__logger.info(all_processed_cik)
+        self.__db.ReadFireHose(FileType.ISSUER, all_processed_cik)
         investments = []
-        for cik in all_processed_cik:
-            with open('/tmp/%s' % cik, 'w') as f:
-                f.writelines("%s\n" % i for i in data if i.startswith(cik))
-                self.__logger.info('Saving %s' % cik)
-        return
+
         for cik in all_processed_cik:
             df = self.__db.GetTimeSeries(cik, FileType.ISSUER)
 
