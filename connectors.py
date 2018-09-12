@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from botocore.exceptions import ClientError
 import pandas as pd
 import base64
-
+import zlib
 
 class FileType(object):
     OWNER = 'OWNER'
@@ -18,6 +18,17 @@ class FileType(object):
 class Period(object):
     DAY = 'DAY'
     MONTH = 'MONTH'
+
+
+def opener(filename, size=4):
+    with open(filename, "rb") as f:
+        f.seek(0)
+        while True:
+            chunk = f.read(size)
+            if chunk:
+                yield chunk
+            else:
+                break
 
 
 class StoreManager(object):
@@ -84,6 +95,31 @@ class StoreManager(object):
                              for r in records])
         except Exception as e:
             self.__logger.error(e)
+
+    def ReadFireHose(self, fileType):
+        try:
+            recordType = 'CORPS'
+            if fileType == FileType.ISSUER:
+                recordType = 'CORPS'
+            if fileType == FileType.OWNER:
+                recordType = 'OWNRS'
+            all_lines = ''
+            objects = self.s3.meta.client.list_objects(Bucket='chaos-insider')
+            for key in objects['Contents']:
+                if recordType not in key['Key']:
+                    continue
+                obj = self.s3.meta.client.get_object(Bucket='chaos-insider', Key=key['Key'])
+                self.__logger.info('Processing %s' % key['Key'])
+                data = zlib.decompress(obj["Body"].read(), 32 + zlib.MAX_WBITS)
+                chunks = [data[x:x + 4] for x in range(0, len(data), 4)]
+                for chunk in chunks:
+                    line = base64.b64decode(chunk)
+                    all_lines += line.decode()
+
+            return all_lines.split('\n')
+        except Exception as e:
+            self.__logger.error('Error: %s,Type: %s' % (e, fileType))
+            return None
 
     def GetTimeSeries(self, name, fileType):
         try:
