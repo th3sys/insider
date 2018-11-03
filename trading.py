@@ -350,7 +350,7 @@ class Scheduler:
             return
         all_processed_cik = list(set([cik for found in issuers for cik in found['Message']['Processed']]))
         self.__logger.info(all_processed_cik)
-        self.__db.ReadFireHose(FileType.ISSUER, all_processed_cik)
+        self.__db.ReadFireHose(FileType.ISSUER, all_processed_cik, date)
         investments = []
 
         for cik in all_processed_cik:

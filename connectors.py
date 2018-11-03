@@ -96,7 +96,7 @@ class StoreManager(object):
         except Exception as e:
             self.__logger.error(e)
 
-    def ReadFireHose(self, fileType, all_processed_cik):
+    def ReadFireHose(self, fileType, all_processed_cik, date):
         try:
             recordType = 'CORPS'
             if fileType == FileType.ISSUER:
@@ -104,8 +104,13 @@ class StoreManager(object):
             if fileType == FileType.OWNER:
                 recordType = 'OWNRS'
 
+            first = date.replace(day=1)
+            lastMonth = first - timedelta(days=1)
+            filterObj = '%s%s/%s' % (recordType, lastMonth.year, lastMonth.month)
+
             objects = self.s3.meta.client.list_objects(Bucket='chaos-insider')
-            for key in sorted(objects['Contents'], key=lambda k: k['LastModified']):
+            filtered = [i for i in objects['Contents'] if i['Key'].startswith(filterObj)]
+            for key in sorted(filtered, key=lambda k: k['LastModified']):
                 if recordType not in key['Key']:
                     continue
                 obj = self.s3.meta.client.get_object(Bucket='chaos-insider', Key=key['Key'])
