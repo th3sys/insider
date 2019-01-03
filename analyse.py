@@ -52,6 +52,16 @@ def lambda_handler(event, context):
 
 
 if __name__ == '__main__':
-    with open("events/analyse.json") as json_file:
-        test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
-    lambda_handler(test_event, None)
+    if 'DEPLOYMENT_MODE' not in os.environ:
+        raise Exception('DEPLOYMENT_MODE is not set')
+
+    if os.environ['DEPLOYMENT_MODE'] == 'LAMBDA':
+        with open("events/analyse.json") as json_file:
+            test_event = json.load(json_file, parse_float=utils.DecimalEncoder)
+        lambda_handler(test_event, None)
+    else:
+        e = {}
+        t = datetime.datetime.now()
+        e['time'] = t.strftime('%Y-%m-%dT%H:%M:%S')
+        lambda_handler(e, None)
+
