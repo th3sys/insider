@@ -106,7 +106,7 @@ class StoreManager(object):
 
             first = date.replace(day=1)
             lastMonth = first - timedelta(days=1)
-            filterObj = '%s%s/%s' % (recordType, lastMonth.year, lastMonth.month)
+            filterObj = '%s%04d/%02d' % (recordType, lastMonth.year, lastMonth.month)
 
             objects = self.s3.meta.client.list_objects(Bucket='chaos-insider')
             filtered = [i for i in objects['Contents'] if i['Key'].startswith(filterObj)]
